@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+    <solid
+        android:color="#FF0000"
+        />
+    <size
+        android:height="8dp"
+        android:width="8dp"/>
+
+    <!--height用于设置纵向分割线宽度-->
+    <!--width用于设置横向分割线宽度-->
+</shape>

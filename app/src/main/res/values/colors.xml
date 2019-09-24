@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--透明、白色、黑色、灰色、暗灰色-->
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="grey">#BEBEBE</color>
+    <color name="grey_dim">#696969</color>
+    <color name="gray">#898989</color>
+    <!--红橙黄绿青蓝紫-->
+    <color name="red">#FF0000</color>
+    <color name="orange">#FFA500</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#00FF00</color>
+    <color name="cyan">#00FFFF</color>
+    <color name="blue">#0000FF</color>
+    <color name="magenta">#FF00FF</color>
+    <!--其他一些不常用的颜色-->
+    <color name="PaleTurquoise">#BBFFFF</color>
+    <color name="Turquoise">#00F5FF</color>
+    <color name="NavajoWhite">#FFDEAD</color>
+    <color name="DarkSeaGreen">#698B69</color>
+    <color name="DarkSlateBlue">#483D8B</color>
+    <color name="SpringGreen">#00FF7F</color>
+    <color name="Gold">#FFD700</color>
+    <color name="DarkGoldenrod">#8B658B</color>
+    <color name="Firebrick">#B22222</color>
+    <color name="DeepPink">#FF1493</color>
+    <color name="DarkViolet">#9400D3</color>
+    <color name="OrangeRed">#8B2500</color>
+    <color name="LightGreen">#90EE90</color>
+    <color name="cus_color_grey999">#999999</color>
+    <color name="text_black">#3f3f3f</color>
+    <color name="tab_text_press_color">#B2B2B2</color>
+    <color name="tab_text_select_color">#FE9900</color>
+    <color name="base_loading_background">#f7f7f7</color>
+    <color name="base_text_color_light">#909090</color>
+    <color name="pull_refresh_textview">#000000</color>
+    <color name="gold">#000000</color>
+    <color name="title_layout_bg">#00F5FF</color>
+</resources>

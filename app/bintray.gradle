@@ -1,0 +1,94 @@
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+version = "1.0.0"              // 数据仓库依赖第三部分
+def siteUrl ='https://github.com/flyjiang2014/CleanBaseApp'  //项目的主页
+def gitUrl = 'git@github.com:flyjiang2014/CleanBaseApp.git'   //Git仓库的url
+group = "com.clean.flyjiang.cleanbaseapp"       // 数据仓库依赖第一部分
+
+install {
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                name 'CleanBaseApp'    // 项目描述
+                url siteUrl
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'flyjiang'                // 开发者信息
+                        name 'FlyJiang'              // 开发者信息
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+javadoc {
+    options {
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+        title 'CleanBaseApp For Android'   // 文档标题
+    }
+}
+
+artifacts {
+//    archives javadocJar
+    archives sourcesJar
+}
+
+// 生成jar包
+task releaseJar(type: Copy) {
+    from( 'build/intermediates/bundles/release')
+    into( '../jar')
+    include('classes.jar')
+    rename('classes.jar', 'CleanBaseApp-' + version + '.jar')
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    //读取 local.properties 文件里面的 bintray.user
+    user = properties.getProperty("bintray.user")
+    //读取 local.properties 文件里面的 bintray.apikey
+    key = properties.getProperty("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        userOrg = "flyup"
+        repo = "maven"
+        name = "CleanBaseApp"             // 数据仓库依赖第二部分,以Module名一样
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
