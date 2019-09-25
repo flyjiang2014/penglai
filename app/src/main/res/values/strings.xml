@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">海马家</string>
-<!-- alipay-->
+    <!-- alipay-->
     <string name="demo_info_text">Warning: \n\nFor demonstration purpose, the assembling and signing of the request parameters are done on the client side.\nHowever, in practice, both assembling and signing MUST BE carried out on the server side.</string>
     <string name="pay_with_alipay">Pay with Alipay</string>
     <string name="pay_with_alipay_hk">Pay with AlipayHK</string>
@@ -20,7 +20,7 @@
     <string name="error_missing_h5_pay_url">Missing URL to load. Please configure in PayDemoActivity.h5Pay()</string>
     <string name="error">Error</string>
     <string name="pay_cross_border">Cross-border Pay with Alipay</string>
-    <string name="error_missing_global_partner_seller_rsa_private" >Error: Missing \"PARTNER\", \"SELLER\", or \"RSA_PRIVATE\\ in OrderUtils1_0_Global.</string>
+    <string name="error_missing_global_partner_seller_rsa_private">Error: Missing \"PARTNER\", \"SELLER\", or \"RSA_PRIVATE\\ in OrderUtils1_0_Global.</string>
     <string name="payment_inst_hk">Payer: HK</string>
     <string name="payment_inst_cn">Payer: CN</string>
     <!-- alipay-->

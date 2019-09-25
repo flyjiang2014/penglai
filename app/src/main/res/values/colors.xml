@@ -42,4 +42,10 @@
     <color name="pull_refresh_textview">#000000</color>
     <color name="gold">#000000</color>
     <color name="title_layout_bg">#00F5FF</color>
+
+    <color name="text_grey999">#999999</color>
+    <color name="text_grey666">#666666</color>
+    <color name="text_grey333">#333333</color>
+    <color name="shape_grey">#969696</color>
+    <color name="bg_line">#e7e7e7</color>
 </resources>
