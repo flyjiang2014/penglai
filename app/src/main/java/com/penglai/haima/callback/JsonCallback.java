@@ -2,14 +2,16 @@ package com.penglai.haima.callback;
 
 import android.app.Activity;
 
-import com.penglai.haima.okgomodel.CommonReturnData;
-import com.penglai.haima.okgomodel.SimpleResponse;
-import com.penglai.haima.utils.Convert;
-import com.penglai.haima.utils.ToastUtil;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.request.base.Request;
+import com.penglai.haima.base.BaseActivity;
+import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.okgomodel.SimpleResponse;
+import com.penglai.haima.utils.Convert;
+import com.penglai.haima.utils.ToastUtil;
+import com.penglai.haima.widget.loading.LoadingLayout;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -32,6 +34,7 @@ import okhttp3.Response;
  */
 public abstract class JsonCallback<T> extends AbsCallback<T> {
      Activity mActivity;
+    boolean  showStatue; //请求是否响应loading状态,用于展示noNetView, loadingView，emptyView,errorView
     @Override
     public void onStart(Request<T, ? extends Request> request) {
         super.onStart(request);
@@ -81,6 +84,14 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
     }
 
     @Override
+    public void onSuccess(com.lzy.okgo.model.Response<T> response) {
+        if(showStatue){
+            ((BaseActivity)mActivity).getmLoadingLayout().setStatus(LoadingLayout.Success);
+        }
+        onSuccess(response.body());
+    }
+
+    @Override
     public void onError(com.lzy.okgo.model.Response<T> response) {
         super.onError(response);
         Exception e = (Exception)response.getException();
@@ -101,4 +112,6 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
             ToastUtil.showToast(e.toString());
         }
     }
+
+    public abstract void onSuccess(T t);
 }

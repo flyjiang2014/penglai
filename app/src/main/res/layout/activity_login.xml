@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
-
+    android:background="#259ed3">
+    <ImageView
+        android:id="@+id/img_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/bg_login_top"/>
+    <ImageView
+        android:id="@+id/img_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/bg_login_bottom" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:paddingBottom="15dp"
-        android:paddingTop="15dp"
-        android:gravity="center"
+        android:background="#259ed3"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/img_top"
         android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/frame_solid_white"
+            android:background="@drawable/frame_solid_transparent"
             android:orientation="vertical"
             android:paddingLeft="5dp"
             android:paddingRight="5dp">
@@ -44,7 +52,7 @@
                     android:paddingRight="10dp"
                     android:singleLine="true"
                     android:maxLength="11"
-                    android:textColorHint="@color/text_grey999"
+                    android:textColorHint="@color/white"
                     android:textSize="@dimen/text_input_size" />
 
                 <Button
@@ -55,12 +63,13 @@
                     android:minWidth="90dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
+                    android:layout_marginRight="20dp"
                     android:text="获取验证码"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
             </LinearLayout>
-            <include layout="@layout/include_bg_single_line" />
+<!--            <include layout="@layout/include_bg_single_line" />-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -82,10 +91,10 @@
                     android:maxLength="6"
                     android:paddingRight="10dp"
                     android:singleLine="true"
-                    android:textColorHint="@color/text_grey999"
+                    android:textColorHint="@color/white"
                     android:textSize="@dimen/text_input_size"  />
             </LinearLayout>
-            <include layout="@layout/include_bg_single_line" />
+<!--            <include layout="@layout/include_bg_single_line" />-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -118,7 +127,6 @@
                     android:gravity="center"
                     android:textSize="14sp"
                     android:text="注册"/>
-
             </LinearLayout>
 
 <!--            <LinearLayout-->
@@ -149,4 +157,4 @@
 <!--            </LinearLayout>-->
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
