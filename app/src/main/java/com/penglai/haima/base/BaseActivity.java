@@ -13,14 +13,19 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.utils.ActivityManager;
 import com.penglai.haima.utils.KeyboardUtil;
 import com.penglai.haima.utils.PhoneUtil;
 import com.penglai.haima.utils.ToastUtil;
+import com.penglai.haima.widget.loading.LoadingDialog;
 import com.penglai.haima.widget.loading.LoadingLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * 作者：flyjiang
@@ -133,6 +138,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected RelativeLayout.LayoutParams mParamsRelativeWM;
     protected RelativeLayout.LayoutParams mParamsRelativeWW;
 
+    private Unbinder mUnBinder;
+    /**
+     * 全局dialog
+     */
+    protected LoadingDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         onCreateBefore();
@@ -140,7 +151,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         // 添加当前Activity到所有管理列表
         ActivityManager.addActivity(this);
         container();
-   //     init();
+        mUnBinder = ButterKnife.bind(this);
+        init();
+        dialog = dialogCreate();
         init(savedInstanceState);
         ButterKnife.bind(this);
     }
@@ -245,8 +258,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // 从所有管理列表移除当前Activity
-        ActivityManager.finishActivity(this);
-        ButterKnife.unbind(this);
+        ActivityManager.removeActivity(this);
+        dialog.dismiss();
+        OkGo.getInstance().cancelTag(TAG); //页面关闭时断开未完成的网络请求
+        mUnBinder.unbind();
     }
 
     @Override
@@ -381,6 +396,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             mTitleRightImageView.setImageResource(resId);
             mTitleRightRelativeLayout.setVisibility(View.VISIBLE);
         }
+    }
+
+    /**
+     * 加载菊花提示
+     * @return
+     */
+    public LoadingDialog dialogCreate() {
+        return new LoadingDialog.Builder(this).create();
     }
 
     /**

@@ -23,10 +23,10 @@ public class ActivityManager {
     /**
      * 结束指定的Activity
      */
-    public static void finishActivity(Activity activity) {
+    public static void removeActivity(Activity activity) {
         if (activity != null) {
             activityStack.remove(activity);
-            activity.finish();
+
         }
     }
 
@@ -36,8 +36,8 @@ public class ActivityManager {
     public static void finishActivity(Class<?> cls) {
         for (Activity activity : activityStack) {
             if (activity.getClass().equals(cls)) {
-                finishActivity(activity);
-                finishActivity(cls);
+                removeActivity(activity);
+                activity.finish();
                 break;
             }
         }

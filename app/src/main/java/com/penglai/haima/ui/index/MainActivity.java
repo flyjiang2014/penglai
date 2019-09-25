@@ -1,5 +1,6 @@
 package com.penglai.haima.ui.index;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -7,25 +8,23 @@ import android.widget.Button;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.widget.loading.LoadingLayout;
-
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
-
-    @Bind(R.id.login)
+    @BindView(R.id.login)
     Button login;
-    @Bind(R.id.register)
+    @BindView(R.id.register)
     Button register;
-    @Bind(R.id.weixin)
+    @BindView(R.id.weixin)
     Button weixin;
-    @Bind(R.id.ali)
+    @BindView(R.id.ali)
     Button ali;
+
 
     @Override
     public int setBaseContentView() {
-        //   setIsShowTitle(false);
         setIsUseLoading(false);
         return R.layout.activity_main;
     }
@@ -33,7 +32,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        init();
     }
 
     @Override
@@ -45,6 +43,7 @@ public class MainActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.login:
+                startActivity(new Intent(mContext, LoginActivity.class));
                 break;
             case R.id.register:
                 break;
