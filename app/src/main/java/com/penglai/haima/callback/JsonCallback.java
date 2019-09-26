@@ -4,7 +4,9 @@ import android.app.Activity;
 
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
+import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.AbsCallback;
+import com.lzy.okgo.cookie.store.CookieStore;
 import com.lzy.okgo.request.base.Request;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.okgomodel.SimpleResponse;
@@ -17,7 +19,9 @@ import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.List;
 
+import okhttp3.Cookie;
 import okhttp3.Response;
 
 /**
@@ -41,7 +45,10 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         // 使用的设备信息
         // 可以随意添加,也可以什么都不传
         // 还可以在这里对所有的参数进行加密，均在这里实现
-        request.tag(mActivity.getClass().getSimpleName());
+        CookieStore cookieStore = OkGo.getInstance().getCookieJar().getCookieStore();
+        List<Cookie> allCookie = cookieStore.getAllCookie();
+        request
+                .tag(mActivity.getClass().getSimpleName());
 //        request.headers("header1", "HeaderValue1")
 //                .params("params1", "ParamsValue1");
     }

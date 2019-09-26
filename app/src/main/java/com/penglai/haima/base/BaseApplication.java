@@ -100,6 +100,7 @@ public class BaseApplication extends Application {
     private void initOkGo() {
         //---------这里给出的是示例代码,告诉你可以这么传,实际使用的时候,根据需要传,不需要就不传-------------//
         HttpHeaders headers = new HttpHeaders();
+        headers.put("Cookie","JSESSIONID=F78A0051FB521D1E0D439833546A44B9");
         HttpParams params = new HttpParams();
         //----------------------------------------------------------------------------------------//
 
@@ -137,6 +138,8 @@ public class BaseApplication extends Application {
 
         // 其他统一的配置
         // 详细说明看GitHub文档：https://github.com/jeasonlzy/
+
+
         OkGo.getInstance().init(this)                           //必须调用初始化
                 .setOkHttpClient(builder.build())               //必须设置OkHttpClient
                 .setCacheMode(CacheMode.NO_CACHE)               //全局统一缓存模式，默认不使用缓存，可以不传
