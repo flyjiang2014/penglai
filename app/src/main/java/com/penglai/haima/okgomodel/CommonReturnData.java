@@ -6,16 +6,25 @@ import java.io.Serializable;
  * Created by flyjiang on 2016/11/30.
  */
 public class CommonReturnData<T> implements Serializable {
-    public int success;
-    public String message;
-    public T data;
+    private int status;
+    private String message;
+    private String errorCode;
+    private T data;
 
-    public int getSuccess() {
-        return success;
+    public int getStatus() {
+        return status;
     }
 
-    public void setSuccess(int success) {
-        this.success = success;
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
     }
 
     public String getMessage() {
@@ -33,4 +42,6 @@ public class CommonReturnData<T> implements Serializable {
     public void setData(T data) {
         this.data = data;
     }
+
+
 }

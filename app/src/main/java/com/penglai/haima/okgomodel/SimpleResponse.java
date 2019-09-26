@@ -11,24 +11,15 @@ import java.io.Serializable;
 public class SimpleResponse implements Serializable {
 
     private static final long serialVersionUID = -1477609349345966116L;
-
-    public int success;
+    public int status;
     public String message;
-
-    public int code;
-    public String msg;
+    public String errorCode;
 
     public CommonReturnData toCommonReturnData() {
         CommonReturnData commonReturnData = new CommonReturnData();
-        commonReturnData.success = success;
-        commonReturnData.message = message;
+        commonReturnData.setStatus(status);
+        commonReturnData.setMessage(message);
+        commonReturnData.setErrorCode(errorCode);
         return commonReturnData;
-    }
-
-    public LzyResponse toLzyResponse() {
-        LzyResponse lzyResponse = new LzyResponse();
-        lzyResponse.code = code;
-        lzyResponse.msg = msg;
-        return lzyResponse;
     }
 }

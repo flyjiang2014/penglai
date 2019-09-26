@@ -2,6 +2,7 @@ package com.penglai.haima.ui.index;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,8 +49,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void init() {
-        ImageViewHWRateUtil.setHeightWidthRate(mContext, imgTop, 1.61);//1080/507
-        ImageViewHWRateUtil.setHeightWidthRate(mContext, imgBottom, 1.44);//1080/196
+        ImageViewHWRateUtil.setHeightWidthRate(mContext, imgTop, 1.61);//1256/781
+        ImageViewHWRateUtil.setHeightWidthRate(mContext, imgBottom, 1.44);//1256/875
 
     }
 
@@ -58,10 +59,22 @@ public class LoginActivity extends BaseActivity {
         String mobile = etMobile.getText().toString().trim();
         switch (view.getId()) {
             case R.id.btn_get_code:
+                if(TextUtils.isEmpty(mobile)){
+                    showToast("请输入手机号");
+                    return;
+                }
                 getCode(mobile);
                 break;
             case R.id.tv_login:
                 String verCode = etCode.getText().toString().trim();
+                if(TextUtils.isEmpty(mobile)){
+                    showToast("请输入手机号");
+                    return;
+                }
+                if(TextUtils.isEmpty(verCode)){
+                    showToast("请输入验证码");
+                    return;
+                }
                 login(mobile,verCode);
                 break;
             case R.id.tv_register:
@@ -69,7 +82,12 @@ public class LoginActivity extends BaseActivity {
                 break;
         }
     }
-    public void getCode(String mobile){
+
+    /**
+     * 获取验证码
+     * @param mobile
+     */
+    private void getCode(String mobile){
         OkGo.<CommonReturnData<Object>>post(Constants.URL + "verifyPhone")
                 .params("mobile", mobile)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
@@ -80,14 +98,19 @@ public class LoginActivity extends BaseActivity {
                 });
     }
 
-    public void login(String mobile,String verCode){
+    /**
+     * 登录
+     * @param mobile
+     * @param verCode
+     */
+    private void login(String mobile,String verCode){
         OkGo.<CommonReturnData<Object>>post(Constants.URL + "login")
                 .params("mobile", mobile)
                 .params("verCode", verCode)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
-
+                        showToast("登录成功");
                     }
                 });
     }

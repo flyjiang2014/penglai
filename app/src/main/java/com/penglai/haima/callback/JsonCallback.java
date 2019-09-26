@@ -6,12 +6,10 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.request.base.Request;
-import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.okgomodel.SimpleResponse;
 import com.penglai.haima.utils.Convert;
 import com.penglai.haima.utils.ToastUtil;
-import com.penglai.haima.widget.loading.LoadingLayout;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -73,9 +71,14 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
             response.close();
             return (T) simpleResponse.toCommonReturnData();
         } else if (rawType == CommonReturnData.class) {
-            CommonReturnData commonReturnData =  Convert.fromJson(jsonReader, type);
+            final CommonReturnData commonReturnData =  Convert.fromJson(jsonReader, type);
             response.close();
-            return (T) commonReturnData;
+            int statue= commonReturnData.getStatus();
+            if(statue==1){
+                return (T) commonReturnData;
+            }else{
+                throw new IllegalStateException("错误代码：" + commonReturnData.getErrorCode() + "，错误信息：" + commonReturnData.getMessage());
+            }
         }
         else {
             response.close();
@@ -85,9 +88,6 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
 
     @Override
     public void onSuccess(com.lzy.okgo.model.Response<T> response) {
-        if(showStatue){
-            ((BaseActivity)mActivity).getmLoadingLayout().setStatus(LoadingLayout.Success);
-        }
         onSuccess(response.body());
     }
 
@@ -95,6 +95,14 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
     public void onError(com.lzy.okgo.model.Response<T> response) {
         super.onError(response);
         Exception e = (Exception)response.getException();
+        handleError(e);
+    }
+
+    /**
+     * 部分Exception 处理
+     * @param e
+     */
+    private void handleError(Exception e) {
         if (e instanceof ConnectException) {
             //网络异常，请求超时
             ToastUtil.showToast("当前未连接到网络");
@@ -109,9 +117,8 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         } else if (e instanceof SocketTimeoutException) {
             ToastUtil.showToast(e.toString());
         }else if (e instanceof IllegalStateException) {
-            ToastUtil.showToast(e.toString());
+            ToastUtil.showToast(e.getMessage());
         }
     }
-
     public abstract void onSuccess(T t);
 }
