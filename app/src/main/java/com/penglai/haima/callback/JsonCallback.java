@@ -4,9 +4,7 @@ import android.app.Activity;
 
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
-import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.AbsCallback;
-import com.lzy.okgo.cookie.store.CookieStore;
 import com.lzy.okgo.request.base.Request;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.okgomodel.SimpleResponse;
@@ -19,20 +17,11 @@ import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
-import java.util.List;
 
-import okhttp3.Cookie;
 import okhttp3.Response;
 
 /**
- * ================================================
- * 作    者：廖子尧
- * 版    本：1.0
- * 创建日期：2016/1/14
- * 描    述：默认将返回的数据解析成需要的Bean,可以是 BaseBean，String，List，Map
- * 修订历史：
- * -我的注释都已经写的不能再多了,不要再来问我怎么获取数据对象,怎么解析集合数据了,你只要会 gson ,就会解析
- * ================================================
+ * 网络请求callBack处理
  */
 public abstract class JsonCallback<T> extends AbsCallback<T> {
      Activity mActivity;
@@ -45,15 +34,12 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         // 使用的设备信息
         // 可以随意添加,也可以什么都不传
         // 还可以在这里对所有的参数进行加密，均在这里实现
-        CookieStore cookieStore = OkGo.getInstance().getCookieJar().getCookieStore();
-        List<Cookie> allCookie = cookieStore.getAllCookie();
-        request
-                .tag(mActivity.getClass().getSimpleName());
-//        request.headers("header1", "HeaderValue1")
-//                .params("params1", "ParamsValue1");
+        request.tag(mActivity.getClass().getSimpleName());
     }
 
-    public JsonCallback() {
+    public JsonCallback(Activity mActivity, boolean showStatue) {
+        this.mActivity = mActivity;
+        this.showStatue = showStatue;
     }
 
     public JsonCallback(Activity mActivity) {

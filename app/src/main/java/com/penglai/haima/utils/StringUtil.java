@@ -165,4 +165,22 @@ public class StringUtil {
         }
         return tmp;
     }
+
+    /**
+     * 验证手机号码手机号是否合法
+     * 只验证1抬头且11位数字
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isMobile(String str) {
+        //  Pattern pattern = Pattern.compile("^((13[0-9])|(14[5,7,9])|(15[0-3,5-9])|(17[0-3,5-8])|(18[0-9]))(\\d){8}$");
+        Pattern pattern = Pattern.compile("^(1)(\\d){10}$");
+        Matcher matcher = pattern.matcher(str);
+        if (matcher.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

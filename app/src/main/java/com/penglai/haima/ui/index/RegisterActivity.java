@@ -9,12 +9,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.utils.StringUtil;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -62,6 +66,10 @@ public class RegisterActivity extends BaseActivity {
                     showToast("请输入手机号");
                     return;
                 }
+                if (!StringUtil.isMobile(mobile)) {
+                    showToast("手机号输入不正确");
+                    return;
+                }
                 getCode(mobile);
                 break;
             case R.id.tv_register:
@@ -75,6 +83,10 @@ public class RegisterActivity extends BaseActivity {
                 }
                 if(TextUtils.isEmpty(mobile)){
                     showToast("请输入手机号");
+                    return;
+                }
+                if (!StringUtil.isMobile(mobile)) {
+                    showToast("手机号输入不正确");
                     return;
                 }
                 if(TextUtils.isEmpty(validationCode)){
@@ -104,6 +116,8 @@ public class RegisterActivity extends BaseActivity {
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
+                        btnGetCode.setBackgroundResource(R.drawable.frame_solid_grey);
+                        timeCount.start();
                         showToast("获取成功");
                     }
                 });
@@ -114,22 +128,20 @@ public class RegisterActivity extends BaseActivity {
      * @param validationCode
      */
     private void register(String realName,String mobile,String validationCode,String cusManCode,String address){
-
+        HashMap<String, String> params = new HashMap<>();
+        params.put("realName", realName);
+        params.put("mobile", mobile);
+        params.put("validationCode", validationCode);
+        params.put("cusManCode", cusManCode);
+        params.put("address", address);
+        JSONObject jsonObject = new JSONObject(params);
         OkGo.<CommonReturnData<Object>>post("http://wx.ypimp.cn/ypimp/saveUserInfo")
-                .params("realName", realName)
-                .params("mobile", mobile)
-                .params("validationCode", validationCode)
-                .params("cusManCode", cusManCode)
-                .params("address", address)
+                .upJson(jsonObject)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
-                        showToast("注册成功");
-                    }
 
-                    @Override
-                    public void onError(Response<CommonReturnData<Object>> response) {
-                        super.onError(response);
+                        showToast("注册成功");
                     }
                 });
     }
@@ -144,16 +156,15 @@ public class RegisterActivity extends BaseActivity {
 
         @Override
         public void onFinish() {// 计时完毕时触发
-//            btnGetCode.setText("重新获取");
-//            btnGetCode.setBackgroundResource(R.drawable.frame_solid_orange);
-//            btnGetCode.setBackgroundResource(R.drawable.frame_solid_grey);
-//            btnGetCode.setClickable(true);
+            btnGetCode.setText("重新获取");
+            btnGetCode.setBackgroundResource(R.drawable.frame_solid_orange);
+            btnGetCode.setClickable(true);
         }
 
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
-//            btnGetCode.setClickable(false);
-//            btnGetCode.setText(millisUntilFinished / 1000 + "s");
+            btnGetCode.setClickable(false);
+            btnGetCode.setText(millisUntilFinished / 1000 + "s后重试");
         }
     }
 

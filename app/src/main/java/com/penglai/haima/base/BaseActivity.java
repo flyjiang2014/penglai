@@ -264,6 +264,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         mUnBinder.unbind();
     }
 
+    /**
+     * 获取dialog控件
+     *
+     * @return
+     */
+    public LoadingDialog getDialog() {
+        return dialog;
+    }
+
+
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
