@@ -74,8 +74,6 @@ public class LoginActivity extends BaseActivity {
                 getCode(mobile);
                 break;
             case R.id.tv_login:
-                startActivity(new Intent(mContext,PersonIndexActivity.class));
-
                 String verCode = etCode.getText().toString().trim();
                 if(TextUtils.isEmpty(mobile)){
                     showToast("请输入手机号");
