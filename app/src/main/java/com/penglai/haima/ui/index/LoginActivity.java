@@ -74,6 +74,8 @@ public class LoginActivity extends BaseActivity {
                 getCode(mobile);
                 break;
             case R.id.tv_login:
+                startActivity(new Intent(mContext,PersonIndexActivity.class));
+
                 String verCode = etCode.getText().toString().trim();
                 if(TextUtils.isEmpty(mobile)){
                     showToast("请输入手机号");
@@ -97,7 +99,7 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * 获取验证码
-     * @param mobile
+     * @param mobile 手机号
      */
     private void getCode(String mobile){
         OkGo.<CommonReturnData<Object>>post(Constants.URL + "verifyPhone")
@@ -114,8 +116,8 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * 登录
-     * @param mobile
-     * @param verCode
+     * @param mobile 手机号
+     * @param verCode  验证码
      */
     private void login(String mobile,String verCode){
         OkGo.<CommonReturnData<Object>>post(Constants.URL + "login")
@@ -125,6 +127,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
                         showToast("登录成功");
+                        startActivity(new Intent(mContext,PersonIndexActivity.class));
                     }
                 });
     }

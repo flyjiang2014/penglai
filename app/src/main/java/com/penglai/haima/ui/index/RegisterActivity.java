@@ -108,7 +108,7 @@ public class RegisterActivity extends BaseActivity {
 
     /**
      * 获取验证码
-     * @param mobile
+     * @param mobile 手机号
      */
     private void getCode(String mobile){
         OkGo.<CommonReturnData<Object>>post(Constants.URL + "verifyPhone")
@@ -124,8 +124,8 @@ public class RegisterActivity extends BaseActivity {
     }
     /**
      *
-     * @param mobile
-     * @param validationCode
+     * @param mobile 手机号
+     * @param validationCode 验证码
      */
     private void register(String realName,String mobile,String validationCode,String cusManCode,String address){
         HashMap<String, String> params = new HashMap<>();
@@ -135,13 +135,13 @@ public class RegisterActivity extends BaseActivity {
         params.put("cusManCode", cusManCode);
         params.put("address", address);
         JSONObject jsonObject = new JSONObject(params);
-        OkGo.<CommonReturnData<Object>>post("http://wx.ypimp.cn/ypimp/saveUserInfo")
+        OkGo.<CommonReturnData<Object>>post(Constants.URL +"saveUserInfo")
                 .upJson(jsonObject)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
-
                         showToast("注册成功");
+                        finish();
                     }
                 });
     }
