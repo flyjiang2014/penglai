@@ -1,4 +1,4 @@
-package com.penglai.haima.ui.index;
+package com.penglai.haima.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Button;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.widget.loading.LoadingLayout;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 

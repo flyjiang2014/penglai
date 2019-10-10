@@ -1,7 +1,8 @@
 package com.penglai.haima.utils;
 
 import android.app.Activity;
-import com.penglai.haima.ui.index.MainActivity;
+
+import com.penglai.haima.ui.MainActivity;
 import java.util.Stack;
 
 /**

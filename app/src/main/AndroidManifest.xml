@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.penglai.haima">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <!-- 用于读取手机当前的状态 -->
     <application
         android:name=".base.BaseApplication"
@@ -9,17 +13,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.index.PersonIndexActivity"></activity>
-        <activity android:name=".ui.index.LoginActivity">
+        <activity android:name=".ui.index.PersonIndexActivity" />
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.index.RegisterActivity" />
+        <activity android:name=".ui.RegisterActivity" />
+        <activity android:name=".ui.index.PersonInfoActivity" />
+        <activity android:name=".ui.index.CustomerManagerInfoActivity" />
+        <activity android:name=".ui.charge.ChargeRecordActivity"></activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 </manifest>

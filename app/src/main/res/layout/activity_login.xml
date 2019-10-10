@@ -8,12 +8,14 @@
         android:id="@+id/img_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:src="@drawable/bg_login_top" />
     <ImageView
         android:id="@+id/img_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:src="@drawable/bg_login_bottom"
         />
     <LinearLayout
         android:layout_width="match_parent"

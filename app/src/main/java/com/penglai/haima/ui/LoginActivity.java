@@ -1,4 +1,4 @@
-package com.penglai.haima.ui.index;
+package com.penglai.haima.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,9 @@ import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.ui.index.PersonIndexActivity;
 import com.penglai.haima.utils.ImageViewHWRateUtil;
+import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.StringUtil;
 
 import butterknife.BindView;
@@ -55,7 +57,7 @@ public class LoginActivity extends BaseActivity {
         ImageViewHWRateUtil.setHeightWidthRate(mContext, imgTop, 1.61);//1256/781
         ImageViewHWRateUtil.setHeightWidthRate(mContext, imgBottom, 1.44);//1256/875
         timeCount = new TimeCount(60000, 1000);// 构造CountDownTimer对象
-
+        etMobile.setText(SharepreferenceUtil.getString(Constants.MOBILE));
     }
 
     @OnClick({R.id.btn_get_code, R.id.tv_login, R.id.tv_register})
@@ -63,7 +65,7 @@ public class LoginActivity extends BaseActivity {
         String mobile = etMobile.getText().toString().trim();
         switch (view.getId()) {
             case R.id.btn_get_code:
-                if(TextUtils.isEmpty(mobile)){
+                if (TextUtils.isEmpty(mobile)) {
                     showToast("请输入手机号");
                     return;
                 }
@@ -75,7 +77,7 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.tv_login:
                 String verCode = etCode.getText().toString().trim();
-                if(TextUtils.isEmpty(mobile)){
+                if (TextUtils.isEmpty(mobile)) {
                     showToast("请输入手机号");
                     return;
                 }
@@ -83,11 +85,11 @@ public class LoginActivity extends BaseActivity {
                     showToast("手机号输入不正确");
                     return;
                 }
-                if(TextUtils.isEmpty(verCode)){
+                if (TextUtils.isEmpty(verCode)) {
                     showToast("请输入验证码");
                     return;
                 }
-                login(mobile,verCode);
+                login(mobile, verCode);
                 break;
             case R.id.tv_register:
                 startActivity(new Intent(mContext, RegisterActivity.class));
@@ -97,9 +99,10 @@ public class LoginActivity extends BaseActivity {
 
     /**
      * 获取验证码
+     *
      * @param mobile 手机号
      */
-    private void getCode(String mobile){
+    private void getCode(String mobile) {
         OkGo.<CommonReturnData<Object>>post(Constants.URL + "verifyPhone")
                 .params("mobile", mobile)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
@@ -107,17 +110,18 @@ public class LoginActivity extends BaseActivity {
                     public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
                         btnGetCode.setBackgroundResource(R.drawable.frame_solid_grey);
                         timeCount.start();
-                           showToast("获取成功");
+                        showToast("获取成功");
                     }
                 });
     }
 
     /**
      * 登录
-     * @param mobile 手机号
-     * @param verCode  验证码
+     *
+     * @param mobile  手机号
+     * @param verCode 验证码
      */
-    private void login(String mobile,String verCode){
+    private void login(final String mobile, String verCode) {
         OkGo.<CommonReturnData<Object>>post(Constants.URL + "login")
                 .params("mobile", mobile)
                 .params("verCode", verCode)
@@ -125,7 +129,8 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
                         showToast("登录成功");
-                        startActivity(new Intent(mContext,PersonIndexActivity.class));
+                        SharepreferenceUtil.saveString(Constants.MOBILE, mobile);
+                        startActivity(new Intent(mContext, PersonIndexActivity.class));
                     }
                 });
     }

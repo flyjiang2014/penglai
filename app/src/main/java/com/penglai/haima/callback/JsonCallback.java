@@ -9,10 +9,12 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.cookie.store.CookieStore;
 import com.lzy.okgo.request.base.Request;
+import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.okgomodel.SimpleResponse;
 import com.penglai.haima.utils.Convert;
 import com.penglai.haima.utils.ToastUtil;
+import com.penglai.haima.widget.loading.LoadingLayout;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -41,10 +43,10 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         // 还可以在这里对所有的参数进行加密，均在这里实现
         CookieStore cookieStore = OkGo.getInstance().getCookieJar().getCookieStore();
         List<Cookie> allCookie = cookieStore.getAllCookie();
-        Log.e("jiang",allCookie.size()+"");
-        if(allCookie.size()>0){
-            Log.e("jiang",allCookie.get(0).toString());
-            request.headers("Cookie",allCookie.get(0).toString());
+        Log.e("jiang", allCookie.size() + "");
+        if (allCookie.size() > 0) {
+            Log.e("jiang", allCookie.get(0).toString());
+            request.headers("Cookie", allCookie.get(0).toString());
         }
         request.tag(mActivity.getClass().getSimpleName());
     }
@@ -93,6 +95,9 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
 
     @Override
     public void onSuccess(com.lzy.okgo.model.Response<T> response) {
+        if (showStatue) {
+            ((BaseActivity) mActivity).getmLoadingLayout().setStatus(LoadingLayout.Success);
+        }
         onSuccess(response.body());
     }
 
@@ -111,16 +116,29 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         if (e instanceof ConnectException) {
             //网络异常，请求超时
             ToastUtil.showToast("当前未连接到网络");
+            if (showStatue && ((BaseActivity) mActivity).getmLoadingLayout() != null) {
+                ((BaseActivity) mActivity).getmLoadingLayout().setStatus(LoadingLayout.No_Network);
+            }
+
         } else if (e instanceof UnknownHostException) {
             // ToastUtil.showToast(e.toString());
             ToastUtil.showToast("网络服务器连接失败");
+            if (showStatue && ((BaseActivity) mActivity).getmLoadingLayout() != null) {
+                ((BaseActivity) mActivity).getmLoadingLayout().setStatus(LoadingLayout.No_Network);
+            }
         } else if (e instanceof SocketException) {
             //网络异常，读取数据超时
             ToastUtil.showToast(e.toString());
+            if (showStatue && ((BaseActivity) mActivity).getmLoadingLayout() != null) {
+                ((BaseActivity) mActivity).getmLoadingLayout().setStatus(LoadingLayout.No_Network);
+            }
         } else if (e instanceof JsonSyntaxException) {
             ToastUtil.showToast(e.toString());
         } else if (e instanceof SocketTimeoutException) {
             ToastUtil.showToast(e.toString());
+            if (showStatue && ((BaseActivity) mActivity).getmLoadingLayout() != null) {
+                ((BaseActivity) mActivity).getmLoadingLayout().setStatus(LoadingLayout.No_Network);
+            }
         }else if (e instanceof IllegalStateException) {
             ToastUtil.showToast(e.getMessage());
         }

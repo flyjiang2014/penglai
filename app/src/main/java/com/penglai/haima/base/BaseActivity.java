@@ -156,6 +156,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         dialog = dialogCreate();
         init(savedInstanceState);
         ButterKnife.bind(this);
+        mLoadingLayout.setOnReloadListener(new LoadingLayout.OnReloadListener() { //点击重试功能
+            @Override
+            public void onReload(View v) {
+                reLoadData();
+            }
+        });
     }
 
     /**
@@ -226,7 +232,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mLoadingLayout = (LoadingLayout)inflater.inflate(R.layout.loading_layout, null);
 
         //是否使用loading框架,自定义标题栏的或其他特殊需求的可设为false,然后到具体的界面去实现LoadingLayout
-        if(isUseLoading&&isShowTitle){
+        if (isUseLoading) {
             mLoadingLayout.addView(view,0); //自定义的界面加载到最底层
             mBaseContainer.addView(mLoadingLayout,params);
         }else{
@@ -252,6 +258,12 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param savedInstanceState
      */
     public void init(Bundle savedInstanceState) {
+    }
+
+    /**
+     * 重试处理，需重写的处理方法
+     */
+    public void reLoadData() {
     }
 
     @Override

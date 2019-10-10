@@ -1,4 +1,4 @@
-package com.penglai.haima.ui.index;
+package com.penglai.haima.ui;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -44,7 +44,6 @@ public class RegisterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitleMiddleText("注册");
-        timeCount = new TimeCount(60000, 1000);// 构造CountDownTimer对象
     }
 
     @Override
@@ -54,7 +53,7 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void init() {
-
+        timeCount = new TimeCount(60000, 1000);// 构造CountDownTimer对象
     }
 
     @OnClick({R.id.btn_get_code, R.id.tv_register})
@@ -62,7 +61,7 @@ public class RegisterActivity extends BaseActivity {
         String mobile = etMobile.getText().toString().trim();
         switch (view.getId()) {
             case R.id.btn_get_code:
-                if(TextUtils.isEmpty(mobile)){
+                if (TextUtils.isEmpty(mobile)) {
                     showToast("请输入手机号");
                     return;
                 }
@@ -77,11 +76,11 @@ public class RegisterActivity extends BaseActivity {
                 String validationCode = etCode.getText().toString().trim();
                 String cusManCode = etCustomerNo.getText().toString().trim();
                 String address = etAddress.getText().toString().trim();
-                if(TextUtils.isEmpty(realName)){
+                if (TextUtils.isEmpty(realName)) {
                     showToast("请输入姓名");
                     return;
                 }
-                if(TextUtils.isEmpty(mobile)){
+                if (TextUtils.isEmpty(mobile)) {
                     showToast("请输入手机号");
                     return;
                 }
@@ -89,28 +88,29 @@ public class RegisterActivity extends BaseActivity {
                     showToast("手机号输入不正确");
                     return;
                 }
-                if(TextUtils.isEmpty(validationCode)){
+                if (TextUtils.isEmpty(validationCode)) {
                     showToast("请输入验证码");
                     return;
                 }
-                if(TextUtils.isEmpty(cusManCode)){
+                if (TextUtils.isEmpty(cusManCode)) {
                     showToast("请输入客户经理编号");
                     return;
                 }
-                if(TextUtils.isEmpty(address)){
+                if (TextUtils.isEmpty(address)) {
                     showToast("请输入联系地址");
                     return;
                 }
-                register( realName, mobile, validationCode, cusManCode, address);
+                register(realName, mobile, validationCode, cusManCode, address);
                 break;
         }
     }
 
     /**
      * 获取验证码
+     *
      * @param mobile 手机号
      */
-    private void getCode(String mobile){
+    private void getCode(String mobile) {
         OkGo.<CommonReturnData<Object>>post(Constants.URL + "verifyPhone")
                 .params("mobile", mobile)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
@@ -122,12 +122,14 @@ public class RegisterActivity extends BaseActivity {
                     }
                 });
     }
+
     /**
+     * 注册
      *
-     * @param mobile 手机号
+     * @param mobile         手机号
      * @param validationCode 验证码
      */
-    private void register(String realName,String mobile,String validationCode,String cusManCode,String address){
+    private void register(String realName, String mobile, String validationCode, String cusManCode, String address) {
         HashMap<String, String> params = new HashMap<>();
         params.put("realName", realName);
         params.put("mobile", mobile);
@@ -135,11 +137,11 @@ public class RegisterActivity extends BaseActivity {
         params.put("cusManCode", cusManCode);
         params.put("address", address);
         JSONObject jsonObject = new JSONObject(params);
-        OkGo.<CommonReturnData<Object>>post(Constants.URL +"saveUserInfo")
+        OkGo.<CommonReturnData<Object>>post(Constants.URL + "saveUserInfo")
                 .upJson(jsonObject)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
-                    public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
+                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
                         showToast("注册成功");
                         finish();
                     }
