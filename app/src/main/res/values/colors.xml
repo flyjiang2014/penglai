@@ -49,4 +49,5 @@
     <color name="shape_grey">#969696</color>
     <color name="bg_line">#e7e7e7</color>
     <color name="blue_half">#900000FF</color>
+    <color name="index_bg">#C69477</color>
 </resources>
