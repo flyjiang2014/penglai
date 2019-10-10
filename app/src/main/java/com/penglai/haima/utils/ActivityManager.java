@@ -26,7 +26,6 @@ public class ActivityManager {
     public static void removeActivity(Activity activity) {
         if (activity != null) {
             activityStack.remove(activity);
-
         }
     }
 
