@@ -25,6 +25,7 @@
         <activity android:name=".ui.index.PersonInfoActivity" />
         <activity android:name=".ui.index.CustomerManagerInfoActivity" />
         <activity android:name=".ui.charge.ChargeRecordActivity" />
+        <activity android:name=".third.weichat.wxapi.WXPayEntryActivity" />
         <activity android:name=".ui.charge.ChargePayActivity"></activity>
     </application>
 

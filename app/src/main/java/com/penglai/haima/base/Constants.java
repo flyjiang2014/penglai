@@ -7,4 +7,5 @@ package com.penglai.haima.base;
 public class Constants {
     public final static String URL = "http://wx.ypimp.cn/ypimp/";
     public final static String MOBILE = "mobile";
+    public static final String WECHAT_APP_ID = "wxccfc962edd5bea78";
 }

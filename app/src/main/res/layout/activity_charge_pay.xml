@@ -36,6 +36,7 @@
                 android:textSize="50sp" />
 
             <EditText
+                android:id="@+id/et_pay_money"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -86,7 +87,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_register"
+        android:id="@+id/tv_charge"
         android:layout_width="match_parent"
         android:layout_height="@dimen/action_height"
         android:layout_margin="10dp"

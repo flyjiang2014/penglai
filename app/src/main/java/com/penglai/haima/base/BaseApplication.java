@@ -91,7 +91,6 @@ public class BaseApplication extends Application {
 //        //初始化工具类
 //        Utils.init(this);
 }
-
     /**
      * OkGo的初始化
      */
