@@ -24,7 +24,8 @@
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.index.PersonInfoActivity" />
         <activity android:name=".ui.index.CustomerManagerInfoActivity" />
-        <activity android:name=".ui.charge.ChargeRecordActivity"></activity>
+        <activity android:name=".ui.charge.ChargeRecordActivity" />
+        <activity android:name=".ui.charge.ChargePayActivity"></activity>
     </application>
 
 </manifest>
