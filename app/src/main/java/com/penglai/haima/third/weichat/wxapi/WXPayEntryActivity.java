@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.penglai.haima.R;
+import com.penglai.haima.base.Constants;
 import com.penglai.haima.utils.ToastUtil;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -25,7 +26,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//设置固定竖屏
         setContentView(R.layout.pay_result);
-        api = WXAPIFactory.createWXAPI(this, "wxccfc962edd5bea78");
+        api = WXAPIFactory.createWXAPI(this, Constants.WECHAT_APP_ID);
         api.handleIntent(getIntent(), this);
     }
 

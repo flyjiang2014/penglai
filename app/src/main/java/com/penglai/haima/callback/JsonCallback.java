@@ -45,7 +45,6 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         List<Cookie> allCookie = cookieStore.getAllCookie();
         Log.e("jiang", allCookie.size() + "");
         if (allCookie.size() > 0) {
-            Log.e("jiang", allCookie.get(0).toString());
             request.headers("Cookie", allCookie.get(0).toString());
         }
         request.tag(mActivity.getClass().getSimpleName());

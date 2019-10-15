@@ -15,14 +15,25 @@ android {
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
 
+    signingConfigs {
+        config {
+            keyAlias 'penglai'
+            keyPassword 'penglai2019'
+            storeFile file('.\\PengLai.jks')
+            storePassword 'penglai2019'
+        }
+    }
+
     buildTypes {
         debug {
             minifyEnabled false  //是否开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
         release {
             minifyEnabled false  //是否开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 

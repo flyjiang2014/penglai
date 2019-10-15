@@ -1,12 +1,15 @@
 package com.penglai.haima.bean;
 
-public class OrderWeChatPayResponse {
-    public String noncestr = "";
-    public String partnerid = "";
-    public String prepayid = "";
-    public int timestamp = 0;
-    public String sign = "";
-    public String packageValue = "";
+import com.google.gson.annotations.SerializedName;
+
+public class WeChatPayResponse {
+    private String noncestr = "";
+    private String partnerid = "";
+    private String prepayid = "";
+    private int timestamp = 0;
+    private String sign = "";
+    @SerializedName("package")
+    private String packageValue = "";
 
     public String getNoncestr() {
         return noncestr;

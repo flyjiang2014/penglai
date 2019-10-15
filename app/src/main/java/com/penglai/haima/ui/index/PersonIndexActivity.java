@@ -3,6 +3,7 @@ package com.penglai.haima.ui.index;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.penglai.haima.bean.UserInfoBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.config.GlideCircleTransformWithBorder;
 import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.ui.charge.ChargePayActivity;
 import com.penglai.haima.ui.charge.ChargeRecordActivity;
 
 import butterknife.BindView;
@@ -38,6 +40,8 @@ public class PersonIndexActivity extends BaseActivity {
     @BindView(R.id.tv_person_name)
     TextView tvPersonName;
     GlideCircleTransformWithBorder glideCircleTransformWithBorder;
+    @BindView(R.id.btn_charge_pay)
+    Button btnChargePay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +87,7 @@ public class PersonIndexActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.ll_person_info, R.id.ll_customer_manager, R.id.ll_person_balance})
+    @OnClick({R.id.ll_person_info, R.id.ll_customer_manager, R.id.ll_person_balance, R.id.btn_charge_pay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_person_info:
@@ -94,6 +98,9 @@ public class PersonIndexActivity extends BaseActivity {
                 break;
             case R.id.ll_person_balance:
                 startActivity(new Intent(mContext, ChargeRecordActivity.class));
+                break;
+            case R.id.btn_charge_pay:
+                startActivity(new Intent(mContext, ChargePayActivity.class));
                 break;
         }
     }

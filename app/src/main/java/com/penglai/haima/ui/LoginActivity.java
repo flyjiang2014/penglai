@@ -16,7 +16,6 @@ import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
-import com.penglai.haima.ui.charge.ChargePayActivity;
 import com.penglai.haima.ui.index.PersonIndexActivity;
 import com.penglai.haima.utils.ImageViewHWRateUtil;
 import com.penglai.haima.utils.SharepreferenceUtil;
@@ -77,7 +76,6 @@ public class LoginActivity extends BaseActivity {
                 getCode(mobile);
                 break;
             case R.id.tv_login:
-                startActivity(new Intent(mContext, ChargePayActivity.class));
                 String verCode = etCode.getText().toString().trim();
                 if (TextUtils.isEmpty(mobile)) {
                     showToast("请输入手机号");
