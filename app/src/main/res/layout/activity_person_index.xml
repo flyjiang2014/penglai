@@ -12,6 +12,27 @@
         android:layout_height="210dp"
         android:background="@drawable/bg">
 
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/title_height"
+            android:layout_marginTop="26dp"
+            android:layout_alignParentLeft="true">
+
+            <RelativeLayout
+                android:id="@+id/title_layout_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/back_press" />
+            </RelativeLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lzy.okgo.OkGo;
@@ -42,6 +43,8 @@ public class PersonIndexActivity extends BaseActivity {
     GlideCircleTransformWithBorder glideCircleTransformWithBorder;
     @BindView(R.id.btn_charge_pay)
     Button btnChargePay;
+    @BindView(R.id.title_layout_left)
+    RelativeLayout titleLayoutLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +90,12 @@ public class PersonIndexActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.ll_person_info, R.id.ll_customer_manager, R.id.ll_person_balance, R.id.btn_charge_pay})
+    @OnClick({R.id.ll_person_info, R.id.ll_customer_manager, R.id.ll_person_balance, R.id.btn_charge_pay, R.id.title_layout_left})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.title_layout_left:
+                finish();
+                break;
             case R.id.ll_person_info:
                 startActivity(new Intent(mContext, PersonInfoActivity.class));
                 break;

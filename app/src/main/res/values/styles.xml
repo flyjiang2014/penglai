@@ -23,4 +23,10 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="Theme.FloatActivity" parent="android:style/Theme.Translucent.NoTitleBar">
+        <!-- float_box为我们定义的窗口背景 ，这个不是必须的-->
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
 </resources>

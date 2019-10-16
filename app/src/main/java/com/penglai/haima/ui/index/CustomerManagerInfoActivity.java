@@ -2,6 +2,7 @@ package com.penglai.haima.ui.index;
 
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lzy.okgo.OkGo;
@@ -15,6 +16,7 @@ import com.penglai.haima.config.GlideCircleTransformWithBorder;
 import com.penglai.haima.okgomodel.CommonReturnData;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class CustomerManagerInfoActivity extends BaseActivity {
 
@@ -27,6 +29,8 @@ public class CustomerManagerInfoActivity extends BaseActivity {
     @BindView(R.id.tv_manager_no)
     TextView tvManagerNo;
     GlideCircleTransformWithBorder glideCircleTransformWithBorder;
+    @BindView(R.id.title_layout_left)
+    RelativeLayout titleLayoutLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +72,12 @@ public class CustomerManagerInfoActivity extends BaseActivity {
                                 .defaultOptions()
                                 .transform(glideCircleTransformWithBorder)
                                 .into(imgHead);
-
                     }
                 });
+    }
+
+    @OnClick(R.id.title_layout_left)
+    public void onViewClicked() {
+        finish();
     }
 }

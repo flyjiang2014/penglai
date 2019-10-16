@@ -104,7 +104,7 @@ public class PersonInfoActivity extends BaseActivity {
      * @param mobile 手机号
      */
     private void getCode(String mobile) {
-        OkGo.<CommonReturnData<Object>>post(Constants.URL + "verifyPhone")
+        OkGo.<CommonReturnData<Object>>post(Constants.URL + "verifyPhoneForApp")
                 .params("mobile", mobile)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override

@@ -1,4 +1,4 @@
-package com.penglai.haima.third.weichat.wxapi;
+package com.penglai.haima.wxapi;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.text.TextUtils;
 
 import com.penglai.haima.R;
 import com.penglai.haima.base.Constants;
+import com.penglai.haima.ui.charge.ChargePayActivity;
+import com.penglai.haima.utils.ActivityManager;
 import com.penglai.haima.utils.ToastUtil;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -20,7 +22,6 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     private IWXAPI api;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (resp.errCode == 0) {
                 ToastUtil.showToast("支付成功");
+                ActivityManager.finishActivity(ChargePayActivity.class);
             } else if (!TextUtils.isEmpty(resp.errStr)) {
                 ToastUtil.showToast(resp.errStr);
             }

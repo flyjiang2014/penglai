@@ -36,10 +36,11 @@
             android:name=".ui.charge.ChargeRecordActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".third.weichat.wxapi.WXPayEntryActivity"
+            android:name=".wxapi.WXPayEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.FloatActivity" />
         <activity
             android:name=".ui.charge.ChargePayActivity"
             android:launchMode="singleTop"></activity>

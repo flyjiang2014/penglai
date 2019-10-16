@@ -103,7 +103,7 @@ public class LoginActivity extends BaseActivity {
      * @param mobile 手机号
      */
     private void getCode(String mobile) {
-        OkGo.<CommonReturnData<Object>>post(Constants.URL + "verifyPhone")
+        OkGo.<CommonReturnData<Object>>post(Constants.URL + "verifyPhoneForApp")
                 .params("mobile", mobile)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
@@ -129,6 +129,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
                         showToast("登录成功");
+                        etCode.setText("");
                         SharepreferenceUtil.saveString(Constants.MOBILE, mobile);
                         startActivity(new Intent(mContext, PersonIndexActivity.class));
                     }

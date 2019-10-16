@@ -69,8 +69,8 @@ public class ChargePayActivity extends BaseActivity {
      * @param cashnum
      */
     private void charge_pay(String cashnum) {
-        OkGo.<CommonReturnData<WeChatPayResponse>>post("http://120.55.61.20:8089/order/pay")
-                .params("cashnum", cashnum)
+        OkGo.<CommonReturnData<WeChatPayResponse>>post(Constants.URL_FOR_PAY + "order/pay")
+                .params("cashnum", "0.01")
                 .params("mercid", "001")
                 .execute(new DialogCallback<CommonReturnData<WeChatPayResponse>>(this) {
                     @Override
