@@ -44,6 +44,12 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (SharepreferenceUtil.getBoolean(Constants.IS_GOLIN)) {
+            Intent intent = new Intent(mContext, PersonIndexActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
     }
 
     @Override
@@ -130,8 +136,10 @@ public class LoginActivity extends BaseActivity {
                     public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
                         showToast("登录成功");
                         etCode.setText("");
+                        SharepreferenceUtil.saveBoolean(Constants.IS_GOLIN, true);
                         SharepreferenceUtil.saveString(Constants.MOBILE, mobile);
                         startActivity(new Intent(mContext, PersonIndexActivity.class));
+                        finish();
                     }
                 });
     }

@@ -144,6 +144,9 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected LoadingDialog dialog;
 
+    public final static int PULL_DOWN_TIME = 1000;
+    public final static int PULL_UP_TIME = 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         onCreateBefore();
@@ -493,6 +496,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     public RelativeLayout getmTitleRightRelativeLayout() {
         return mTitleRightRelativeLayout;
     }
+
+    /**
+     * 获取RecycleView无数据时填充的emptyView
+     *
+     * @return
+     */
+    public View getEmptyView() {
+        return LayoutInflater.from(mContext).inflate(R.layout.recyclerview_empty_view, null);
+    }
+
 
     /**
      * 设置添加屏幕的背景透明度

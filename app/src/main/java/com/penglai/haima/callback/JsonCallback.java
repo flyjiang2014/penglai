@@ -1,6 +1,7 @@
 package com.penglai.haima.callback;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.JsonSyntaxException;
@@ -70,6 +71,12 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
         Type type = params[0];
         if (!(type instanceof ParameterizedType)) throw new IllegalStateException("没有填写泛型参数");
+        Log.e("jiang", response.header("sessionstatue") + "123");
+        if (TextUtils.equals(response.header("sessionstatue"), "timeout")) {
+            throw new IllegalStateException("cookie过期");
+        }
+        Log.e("jiang", "timeout");
+
         Type rawType = ((ParameterizedType) type).getRawType();
         JsonReader jsonReader = new JsonReader(response.body().charStream());
         if (rawType == Void.class) {

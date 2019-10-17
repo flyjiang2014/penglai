@@ -76,4 +76,19 @@ public class SharepreferenceUtil {
     public static String getString(String key) {
         return TextUtils.isEmpty(key) || mSharedPreferences == null ? "" : mSharedPreferences.getString(key, "");
     }
+
+    /**
+     * 保存boolean 值
+     */
+    public static boolean saveBoolean(String key, Boolean value) {
+        if (TextUtils.isEmpty(key) || mEditor == null) {
+            return false;
+        }
+        mEditor.putBoolean(key, value).commit();
+        return true;
+    }
+
+    public static boolean getBoolean(String key) {
+        return TextUtils.isEmpty(key) || mSharedPreferences == null ? false : mSharedPreferences.getBoolean(key, false);
+    }
 }
