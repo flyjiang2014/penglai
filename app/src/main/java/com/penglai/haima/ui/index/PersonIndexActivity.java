@@ -124,7 +124,6 @@ public class PersonIndexActivity extends BaseActivity {
         if (System.currentTimeMillis() - mExitClickTime > 2000) {
             showToast("再按一次返回键关闭程序");
             mExitClickTime = System.currentTimeMillis();
-            return;
         } else {
             ActivityManager.finishAllActivity();
             System.exit(0);

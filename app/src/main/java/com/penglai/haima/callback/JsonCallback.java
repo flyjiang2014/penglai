@@ -9,6 +9,7 @@ import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.cookie.store.CookieStore;
+import com.lzy.okgo.exception.HttpException;
 import com.lzy.okgo.request.base.Request;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.okgomodel.CommonReturnData;
@@ -47,6 +48,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         Log.e("jiang", allCookie.size() + "");
         if (allCookie.size() > 0) {
             request.headers("Cookie", allCookie.get(0).toString());
+            request.headers("Access-Control-Expose-Headers", "sessionstatus");
         }
         request.tag(mActivity.getClass().getSimpleName());
     }
@@ -71,7 +73,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
         Type type = params[0];
         if (!(type instanceof ParameterizedType)) throw new IllegalStateException("没有填写泛型参数");
-        Log.e("jiang", response.header("sessionstatue") + "123");
+        Log.e("jiang", response.header("sessionstatus") + "123");
         if (TextUtils.equals(response.header("sessionstatue"), "timeout")) {
             throw new IllegalStateException("cookie过期");
         }
@@ -146,6 +148,8 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
                 ((BaseActivity) mActivity).getmLoadingLayout().setStatus(LoadingLayout.No_Network);
             }
         }else if (e instanceof IllegalStateException) {
+            ToastUtil.showToast(e.getMessage());
+        } else if (e instanceof HttpException) {
             ToastUtil.showToast(e.getMessage());
         }
     }

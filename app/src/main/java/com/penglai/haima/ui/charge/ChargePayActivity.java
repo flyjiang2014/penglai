@@ -15,6 +15,7 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.WeChatPayResponse;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.utils.SharepreferenceUtil;
 import com.tencent.mm.opensdk.constants.Build;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -71,6 +72,7 @@ public class ChargePayActivity extends BaseActivity {
     private void charge_pay(String cashnum) {
         OkGo.<CommonReturnData<WeChatPayResponse>>post(Constants.URL_FOR_PAY + "order/pay")
                 .params("cashnum", "0.01")
+                .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
                 .params("mercid", "001")
                 .execute(new DialogCallback<CommonReturnData<WeChatPayResponse>>(this) {
                     @Override
