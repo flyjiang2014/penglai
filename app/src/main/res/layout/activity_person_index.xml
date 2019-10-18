@@ -52,7 +52,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
-                android:text="我的名字"
+                android:text=""
                 android:textColor="@color/text_grey333"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -156,7 +156,7 @@
             android:gravity="center_vertical"
             android:layout_weight="1"
             android:textColor="@color/text_grey333"
-            android:text="0元"
+            android:text=""
             android:textSize="14sp" />
         <Button
             android:id="@+id/btn_charge_pay"
@@ -238,7 +238,7 @@
             android:gravity="center_vertical"
             android:layout_weight="1"
             android:textColor="@color/text_grey333"
-            android:text="0次"
+            android:text=""
             android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

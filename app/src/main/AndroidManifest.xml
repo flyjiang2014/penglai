@@ -15,8 +15,10 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".ui.index.PersonIndexActivity" />
         <activity
-            android:name=".ui.LoginActivity"
-            android:launchMode="singleTask">
+            android:name=".ui.SplashActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,8 +26,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.LoginActivity"
+            android:launchMode="singleTask" />
+        <activity
             android:name=".ui.RegisterActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.index.PersonInfoActivity"
             android:launchMode="singleTop" />
@@ -43,7 +48,7 @@
             android:theme="@style/Theme.FloatActivity" />
         <activity
             android:name=".ui.charge.ChargePayActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

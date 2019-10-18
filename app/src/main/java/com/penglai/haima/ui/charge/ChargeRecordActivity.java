@@ -53,6 +53,7 @@ public class ChargeRecordActivity extends BaseActivity implements OnRefreshListe
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext));
         recyclerView.setAdapter(chargeRecordAdapter);
         smartRefreshLayout.setOnRefreshListener(this);
+        smartRefreshLayout.setEnableLoadMore(false);
         getChargeRecordData();
     }
 
@@ -82,7 +83,6 @@ public class ChargeRecordActivity extends BaseActivity implements OnRefreshListe
 
     @Override
     public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
-        getChargeRecordData();
         refreshLayout.getLayout().postDelayed(new Runnable() {
             @Override
             public void run() {
