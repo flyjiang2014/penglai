@@ -12,7 +12,7 @@ import com.penglai.haima.adapter.ChargeRecordAdapter;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.ChargeRecordBean;
-import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.callback.JsonCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -68,7 +68,7 @@ public class ChargeRecordActivity extends BaseActivity implements OnRefreshListe
      */
     private void getChargeRecordData() {
         OkGo.<CommonReturnData<List<ChargeRecordBean>>>post(Constants.URL + "queryCusTrans")
-                .execute(new DialogCallback<CommonReturnData<List<ChargeRecordBean>>>(this, true) {
+                .execute(new JsonCallback<CommonReturnData<List<ChargeRecordBean>>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<List<ChargeRecordBean>> commonReturnData) {
                         chargeRecordBeanList.clear();

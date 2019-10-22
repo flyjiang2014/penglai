@@ -32,6 +32,12 @@
             android:name=".ui.RegisterActivity"
             android:launchMode="singleTask" />
         <activity
+            android:name=".ui.MainActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.Main2Activity"
+            android:launchMode="singleTask" />
+        <activity
             android:name=".ui.index.PersonInfoActivity"
             android:launchMode="singleTop" />
         <activity
@@ -49,6 +55,7 @@
         <activity
             android:name=".ui.charge.ChargePayActivity"
             android:launchMode="singleTop" />
+        <activity android:name=".ui.SettingActivity"></activity>
     </application>
 
 </manifest>

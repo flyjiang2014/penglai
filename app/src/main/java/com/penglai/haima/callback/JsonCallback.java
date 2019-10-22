@@ -1,6 +1,7 @@
 package com.penglai.haima.callback;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -12,9 +13,13 @@ import com.lzy.okgo.cookie.store.CookieStore;
 import com.lzy.okgo.exception.HttpException;
 import com.lzy.okgo.request.base.Request;
 import com.penglai.haima.base.BaseActivity;
+import com.penglai.haima.base.Constants;
+import com.penglai.haima.config.TimeOutException;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.okgomodel.SimpleResponse;
+import com.penglai.haima.ui.LoginActivity;
 import com.penglai.haima.utils.Convert;
+import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.ToastUtil;
 import com.penglai.haima.widget.loading.LoadingLayout;
 
@@ -28,6 +33,8 @@ import java.util.List;
 
 import okhttp3.Cookie;
 import okhttp3.Response;
+
+import static com.penglai.haima.utils.ActivityManager.activityStack;
 
 /**
  * 网络请求callBack处理
@@ -73,12 +80,9 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
         Type type = params[0];
         if (!(type instanceof ParameterizedType)) throw new IllegalStateException("没有填写泛型参数");
-        Log.e("jiang", response.header("sessionstatus") + "123");
-        if (TextUtils.equals(response.header("sessionstatue"), "timeout")) {
-            throw new IllegalStateException("cookie过期");
+        if (TextUtils.equals(response.headers().get("sessionstatus"), "timeout")) {
+            throw new TimeOutException("timeout");
         }
-        Log.e("jiang", "timeout");
-
         Type rawType = ((ParameterizedType) type).getRawType();
         JsonReader jsonReader = new JsonReader(response.body().charStream());
         if (rawType == Void.class) {
@@ -151,6 +155,17 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
             ToastUtil.showToast(e.getMessage());
         } else if (e instanceof HttpException) {
             ToastUtil.showToast(e.getMessage());
+        } else if (e instanceof TimeOutException) {
+            ToastUtil.showToast("重新登录");
+            Intent intent = new Intent(mActivity, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            SharepreferenceUtil.removeKeyValue(Constants.IS_GOLIN);
+            mActivity.startActivity(intent);
+            for (int i = 0, size = activityStack.size(); i < size; i++) {  //关闭登录页面外的其他页面
+                if (null != activityStack.get(i) && !(activityStack.get(i) instanceof LoginActivity)) {
+                    activityStack.get(i).finish();
+                }
+            }
         }
     }
     public abstract void onSuccess(T t);

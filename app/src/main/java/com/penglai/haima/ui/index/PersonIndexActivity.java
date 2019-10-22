@@ -14,9 +14,10 @@ import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.UserInfoBean;
-import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.callback.JsonCallback;
 import com.penglai.haima.config.GlideCircleTransformWithBorder;
 import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.ui.SettingActivity;
 import com.penglai.haima.ui.charge.ChargePayActivity;
 import com.penglai.haima.ui.charge.ChargeRecordActivity;
 import com.penglai.haima.utils.ActivityManager;
@@ -41,13 +42,15 @@ public class PersonIndexActivity extends BaseActivity {
     LinearLayout llFreeDelivery;
     @BindView(R.id.tv_person_name)
     TextView tvPersonName;
-    GlideCircleTransformWithBorder glideCircleTransformWithBorder;
     @BindView(R.id.btn_charge_pay)
     Button btnChargePay;
     @BindView(R.id.title_layout_left)
     RelativeLayout titleLayoutLeft;
     @BindView(R.id.ll_charge_record)
     LinearLayout llChargeRecord;
+    @BindView(R.id.rl_setting)
+    RelativeLayout rlSetting;
+    GlideCircleTransformWithBorder glideCircleTransformWithBorder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +85,7 @@ public class PersonIndexActivity extends BaseActivity {
      */
     private void getIndexData() {
         OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL + "getUserInfo")
-                .execute(new DialogCallback<CommonReturnData<UserInfoBean>>(this, true) {
+                .execute(new JsonCallback<CommonReturnData<UserInfoBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
                         UserInfoBean userInfo = commonReturnData.getData();
@@ -93,7 +96,8 @@ public class PersonIndexActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.ll_person_info, R.id.ll_customer_manager, R.id.ll_charge_record, R.id.btn_charge_pay, R.id.title_layout_left})
+    @OnClick({R.id.ll_person_info, R.id.ll_customer_manager, R.id.ll_charge_record, R.id.btn_charge_pay,
+            R.id.title_layout_left, R.id.rl_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_layout_left:
@@ -110,6 +114,9 @@ public class PersonIndexActivity extends BaseActivity {
                 break;
             case R.id.btn_charge_pay:
                 startActivity(new Intent(mContext, ChargePayActivity.class));
+                break;
+            case R.id.rl_setting:
+                startActivity(new Intent(mContext, SettingActivity.class));
                 break;
         }
     }

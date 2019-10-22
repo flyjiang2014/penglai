@@ -16,7 +16,6 @@ import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
-import com.penglai.haima.ui.index.PersonIndexActivity;
 import com.penglai.haima.utils.ImageViewHWRateUtil;
 import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.StringUtil;
@@ -132,7 +131,8 @@ public class LoginActivity extends BaseActivity {
                         etCode.setText("");
                         SharepreferenceUtil.saveBoolean(Constants.IS_GOLIN, true);
                         SharepreferenceUtil.saveString(Constants.MOBILE, mobile);
-                        startActivity(new Intent(mContext, PersonIndexActivity.class));
+                        //   startActivity(new Intent(mContext, PersonIndexActivity.class));
+                        startActivity(new Intent(mContext, Main2Activity.class));
                         finish();
                     }
                 });

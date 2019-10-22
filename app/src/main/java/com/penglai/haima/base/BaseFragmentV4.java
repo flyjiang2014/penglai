@@ -33,9 +33,10 @@ public abstract class BaseFragmentV4 extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-       mContext = getActivity().getApplicationContext();//使用整个应用的上下文对象
+        mContext = getActivity().getApplicationContext();//使用整个应用的上下文对象
         super.onCreate(savedInstanceState);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +71,9 @@ public abstract class BaseFragmentV4 extends Fragment {
         isFirst = false;
     }
 
+    /**
+     * @param isVisibleToUser
+     */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -83,6 +87,14 @@ public abstract class BaseFragmentV4 extends Fragment {
             isVisible = false;
         }
     }
+
+//    @Override
+//    public void onHiddenChanged(boolean hidden) {
+//        super.onHiddenChanged(hidden);
+//        if (!hidden) {
+//            initData();
+//        }
+//    }
 
     @Override
     public void onDestroyView() {

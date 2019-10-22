@@ -10,7 +10,7 @@ import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.ManagerInfoBean;
-import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.callback.JsonCallback;
 import com.penglai.haima.config.GlideApp;
 import com.penglai.haima.config.GlideCircleTransformWithBorder;
 import com.penglai.haima.okgomodel.CommonReturnData;
@@ -60,7 +60,7 @@ public class CustomerManagerInfoActivity extends BaseActivity {
      */
     private void getManagerInfoData() {
         OkGo.<CommonReturnData<ManagerInfoBean>>post(Constants.URL + "getCusManInfo")
-                .execute(new DialogCallback<CommonReturnData<ManagerInfoBean>>(this, true) {
+                .execute(new JsonCallback<CommonReturnData<ManagerInfoBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<ManagerInfoBean> commonReturnData) {
                         ManagerInfoBean managerInfo = commonReturnData.getData();

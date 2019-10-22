@@ -14,6 +14,7 @@ import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.UserInfoBean;
 import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.callback.JsonCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 
 import org.json.JSONObject;
@@ -38,9 +39,7 @@ public class PersonInfoActivity extends BaseActivity {
     TextView tvSave;
     @BindView(R.id.tv_mobile)
     TextView tvMobile;
-
     private TimeCount timeCount;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +145,7 @@ public class PersonInfoActivity extends BaseActivity {
      */
     private void getPersonInfoData() {
         OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL + "getUserInfo")
-                .execute(new DialogCallback<CommonReturnData<UserInfoBean>>(this, true) {
+                .execute(new JsonCallback<CommonReturnData<UserInfoBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
                         UserInfoBean userInfo = commonReturnData.getData();

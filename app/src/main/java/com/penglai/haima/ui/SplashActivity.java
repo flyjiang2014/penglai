@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
-import com.penglai.haima.ui.index.PersonIndexActivity;
 import com.penglai.haima.utils.SharepreferenceUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -42,7 +41,7 @@ public class SplashActivity extends BaseActivity {
      * 初始化
      */
     private void initScheduler() {
-        mDisposable = Observable.timer(1, TimeUnit.SECONDS) //延时1秒执行
+        mDisposable = Observable.timer(300, TimeUnit.MILLISECONDS) //
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
@@ -50,7 +49,7 @@ public class SplashActivity extends BaseActivity {
                     public void accept(@NonNull Long aLong) throws Exception {
                         Intent intent = new Intent();
                         if (SharepreferenceUtil.getBoolean(Constants.IS_GOLIN)) {
-                            intent.setClass(SplashActivity.this, PersonIndexActivity.class);
+                            intent.setClass(SplashActivity.this, Main2Activity.class);
                         } else {
                             intent.setClass(SplashActivity.this, LoginActivity.class);
                         }
