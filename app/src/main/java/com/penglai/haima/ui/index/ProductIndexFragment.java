@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.flipboard.bottomsheet.BottomSheetLayout;
+import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.adapter.ProductAdapter;
@@ -24,9 +25,11 @@ import com.penglai.haima.adapter.ProductForCarAdapter;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.ProductBean;
+import com.penglai.haima.bean.ProductSelectBean;
 import com.penglai.haima.callback.JsonCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.MathUtil;
+import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.ToastUtil;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.penglai.haima.widget.MyListView;
@@ -55,7 +58,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     private BottomSheetLayout bottomSheetLayout;
     private TextView tv_car;
     private TextView tv_go_charge, tv_total_money;
-    Double totalMoney = 0.00;
+    Double totalMoney = 0d;
     private TextView tv_show_num;
     private SparseArray<ProductBean> selectedList;
     ProductForCarAdapter productForCarAdapter;//底部购物车的adapter
@@ -101,6 +104,20 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
             @Override
             public void onClick(View v) {
                 ToastUtil.showToast(selectedList.size() + "");
+                if (selectedList.size() == 0) {
+                    ToastUtil.showToast("至少选择一件商品");
+                    return;
+                }
+                List<ProductSelectBean> mData = new ArrayList<>();
+                ProductSelectBean data;
+                ProductBean productBean;
+                for (int i = 0; i < selectedList.size(); i++) {
+                    productBean = selectedList.valueAt(i);
+                    data = new ProductSelectBean(productBean.getId(), productBean.getContent(), productBean.getImage_name(), productBean.getModel(),
+                            productBean.getPrice(), productBean.getTitle(), productBean.getChoose_number());
+                    mData.add(data);
+                }
+                createOrder(new Gson().toJson(mData));
             }
         });
     }
@@ -118,12 +135,26 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         return fragment;
     }
 
+    private void createOrder(String merclist) {
+        OkGo.<CommonReturnData<Object>>post(Constants.URL_FOR_OTHER + "hot/insertOrderList")
+                .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
+                .params("merclist", merclist)
+                .params("amount", MathUtil.round_half_down(String.valueOf(totalMoney), 0))
+                .execute(new JsonCallback<CommonReturnData<Object>>(getActivity(), true) {
+                    @Override
+                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                        ToastUtil.showToast("消费成功");
+                        clearCart();
+                    }
+                });
+    }
+
     /**
      * 获取商品列表
      */
     private void getProductListData() {
         OkGo.<CommonReturnData<List<ProductBean>>>post(Constants.URL_FOR_OTHER + "hot/getHotList")
-                .execute(new JsonCallback<CommonReturnData<List<ProductBean>>>(getActivity(), true) {
+                .execute(new JsonCallback<CommonReturnData<List<ProductBean>>>(getActivity()) {
                     @Override
                     public void onSuccess(CommonReturnData<List<ProductBean>> commonReturnData) {
                         productBeanList.clear();
@@ -228,13 +259,14 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     private void update(boolean refreshGoodList) {
         int size = selectedList.size();
         int count = 0;
+        totalMoney = 0.00;
         for (int i = 0; i < size; i++) {
             ProductBean item = selectedList.valueAt(i);
             count += item.getChoose_number();
             totalMoney += item.getChoose_number() * Double.parseDouble(item.getPrice());
         }
         tv_total_money.setText("￥" + MathUtil.round_half_down(String.valueOf(totalMoney), 0));
-        totalMoney = 0.00;
+
         if (count < 1) {
             tv_show_num.setVisibility(View.GONE);
         } else {
