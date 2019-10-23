@@ -1,6 +1,7 @@
 package com.penglai.haima.utils;
 
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -182,5 +183,24 @@ public class StringUtil {
         } else {
             return false;
         }
+    }
+
+    public static void filtNull(TextView textView, String s) {
+        if (s != null) {
+            textView.setText(s);
+        } else {
+            textView.setText(filtNull(s));
+        }
+    }
+
+
+    //判断过滤单个string为null
+    public static String filtNull(String s) {
+        if (s != null) {
+            return s;
+        } else {
+            s = "null";
+        }
+        return s;
     }
 }

@@ -12,6 +12,7 @@ import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.ui.index.PersonIndexFragment;
 import com.penglai.haima.ui.index.ProductIndexFragment;
+import com.penglai.haima.utils.AndroidWorkaround;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,9 @@ public class Main2Activity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
+            AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
+        }
         ProductIndexFragment productIndexFragment = ProductIndexFragment.getInstance(0);
         PersonIndexFragment personIndexFragment = PersonIndexFragment.getInstance(1);
         fragments.add(productIndexFragment);
@@ -67,7 +71,7 @@ public class Main2Activity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (fragments.get(position).getVisibleTimes() > 1) {
+                if (fragments.get(position).getVisibleTimes() > 1 && position == 1) {
                     fragments.get(position).initData();
                 }
             }
@@ -127,7 +131,9 @@ public class Main2Activity extends BaseActivity {
     @Override
     protected void onRestart() { //返回列表页面刷新数据
         super.onRestart();
-        fragments.get(viewPager.getCurrentItem()).initData();
+        if (viewPager.getCurrentItem() == 1) {
+            fragments.get(viewPager.getCurrentItem()).initData();
+        }
     }
 
     //创建一个Item

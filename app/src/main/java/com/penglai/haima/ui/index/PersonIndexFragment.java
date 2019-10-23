@@ -36,7 +36,6 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
     LinearLayout llFreeDelivery;
     TextView tvPersonName;
     Button btnChargePay;
-    RelativeLayout titleLayoutLeft;
     LinearLayout llChargeRecord;
     RelativeLayout rlSetting;
     private int state = -1;
@@ -92,8 +91,6 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.title_layout_left:
-                break;
             case R.id.ll_person_info:
                 startActivity(new Intent(mContext, PersonInfoActivity.class));
                 break;

@@ -19,6 +19,6 @@ public class MyGlideExtension {
     @NonNull
     @GlideOption
     public static BaseRequestOptions<?> defaultOptions(BaseRequestOptions<?> options) {
-        return options.placeholder(R.drawable.define_error).error(R.drawable.define_error); //设置全局默认属性;
+        return options.placeholder(R.color.text_grey666).error(R.color.text_grey666); //设置全局默认属性;
     }
 }

@@ -141,4 +141,13 @@ public abstract class BaseFragmentV4 extends Fragment {
      */
     public void reLoadData() {
     }
+
+    /**
+     * 获取RecycleView的emptyView
+     *
+     * @return
+     */
+    public View getEmptyView() {
+        return LayoutInflater.from(mContext).inflate(R.layout.recyclerview_empty_view, null);
+    }
 }
