@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <!-- 用于读取手机当前的状态 -->
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -16,12 +15,11 @@
         <activity android:name=".ui.index.PersonIndexActivity" />
         <activity
             android:name=".ui.SplashActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -55,7 +53,12 @@
         <activity
             android:name=".ui.charge.ChargePayActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".ui.SettingActivity"></activity>
+        <activity
+            android:name=".ui.SettingActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.order.ProductOrderSubmitActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>
