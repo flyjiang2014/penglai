@@ -32,11 +32,10 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_select_product"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp" />
+                        android:layout_height="wrap_content" />
                 </RelativeLayout>
 
                 <View
@@ -143,7 +142,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/frame_solid_grey_white"
-                        android:hint="请输入地址信息,不超过50字"
+                        android:hint="请输入地址详细信息"
                         android:maxLength="50"
                         android:padding="10dp"
                         android:paddingRight="10dp"
@@ -173,8 +172,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/frame_solid_grey_white"
-                        android:hint="不超过200字,无需备注可不填"
-                        android:maxLength="200"
+                        android:hint="不超过30字,无需备注可不填"
+                        android:maxLength="30"
                         android:padding="10dp"
                         android:paddingRight="10dp"
                         android:textColorHint="@color/text_grey999"

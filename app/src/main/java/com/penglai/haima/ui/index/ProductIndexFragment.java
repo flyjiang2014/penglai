@@ -1,5 +1,6 @@
 package com.penglai.haima.ui.index;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.flipboard.bottomsheet.BottomSheetLayout;
-import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.adapter.ProductAdapter;
@@ -28,8 +28,8 @@ import com.penglai.haima.bean.ProductBean;
 import com.penglai.haima.bean.ProductSelectBean;
 import com.penglai.haima.callback.JsonCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.ui.order.ProductOrderSubmitActivity;
 import com.penglai.haima.utils.MathUtil;
-import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.ToastUtil;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.penglai.haima.widget.MyListView;
@@ -37,6 +37,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,7 +118,10 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
                             productBean.getPrice(), productBean.getTitle(), productBean.getChoose_number());
                     mData.add(data);
                 }
-                createOrder(new Gson().toJson(mData));
+                Intent intent = new Intent(mContext, ProductOrderSubmitActivity.class);
+                intent.putExtra("totalMoney", MathUtil.round_half_up(String.valueOf(totalMoney), 0));
+                intent.putExtra("mData", (Serializable) mData);
+                startActivity(intent);
             }
         });
     }
@@ -135,19 +139,6 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         return fragment;
     }
 
-    private void createOrder(String merclist) {
-        OkGo.<CommonReturnData<Object>>post(Constants.URL_FOR_OTHER + "hot/insertOrderList")
-                .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
-                .params("merclist", merclist)
-                .params("amount", MathUtil.round_half_down(String.valueOf(totalMoney), 0))
-                .execute(new JsonCallback<CommonReturnData<Object>>(getActivity(), true) {
-                    @Override
-                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
-                        ToastUtil.showToast("消费成功");
-                        clearCart();
-                    }
-                });
-    }
 
     /**
      * 获取商品列表

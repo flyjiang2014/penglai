@@ -90,5 +90,4 @@ public class ProductForCarAdapter extends BaseAdapter {
         ImageView iv_add, iv_remove;
         TextView tv_count;
     }
-
 }

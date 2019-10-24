@@ -1,13 +1,29 @@
 package com.penglai.haima.ui.order;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
+import com.penglai.haima.adapter.ProductSelectAdapter;
 import com.penglai.haima.base.BaseActivity;
+import com.penglai.haima.base.Constants;
+import com.penglai.haima.bean.ProductSelectBean;
+import com.penglai.haima.bean.TradeBean;
+import com.penglai.haima.bean.UserInfoBean;
+import com.penglai.haima.callback.JsonCallback;
+import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.utils.ClickUtil;
+import com.penglai.haima.utils.SharepreferenceUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,10 +46,14 @@ public class ProductOrderSubmitActivity extends BaseActivity {
     TextView tvFinalPrice;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    String totalMoney = "";
+    List<ProductSelectBean> mData = new ArrayList<>();
+    ProductSelectAdapter productSelectAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitleMiddleText("订单提交");
     }
 
 
@@ -44,13 +64,55 @@ public class ProductOrderSubmitActivity extends BaseActivity {
 
     @Override
     public void init() {
+        mData = (List<ProductSelectBean>) getIntent().getSerializableExtra("mData");
+        totalMoney = getIntent().getStringExtra("totalMoney");
+        tvFinalPrice.setText("￥" + totalMoney);
+        productSelectAdapter = new ProductSelectAdapter(mData);
+        rvSelectProduct.setLayoutManager(new LinearLayoutManager(this));
+        rvSelectProduct.setAdapter(productSelectAdapter);
+        getIndexData();
+    }
 
+    /**
+     * 获取个人主页数据
+     */
+    private void getIndexData() {
+        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL + "getUserInfo")
+                .execute(new JsonCallback<CommonReturnData<UserInfoBean>>(this) {
+                    @Override
+                    public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
+                        UserInfoBean userInfo = commonReturnData.getData();
+                        etAddress.setText(userInfo.getAddress());
+                        etMobile.setText(userInfo.getMobile());
+                        etName.setText(userInfo.getRealName());
+                    }
+                });
+    }
+
+    private void createOrder(String merclist) {
+        OkGo.<CommonReturnData<TradeBean>>post(Constants.URL_FOR_OTHER + "hot/insertOrderList")
+                .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
+                .params("merclist", merclist)
+                .params("amount", totalMoney)
+                .execute(new JsonCallback<CommonReturnData<TradeBean>>(this, true) {
+                    @Override
+                    public void onSuccess(CommonReturnData<TradeBean> commonReturnData) {
+                        Intent intent = new Intent(mContext, TradePayActivity.class);
+                        intent.putExtra("tradeNo", commonReturnData.getData().getTradeNo());
+                        intent.putExtra("balance", commonReturnData.getData().getBalance());
+                        startActivity(intent);
+                    }
+                });
     }
 
     @OnClick({R.id.tv_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_submit:
+                if (ClickUtil.isFastDoubleClick()) {
+                    return;  //防止快速多次点击
+                }
+                createOrder(new Gson().toJson(mData));
                 break;
         }
     }
