@@ -23,7 +23,10 @@ public class ProductSelectAdapter extends BaseQuickAdapter<ProductSelectBean, Ba
     @Override
     protected void convert(BaseViewHolder helper, final ProductSelectBean item) {
         TextView tv_price = helper.getView(R.id.tv_price);
+        TextView tv_count = helper.getView(R.id.tv_count);
+        TextView tv_name = helper.getView(R.id.tv_name);
         tv_price.setText("￥" + item.getPrice());
-
+        tv_count.setText("×" + item.getChoose_number());
+        tv_name.setText(item.getTitle());
     }
 }

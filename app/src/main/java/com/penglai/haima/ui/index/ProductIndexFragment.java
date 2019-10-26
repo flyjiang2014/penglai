@@ -104,7 +104,6 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         tv_go_charge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showToast(selectedList.size() + "");
                 if (selectedList.size() == 0) {
                     ToastUtil.showToast("至少选择一件商品");
                     return;

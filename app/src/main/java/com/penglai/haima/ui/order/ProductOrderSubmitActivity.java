@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.penglai.haima.callback.JsonCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.ClickUtil;
 import com.penglai.haima.utils.SharepreferenceUtil;
+import com.penglai.haima.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +52,8 @@ public class ProductOrderSubmitActivity extends BaseActivity {
     String totalMoney = "";
     List<ProductSelectBean> mData = new ArrayList<>();
     ProductSelectAdapter productSelectAdapter;
+    @BindView(R.id.tv_details)
+    TextView tvDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +72,38 @@ public class ProductOrderSubmitActivity extends BaseActivity {
         mData = (List<ProductSelectBean>) getIntent().getSerializableExtra("mData");
         totalMoney = getIntent().getStringExtra("totalMoney");
         tvFinalPrice.setText("￥" + totalMoney);
+        String details = String.format("共计<font  color='#FF0000'>%s</font>件，<font  color='#FF0000'>￥%s</font>", getCount(), getTotalPrice());
+        tvDetails.setText(Html.fromHtml(details));
         productSelectAdapter = new ProductSelectAdapter(mData);
         rvSelectProduct.setLayoutManager(new LinearLayoutManager(this));
         rvSelectProduct.setAdapter(productSelectAdapter);
         getIndexData();
+    }
+
+    /**
+     * 获取购买件数
+     *
+     * @return
+     */
+    public int getCount() {
+        int count = 0;
+        for (ProductSelectBean productSelectBean : mData) {
+            count += productSelectBean.getChoose_number();
+        }
+        return count;
+    }
+
+    /**
+     * 获取购买件数
+     *
+     * @return
+     */
+    public int getTotalPrice() {
+        int price = 0;
+        for (ProductSelectBean productSelectBean : mData) {
+            price += productSelectBean.getChoose_number() * Integer.parseInt(productSelectBean.getPrice());
+        }
+        return price;
     }
 
     /**
@@ -100,6 +133,7 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                         Intent intent = new Intent(mContext, TradePayActivity.class);
                         intent.putExtra("tradeNo", commonReturnData.getData().getTradeNo());
                         intent.putExtra("balance", commonReturnData.getData().getBalance());
+                        intent.putExtra("totalMoney", totalMoney);
                         startActivity(intent);
                     }
                 });
@@ -107,10 +141,29 @@ public class ProductOrderSubmitActivity extends BaseActivity {
 
     @OnClick({R.id.tv_submit})
     public void onViewClicked(View view) {
+        String mobile = etMobile.getText().toString().trim();
+        String realName = etName.getText().toString().trim();
+        String address = etAddress.getText().toString().trim();
         switch (view.getId()) {
             case R.id.tv_submit:
                 if (ClickUtil.isFastDoubleClick()) {
                     return;  //防止快速多次点击
+                }
+                if (TextUtils.isEmpty(realName)) {
+                    showToast("请输入姓名");
+                    return;
+                }
+                if (TextUtils.isEmpty(mobile)) {
+                    showToast("请输入手机号");
+                    return;
+                }
+                if (!StringUtil.isMobile(mobile)) {
+                    showToast("手机号输入不正确");
+                    return;
+                }
+                if (TextUtils.isEmpty(address)) {
+                    showToast("请输入联系地址");
+                    return;
                 }
                 createOrder(new Gson().toJson(mData));
                 break;
