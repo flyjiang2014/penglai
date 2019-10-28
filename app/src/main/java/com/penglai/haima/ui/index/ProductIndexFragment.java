@@ -24,6 +24,7 @@ import com.penglai.haima.adapter.ProductAdapter;
 import com.penglai.haima.adapter.ProductForCarAdapter;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
+import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.ProductBean;
 import com.penglai.haima.bean.ProductSelectBean;
 import com.penglai.haima.callback.JsonCallback;
@@ -36,6 +37,10 @@ import com.penglai.haima.widget.MyListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -75,6 +80,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
 
     @Override
     protected void initViewData() {
+        EventBus.getDefault().register(this);
         emptyView = getEmptyView();
         selectedList = new SparseArray<>();
         productAdapter = new ProductAdapter(this, productBeanList);
@@ -359,5 +365,20 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
                 v.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(EventBean data) {
+        switch (data.getEvent()) {
+            case EventBean.TRADE_PAY_SUCCESS:
+                clearCart();
+                break;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }

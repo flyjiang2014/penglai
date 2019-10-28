@@ -122,11 +122,15 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                 });
     }
 
-    private void createOrder(String merclist) {
+    private void createOrder(String merclist, String receiveName, String receiveMobile, String receiveAddress, String receiveNotes) {
         OkGo.<CommonReturnData<TradeBean>>post(Constants.URL_FOR_OTHER + "hot/insertOrderList")
                 .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
                 .params("merclist", merclist)
                 .params("amount", totalMoney)
+                .params("receiveName", receiveName)
+                .params("receiveMobile", receiveMobile)
+                .params("receiveAddress", receiveAddress)
+                .params("receiveNotes", receiveNotes)
                 .execute(new JsonCallback<CommonReturnData<TradeBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<TradeBean> commonReturnData) {
@@ -165,7 +169,8 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                     showToast("请输入联系地址");
                     return;
                 }
-                createOrder(new Gson().toJson(mData));
+                String notes = etNote.getText().toString().trim();
+                createOrder(new Gson().toJson(mData), realName, mobile, address, notes);
                 break;
         }
     }

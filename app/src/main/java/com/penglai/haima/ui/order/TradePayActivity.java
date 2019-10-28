@@ -10,10 +10,14 @@ import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
-import com.penglai.haima.callback.JsonCallback;
+import com.penglai.haima.bean.EventBean;
+import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.utils.ActivityManager;
 import com.penglai.haima.utils.ClickUtil;
 import com.penglai.haima.utils.SharepreferenceUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -67,10 +71,13 @@ public class TradePayActivity extends BaseActivity {
         OkGo.<CommonReturnData<Object>>post(Constants.URL_FOR_OTHER + "hot/payOrderList")
                 .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
                 .params("tradeNo", tradeNo)
-                .execute(new JsonCallback<CommonReturnData<Object>>(this) {
+                .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {
-                        showToast("支付成功");
+                        showToast("扣费成功");
+                        EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS));
+                        ActivityManager.finishActivity(ProductOrderSubmitActivity.class);
+                        finish();
                     }
                 });
     }
