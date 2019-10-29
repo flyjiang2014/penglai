@@ -15,7 +15,7 @@ import com.penglai.haima.R;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.UserInfoBean;
-import com.penglai.haima.callback.JsonCallback;
+import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.config.GlideCircleTransformWithBorder;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.SettingActivity;
@@ -114,7 +114,7 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
      */
     private void getIndexData() {
         OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL + "getUserInfo")
-                .execute(new JsonCallback<CommonReturnData<UserInfoBean>>(getActivity(), true) {
+                .execute(new DialogCallback<CommonReturnData<UserInfoBean>>(getActivity(), true) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
                         UserInfoBean userInfo = commonReturnData.getData();

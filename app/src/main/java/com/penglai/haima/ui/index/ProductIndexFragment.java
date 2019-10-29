@@ -27,7 +27,7 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.ProductBean;
 import com.penglai.haima.bean.ProductSelectBean;
-import com.penglai.haima.callback.JsonCallback;
+import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.order.ProductOrderSubmitActivity;
 import com.penglai.haima.utils.MathUtil;
@@ -150,7 +150,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
      */
     private void getProductListData() {
         OkGo.<CommonReturnData<List<ProductBean>>>post(Constants.URL_FOR_OTHER + "hot/getHotList")
-                .execute(new JsonCallback<CommonReturnData<List<ProductBean>>>(getActivity()) {
+                .execute(new DialogCallback<CommonReturnData<List<ProductBean>>>(getActivity()) {
                     @Override
                     public void onSuccess(CommonReturnData<List<ProductBean>> commonReturnData) {
                         productBeanList.clear();

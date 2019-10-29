@@ -41,7 +41,7 @@ public class SplashActivity extends BaseActivity {
      * 初始化
      */
     private void initScheduler() {
-        mDisposable = Observable.timer(300, TimeUnit.MILLISECONDS) //
+        mDisposable = Observable.timer(1500, TimeUnit.MILLISECONDS) //
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {

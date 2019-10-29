@@ -19,7 +19,7 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.ProductSelectBean;
 import com.penglai.haima.bean.TradeBean;
 import com.penglai.haima.bean.UserInfoBean;
-import com.penglai.haima.callback.JsonCallback;
+import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.ClickUtil;
 import com.penglai.haima.utils.SharepreferenceUtil;
@@ -111,7 +111,7 @@ public class ProductOrderSubmitActivity extends BaseActivity {
      */
     private void getIndexData() {
         OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL + "getUserInfo")
-                .execute(new JsonCallback<CommonReturnData<UserInfoBean>>(this) {
+                .execute(new DialogCallback<CommonReturnData<UserInfoBean>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
                         UserInfoBean userInfo = commonReturnData.getData();
@@ -131,7 +131,7 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                 .params("receiveMobile", receiveMobile)
                 .params("receiveAddress", receiveAddress)
                 .params("receiveNotes", receiveNotes)
-                .execute(new JsonCallback<CommonReturnData<TradeBean>>(this, true) {
+                .execute(new DialogCallback<CommonReturnData<TradeBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<TradeBean> commonReturnData) {
                         Intent intent = new Intent(mContext, TradePayActivity.class);
