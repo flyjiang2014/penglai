@@ -3,7 +3,6 @@ package com.penglai.haima.callback;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
@@ -52,7 +51,6 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         // 还可以在这里对所有的参数进行加密，均在这里实现
         CookieStore cookieStore = OkGo.getInstance().getCookieJar().getCookieStore();
         List<Cookie> allCookie = cookieStore.getAllCookie();
-        Log.e("jiang", allCookie.size() + "");
         if (allCookie.size() > 0) {
             request.headers("Cookie", allCookie.get(0).toString());
             request.headers("Access-Control-Expose-Headers", "sessionstatus");
