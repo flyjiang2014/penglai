@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.penglai.haima.R;
+import com.penglai.haima.utils.SharepreferenceUtil;
+import com.penglai.haima.utils.ToastUtil;
 import com.penglai.haima.widget.loading.LoadingLayout;
 
 /**
@@ -95,6 +97,21 @@ public abstract class BaseFragmentV4 extends Fragment {
 //            initData();
 //        }
 //    }
+
+
+    /**
+     * Toast的显示(默认位置)
+     *
+     * @param message 需要显示的信息
+     */
+    public void showToast(CharSequence message) {
+        ToastUtil.showToast(message);
+    }
+
+    public String getUserMobile() {
+        return SharepreferenceUtil.getString(Constants.MOBILE);
+    }
+
 
     @Override
     public void onDestroyView() {

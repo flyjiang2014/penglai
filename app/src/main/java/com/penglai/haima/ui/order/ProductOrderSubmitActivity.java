@@ -22,7 +22,6 @@ import com.penglai.haima.bean.UserInfoBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.ClickUtil;
-import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.StringUtil;
 
 import java.util.ArrayList;
@@ -124,7 +123,7 @@ public class ProductOrderSubmitActivity extends BaseActivity {
 
     private void createOrder(String merclist, String receiveName, String receiveMobile, String receiveAddress, String receiveNotes) {
         OkGo.<CommonReturnData<TradeBean>>post(Constants.URL_FOR_OTHER + "hot/insertOrderList")
-                .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
+                .params("mobile", getUserMobile())
                 .params("merclist", merclist)
                 .params("amount", totalMoney)
                 .params("receiveName", receiveName)

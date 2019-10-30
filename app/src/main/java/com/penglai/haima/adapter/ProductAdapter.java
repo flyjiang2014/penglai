@@ -49,7 +49,7 @@ public class ProductAdapter extends BaseQuickAdapter<ProductBean, BaseViewHolder
         tv_content.setText(item.getContent());
         tv_model.setText("型号：" + item.getModel());
         tv_number.setText("库存：" + item.getNumber());
-        GlideApp.with(mContext).load(Constants.URL_FOR_PIC + item.getImage_name() + ".jpg").defaultOptions().into(img_pic);
+        GlideApp.with(mContext).load(Constants.URL_FOR_PIC + item.getImage_name() + Constants.PIC_JPG).defaultOptions().into(img_pic);
 
         if (item != null) {
             //默认进来数量

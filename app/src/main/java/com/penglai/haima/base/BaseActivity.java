@@ -20,6 +20,7 @@ import com.penglai.haima.R;
 import com.penglai.haima.utils.ActivityManager;
 import com.penglai.haima.utils.KeyboardUtil;
 import com.penglai.haima.utils.PhoneUtil;
+import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.ToastUtil;
 import com.penglai.haima.widget.loading.LoadingDialog;
 import com.penglai.haima.widget.loading.LoadingLayout;
@@ -280,6 +281,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         dialog.dismiss();
         OkGo.getInstance().cancelTag(TAG); //页面关闭时断开未完成的网络请求
         mUnBinder.unbind();
+    }
+
+    public String getUserMobile() {
+        return SharepreferenceUtil.getString(Constants.MOBILE);
     }
 
     /**

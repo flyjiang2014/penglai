@@ -21,6 +21,7 @@ import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.SettingActivity;
 import com.penglai.haima.ui.charge.ChargePayActivity;
 import com.penglai.haima.ui.charge.ChargeRecordActivity;
+import com.penglai.haima.ui.order.OrderListActivity;
 
 /**
  * Created by ${flyjiang} on 2019/10/22.
@@ -38,6 +39,7 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
     Button btnChargePay;
     LinearLayout llChargeRecord;
     RelativeLayout rlSetting;
+    LinearLayout llMyOrders;
     private int state = -1;
     GlideCircleTransformWithBorder glideCircleTransformWithBorder;
 
@@ -68,11 +70,13 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
         btnChargePay = view.findViewById(R.id.btn_charge_pay);
         llChargeRecord = view.findViewById(R.id.ll_charge_record);
         rlSetting = view.findViewById(R.id.rl_setting);
+        llMyOrders = view.findViewById(R.id.ll_my_orders);
         llPersonInfo.setOnClickListener(this);
         llCustomerManager.setOnClickListener(this);
         llChargeRecord.setOnClickListener(this);
         btnChargePay.setOnClickListener(this);
         rlSetting.setOnClickListener(this);
+        llMyOrders.setOnClickListener(this);
     }
 
     @Override
@@ -99,6 +103,9 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
                 break;
             case R.id.ll_charge_record:
                 startActivity(new Intent(mContext, ChargeRecordActivity.class));
+                break;
+            case R.id.ll_my_orders:
+                startActivity(new Intent(mContext, OrderListActivity.class));
                 break;
             case R.id.btn_charge_pay:
                 startActivity(new Intent(mContext, ChargePayActivity.class));

@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login"></RelativeLayout>
+
+    <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#259ed3">
+        android:src="@drawable/login">
     <ImageView
         android:id="@+id/img_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/bg_login_top" />
+        android:layout_alignParentTop="true" />
     <ImageView
         android:id="@+id/img_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/bg_login_bottom"
         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#259ed3"
+        android:background="@color/white"
         android:layout_marginTop="15dp"
-        android:layout_below="@id/img_top"
+        android:layout_centerInParent="true"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +60,7 @@
                     android:paddingRight="10dp"
                     android:singleLine="true"
                     android:maxLength="11"
-                    android:textColorHint="@color/white"
+                    android:textColorHint="@color/text_grey999"
                     android:textSize="@dimen/text_input_size" />
 
                 <Button
@@ -92,7 +99,7 @@
                     android:maxLength="6"
                     android:paddingRight="10dp"
                     android:singleLine="true"
-                    android:textColorHint="@color/white"
+                    android:textColorHint="@color/text_grey999"
                     android:textSize="@dimen/text_input_size"  />
             </LinearLayout>
 <!--            <include layout="@layout/include_bg_single_line" />-->
@@ -129,33 +136,7 @@
                     android:textSize="14sp"
                     android:text="注册"/>
             </LinearLayout>
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:orientation="horizontal">-->
-<!--                <TextView-->
-<!--                    android:layout_width="60dp"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:gravity="center_vertical"-->
-<!--                    android:text="密码"-->
-<!--                    android:textColor="@color/text_black"-->
-<!--                    android:textSize="14sp" />-->
-<!--                <EditText-->
-<!--                    android:id="@+id/et_pwd"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:background="@null"-->
-<!--                    android:gravity="center_vertical"-->
-<!--                    android:hint="请设置8-20位登录密码"-->
-<!--                    android:inputType="textPassword"-->
-<!--                    android:paddingRight="10dp"-->
-<!--                    android:singleLine="true"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:maxLength="20"-->
-<!--                    android:textColorHint="@color/text_grey999"-->
-<!--                    android:textSize="13sp" />-->
-<!--            </LinearLayout>-->
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
+</FrameLayout>

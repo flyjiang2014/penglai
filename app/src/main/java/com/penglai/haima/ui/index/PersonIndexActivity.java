@@ -20,6 +20,7 @@ import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.SettingActivity;
 import com.penglai.haima.ui.charge.ChargePayActivity;
 import com.penglai.haima.ui.charge.ChargeRecordActivity;
+import com.penglai.haima.ui.order.OrderListActivity;
 import com.penglai.haima.utils.ActivityManager;
 
 import butterknife.BindView;
@@ -50,7 +51,10 @@ public class PersonIndexActivity extends BaseActivity {
     LinearLayout llChargeRecord;
     @BindView(R.id.rl_setting)
     RelativeLayout rlSetting;
+    @BindView(R.id.ll_my_orders)
+    LinearLayout llMyOrders;
     GlideCircleTransformWithBorder glideCircleTransformWithBorder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +101,7 @@ public class PersonIndexActivity extends BaseActivity {
     }
 
     @OnClick({R.id.ll_person_info, R.id.ll_customer_manager, R.id.ll_charge_record, R.id.btn_charge_pay,
-            R.id.title_layout_left, R.id.rl_setting})
+            R.id.title_layout_left, R.id.rl_setting, R.id.ll_my_orders})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.title_layout_left:
@@ -111,6 +115,9 @@ public class PersonIndexActivity extends BaseActivity {
                 break;
             case R.id.ll_charge_record:
                 startActivity(new Intent(mContext, ChargeRecordActivity.class));
+                break;
+            case R.id.ll_my_orders:
+                startActivity(new Intent(mContext, OrderListActivity.class));
                 break;
             case R.id.btn_charge_pay:
                 startActivity(new Intent(mContext, ChargePayActivity.class));

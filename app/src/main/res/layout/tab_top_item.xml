@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--需要使用右上角显示数据使用的布局
+        <TextView
+            android:id="@+id/tab_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingBottom="5dp"
+            android:textSize="15sp"
+            android:paddingTop="5dp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tab_item_notice"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignTop="@+id/tab_item_title"
+            android:layout_toRightOf="@+id/tab_item_title"
+            android:background="@drawable/tab_notice_bg"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="99+"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    -->
+
+
+    <TextView
+        android:id="@+id/tab_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:minWidth="65dp"
+        android:text=""
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tab_item_notice"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/tab_item_title"
+        android:layout_toRightOf="@+id/tab_item_title"
+        android:background="@drawable/tab_notice_bg"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+</RelativeLayout>
