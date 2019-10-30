@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.request.GetRequest;
 import com.penglai.haima.R;
 import com.penglai.haima.adapter.OrderListAdapter;
 import com.penglai.haima.base.BaseFragmentV4;
@@ -73,12 +74,15 @@ public class OrderFragment extends BaseFragmentV4 {
     }
 
     /**
-     * 获取商品列表
+     * 获取订单列表
      */
     private void getOrderListData() {
-        OkGo.<CommonReturnData<List<OrderListBean>>>post(Constants.URL_FOR_OTHER + "hot/queryOrderList")
-                .params("mobile", getUserMobile())
-                .execute(new DialogCallback<CommonReturnData<List<OrderListBean>>>(getActivity()) {
+        GetRequest getRequest = OkGo.<CommonReturnData<List<OrderListBean>>>get(Constants.URL_FOR_OTHER + "hot/queryOrderList")
+                .params("mobile", getUserMobile());
+        if (state >= 0) {
+            getRequest.params("stateApp", state);
+        }
+        getRequest.execute(new DialogCallback<CommonReturnData<List<OrderListBean>>>(getActivity()) {
                     @Override
                     public void onSuccess(CommonReturnData<List<OrderListBean>> commonReturnData) {
                         orderListBeans.clear();

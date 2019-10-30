@@ -3,6 +3,7 @@ package com.penglai.haima.adapter;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.widget.TextView;
 
@@ -30,13 +31,14 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseViewHo
     protected void convert(BaseViewHolder helper, OrderListBean item) {
         TextView tv_time = helper.getView(R.id.tv_time);
         TextView tv_state = helper.getView(R.id.tv_state);
-        TextView tv_details = helper.getView(R.id.tv_details);
+        //     TextView tv_details = helper.getView(R.id.tv_details);
         TextView tv_count_content = helper.getView(R.id.tv_count_content);
         RecyclerView recyclerView = helper.getView(R.id.recyclerView);
         tv_time.setText(item.getInsert_time());
         tv_state.setText(getStateShow(item.getState()));
-        tv_count_content.setText(String.format("共计%s件，合￥:%s", item.getTotal_number(), item.getTotal_price()));
-        tv_details.setText(getCountContent(item.getDetail()));
+        String content = String.format("共计<font  color='#FF0000'>%s</font>件，<font  color='#FF0000'>￥%s</font>", item.getTotal_number(), item.getTotal_price());
+        tv_count_content.setText(Html.fromHtml(content));
+        //     tv_details.setText(getCountContent(item.getDetail()));
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(manager);
@@ -54,7 +56,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseViewHo
         OrderProductItemBean orderProductItemBean;
         for (int i = 0, size = data.size(); i < size; i++) {
             orderProductItemBean = data.get(i);
-            String itemDetail = orderProductItemBean.getTitle() + " " + orderProductItemBean.getContent() + " " + orderProductItemBean.getModel();
+            String itemDetail = orderProductItemBean.getContent() + " " + orderProductItemBean.getTitle() + orderProductItemBean.getModel();
             content.append(TextUtils.isEmpty(content) ? itemDetail : ("," + itemDetail));
         }
         return content.toString();
@@ -83,9 +85,13 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseViewHo
     private String getStateShow(String state) {
         switch (state) {
             case "0":
-                return "已完成";
-            case "1":
                 return "待支付";
+            case "1":
+                return "待发货";
+            case "2":
+                return "待收货";
+            case "3":
+                return "已完成";
         }
         return "";
     }

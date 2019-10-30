@@ -13,7 +13,6 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
-import com.penglai.haima.utils.ActivityManager;
 import com.penglai.haima.utils.ClickUtil;
 import com.penglai.haima.utils.SharepreferenceUtil;
 
@@ -76,7 +75,6 @@ public class TradePayActivity extends BaseActivity {
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {
                         showToast("扣费成功");
                         EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS));
-                        ActivityManager.finishActivity(ProductOrderSubmitActivity.class);
                         finish();
                     }
                 });

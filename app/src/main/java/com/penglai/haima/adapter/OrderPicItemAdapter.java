@@ -27,8 +27,8 @@ public class OrderPicItemAdapter extends BaseQuickAdapter<String, BaseViewHolder
     protected void convert(BaseViewHolder helper, String item) {
         ImageView img_pic = helper.getView(R.id.img_pic);
         ViewGroup.LayoutParams params = img_pic.getLayoutParams();
-        params.width = (PhoneUtil.getScreenWidth(mContext) - ScreenUtil.dip2px(mContext, 30)) / 4; //减去padding值
-        params.height = (PhoneUtil.getScreenWidth(mContext) - ScreenUtil.dip2px(mContext, 30)) / 4;
+        params.width = (PhoneUtil.getScreenWidth(mContext) - ScreenUtil.dip2px(mContext, 30)) / 6; //减去padding值
+        params.height = (PhoneUtil.getScreenWidth(mContext) - ScreenUtil.dip2px(mContext, 30)) / 6;
         img_pic.setLayoutParams(params);
         GlideApp.with(mContext).load(item).defaultOptions().into(img_pic);
     }

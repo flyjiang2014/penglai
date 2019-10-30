@@ -30,7 +30,7 @@ public class OrderListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitleMiddleText("我的订单");
-        for (int i = 0; i < 4; i++) { //添加fragment
+        for (int i = 0; i < 5; i++) { //添加fragment
             OrderFragment fragment = OrderFragment.getInstance(i - 1);
             fragments.add(fragment);
         }
@@ -102,7 +102,7 @@ public class OrderListActivity extends BaseActivity {
             super(fm);
         }
 
-        private final String[] titles = {"全部", "待上线", "上线中", "已下线"};
+        private final String[] titles = {"全部", "待支付", "待发货", "待收货", "已完成"};
 
         @Override
         public CharSequence getPageTitle(int position) {
