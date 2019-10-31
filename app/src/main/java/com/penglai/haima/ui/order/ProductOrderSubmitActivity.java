@@ -16,6 +16,7 @@ import com.penglai.haima.R;
 import com.penglai.haima.adapter.ProductSelectAdapter;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
+import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.ProductSelectBean;
 import com.penglai.haima.bean.TradeBean;
 import com.penglai.haima.bean.UserInfoBean;
@@ -23,6 +24,8 @@ import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.ClickUtil;
 import com.penglai.haima.utils.StringUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -138,6 +141,7 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                         intent.putExtra("balance", commonReturnData.getData().getBalance());
                         intent.putExtra("totalMoney", totalMoney);
                         startActivity(intent);
+                        EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS));
                         finish();
                     }
                 });

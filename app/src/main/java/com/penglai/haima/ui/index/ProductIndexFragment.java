@@ -372,6 +372,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         switch (data.getEvent()) {
             case EventBean.TRADE_PAY_SUCCESS:
                 clearCart();
+                getProductListData();
                 break;
         }
     }

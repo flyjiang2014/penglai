@@ -83,7 +83,6 @@ public class TradePayActivity extends BaseActivity {
                     @Override
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {
                         showToast("扣费成功");
-                        EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS));
                         finish();
                     }
                 });
