@@ -138,6 +138,7 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                         intent.putExtra("balance", commonReturnData.getData().getBalance());
                         intent.putExtra("totalMoney", totalMoney);
                         startActivity(intent);
+                        finish();
                     }
                 });
     }

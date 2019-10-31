@@ -10,6 +10,7 @@ public class EventBean {
     private Object mData;
 
     public static final int TRADE_PAY_SUCCESS = 101;  //下单成功
+    public static final int RECHARGE_PAY_SUCCESS = 102;  //充值成功
 
     public EventBean(int event) {
         this.mEvent = event;

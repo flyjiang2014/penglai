@@ -71,7 +71,7 @@ public class ChargePayActivity extends BaseActivity {
      */
     private void charge_pay(String cashnum) {
         OkGo.<CommonReturnData<WeChatPayResponse>>post(Constants.URL_FOR_OTHER + "order/pay")
-                .params("cashnum", "0.01")
+                .params("cashnum", "1")
                 .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
                 .params("mercid", "001")
                 .execute(new DialogCallback<CommonReturnData<WeChatPayResponse>>(this) {
