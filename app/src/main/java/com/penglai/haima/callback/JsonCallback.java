@@ -54,6 +54,10 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
             request.headers("Cookie", allCookie.get(0).toString());
             request.headers("Access-Control-Expose-Headers", "sessionstatus");
         }
+        request.params("token", SharepreferenceUtil.getString(Constants.TOKEN));
+        if (!request.getParams().urlParamsMap.containsKey("mobile")) { //原来不含mobile这个传参，添加全局的mobile,这边相当于userId使用。
+            request.params("mobile", SharepreferenceUtil.getString(Constants.MOBILE));
+        }
         request.tag(mActivity.getClass().getSimpleName());
     }
 
