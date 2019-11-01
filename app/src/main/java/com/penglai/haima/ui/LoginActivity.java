@@ -110,7 +110,6 @@ public class LoginActivity extends BaseActivity {
                     public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
                         btnGetCode.setBackgroundResource(R.drawable.frame_solid_grey);
                         timeCount.start();
-                        showToast("获取成功");
                     }
                 });
     }
