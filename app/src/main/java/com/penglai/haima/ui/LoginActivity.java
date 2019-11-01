@@ -14,6 +14,7 @@ import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
+import com.penglai.haima.bean.LoginSuccessBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.ImageViewHWRateUtil;
@@ -118,20 +119,20 @@ public class LoginActivity extends BaseActivity {
      * 登录
      *
      * @param mobile  手机号
-     * @param verCode 验证码
+     * @param valCode 验证码
      */
-    private void login(final String mobile, String verCode) {
-        OkGo.<CommonReturnData<Object>>post(Constants.URL + "login")
+    private void login(final String mobile, String valCode) {
+        OkGo.<CommonReturnData<LoginSuccessBean>>post(Constants.URL_FOR_OTHER + "login/validateCode")
                 .params("mobile", mobile)
-                .params("verCode", verCode)
-                .execute(new DialogCallback<CommonReturnData<Object>>(this) {
+                .params("valCode", valCode)
+                .execute(new DialogCallback<CommonReturnData<LoginSuccessBean>>(this) {
                     @Override
-                    public void onSuccess(CommonReturnData<Object> objectCommonReturnData) {
-                        showToast("登录成功");
+                    public void onSuccess(CommonReturnData<LoginSuccessBean> commonReturnData) {
+                        String token = commonReturnData.getData().getToken();
                         etCode.setText("");
                         SharepreferenceUtil.saveBoolean(Constants.IS_GOLIN, true);
                         SharepreferenceUtil.saveString(Constants.MOBILE, mobile);
-                        //   startActivity(new Intent(mContext, PersonIndexActivity.class));
+                        SharepreferenceUtil.saveString(Constants.TOKEN, token);
                         startActivity(new Intent(mContext, Main2Activity.class));
                         finish();
                     }

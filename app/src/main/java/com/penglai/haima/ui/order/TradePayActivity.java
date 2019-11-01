@@ -14,6 +14,7 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.UserInfoBean;
 import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.dialog.MessageShowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.charge.ChargePayActivity;
 import com.penglai.haima.utils.ClickUtil;
@@ -43,6 +44,7 @@ public class TradePayActivity extends BaseActivity {
     private String tradeNo = "";
     private String balance = "";
     private String totalMoney = "";
+    private MessageShowDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +84,16 @@ public class TradePayActivity extends BaseActivity {
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {
-                        showToast("扣费成功");
-                        finish();
+                        dialog = new MessageShowDialog(TradePayActivity.this, new MessageShowDialog.OperateListener() {
+                            @Override
+                            public void sure() {
+                                dialog.dismiss();
+                                TradePayActivity.this.finish();
+                            }
+                        });
+                        dialog.setContentText("交易成功");
+                        dialog.show();
+
                     }
                 });
     }

@@ -2,7 +2,6 @@ package com.penglai.haima.callback;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.TextUtils;
 
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
@@ -78,9 +77,10 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
         Type type = params[0];
         if (!(type instanceof ParameterizedType)) throw new IllegalStateException("没有填写泛型参数");
-        if (TextUtils.equals(response.headers().get("sessionstatus"), "timeout")) {
-            throw new TimeOutException("timeout");
-        }
+
+//        if (TextUtils.equals(response.headers().get("sessionstatus"), "timeout")) {
+//            throw new TimeOutException("timeout");
+//        }
         Type rawType = ((ParameterizedType) type).getRawType();
         JsonReader jsonReader = new JsonReader(response.body().charStream());
         if (rawType == Void.class) {
@@ -94,7 +94,11 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
             if(statue==1){
                 return (T) commonReturnData;
             }else{
-                throw new IllegalStateException("错误代码：" + commonReturnData.getErrorCode() + "，错误信息：" + commonReturnData.getMessage());
+                if (commonReturnData.getErrorCode() != null && Constants.TOKEN_TIMEOUT.equals(commonReturnData.getErrorCode())) {
+                    throw new TimeOutException("token_timeout");
+                } else {
+                    throw new IllegalStateException(commonReturnData.getMessage());
+                }
             }
         }
         else {
@@ -158,6 +162,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
             Intent intent = new Intent(mActivity, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             SharepreferenceUtil.removeKeyValue(Constants.IS_GOLIN);
+            SharepreferenceUtil.removeKeyValue(Constants.TOKEN);
             mActivity.startActivity(intent);
             for (int i = 0, size = activityStack.size(); i < size; i++) {  //关闭登录页面外的其他页面
                 if (null != activityStack.get(i) && !(activityStack.get(i) instanceof LoginActivity)) {
