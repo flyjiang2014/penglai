@@ -120,14 +120,13 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
      * 获取个人主页数据
      */
     private void getIndexData() {
-        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL + "getUserInfo")
+        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL_FOR_OTHER + "getUserInfo")
                 .execute(new JsonCallback<CommonReturnData<UserInfoBean>>(getActivity(), true) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
                         UserInfoBean userInfo = commonReturnData.getData();
-                        tvPersonName.setText(userInfo.getRealName());
+                        tvPersonName.setText(userInfo.getName());
                         tvPersonBalance.setText(userInfo.getBalance() + "元");
-                        tvFreeDelivery.setText(userInfo.getScore() + "次");
                     }
                 });
     }

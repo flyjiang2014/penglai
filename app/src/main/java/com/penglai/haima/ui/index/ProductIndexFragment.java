@@ -136,6 +136,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         getProductListData();
     }
 
+
     public static ProductIndexFragment getInstance(int state) {
         ProductIndexFragment fragment = new ProductIndexFragment();
         Bundle bundle = new Bundle();
@@ -143,7 +144,6 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
     /**
      * 获取商品列表
@@ -372,6 +372,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         switch (data.getEvent()) {
             case EventBean.TRADE_PAY_SUCCESS:
                 clearCart();
+                getProductListData();
                 break;
         }
     }

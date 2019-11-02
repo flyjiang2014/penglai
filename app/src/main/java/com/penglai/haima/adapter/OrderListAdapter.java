@@ -6,14 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.widget.TextView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.penglai.haima.R;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.OrderListBean;
 import com.penglai.haima.bean.OrderProductItemBean;
-
 import java.util.ArrayList;
 import java.util.List;
 

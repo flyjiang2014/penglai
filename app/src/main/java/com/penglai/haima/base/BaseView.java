@@ -2,9 +2,9 @@ package com.penglai.haima.base;
 
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
+
 /**
  * 作者：flyjiang
- * 时间: 2017/11/07 16:30
  * 说明: View基类
  */
 public abstract class BaseView extends LinearLayout implements BaseInitializeStep {
@@ -31,5 +31,9 @@ public abstract class BaseView extends LinearLayout implements BaseInitializeSte
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public BaseActivity getActivity() {
+        return this.mActivity;
     }
 }

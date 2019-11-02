@@ -7,49 +7,50 @@ package com.penglai.haima.bean;
  * "province":null,"city":null,"district":null,"address":"无锡","score":0,"balance":0.00,"cashback":0.00,"version":0
  */
 public class UserInfoBean {
-    private String id;
-    private String creationDate;
-    private String realName;
+
+    private String name;
     private String mobile;
-    private String validationCode;
-    private String cusManCode;
+    private String managerCode;
     private String address;
-    private String score;
     private String balance;
 
-    public String getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public String getRealName() {
-        return realName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getMobile() {
         return mobile;
     }
 
-    public String getValidationCode() {
-        return validationCode;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public String getCusManCode() {
-        return cusManCode;
+    public String getManagerCode() {
+        return managerCode;
+    }
+
+    public void setManagerCode(String managerCode) {
+        this.managerCode = managerCode;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public String getScore() {
-        return score;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getBalance() {
         return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
     }
 }

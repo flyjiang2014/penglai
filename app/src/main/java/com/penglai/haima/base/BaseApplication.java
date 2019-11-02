@@ -131,7 +131,6 @@ public class BaseApplication extends Application {
         HttpHeaders headers = new HttpHeaders();
         HttpParams params = new HttpParams();
         //----------------------------------------------------------------------------------------//
-
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         //log相关
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");

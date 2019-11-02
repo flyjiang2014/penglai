@@ -143,14 +143,14 @@ public class PersonInfoActivity extends BaseActivity {
      * 获取个人主页数据
      */
     private void getPersonInfoData() {
-        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL + "getUserInfo")
+        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL_FOR_OTHER + "getUserInfo")
                 .execute(new DialogCallback<CommonReturnData<UserInfoBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
                         UserInfoBean userInfo = commonReturnData.getData();
-                        etName.setText(userInfo.getRealName());
+                        etName.setText(userInfo.getName());
                         tvMobile.setText(userInfo.getMobile());
-                        etCustomerNo.setText(userInfo.getCusManCode());
+                        etCustomerNo.setText(userInfo.getManagerCode());
                         etAddress.setText(userInfo.getAddress());
                     }
                 });
