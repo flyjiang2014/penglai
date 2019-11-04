@@ -41,7 +41,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:overScrollMode="never" />
     </RelativeLayout>
 
@@ -57,20 +57,44 @@
         android:layout_marginBottom="8dp"
         android:textSize="12sp"
         android:text="内容">
-
     </TextView>
 
     <include layout="@layout/include_bg_single_line" />
 
-    <TextView
-        android:id="@+id/tv_count_content"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textColor="@color/text_grey666"
-        android:gravity="end"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:textSize="14sp"
-        android:text="金额"></TextView>
+        android:gravity="right"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_count_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_grey666"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:gravity="end"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="14sp"
+            android:text="金额"></TextView>
+
+        <TextView
+            android:id="@+id/tv_traces"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:visibility="visible"
+            android:background="@drawable/frame_solid_red"
+            android:layout_marginRight="10dp"
+            android:textSize="14sp"
+            android:text="查看物流"></TextView>
+    </LinearLayout>
 </LinearLayout>

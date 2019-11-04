@@ -64,6 +64,14 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
 
             }
         });
+        orderListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.tv_traces) {
+                    showToast("点击");
+                }
+            }
+        });
     }
 
     @Override

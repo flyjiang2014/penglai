@@ -5,13 +5,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.penglai.haima.R;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.OrderListBean;
 import com.penglai.haima.bean.OrderProductItemBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +34,14 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseViewHo
         TextView tv_state = helper.getView(R.id.tv_state);
         //     TextView tv_details = helper.getView(R.id.tv_details);
         TextView tv_count_content = helper.getView(R.id.tv_count_content);
+        TextView tv_traces = helper.getView(R.id.tv_traces);
         RecyclerView recyclerView = helper.getView(R.id.recyclerView);
         tv_time.setText(item.getInsert_time());
         tv_state.setText(getStateShow(item.getState()));
         String content = String.format("共计<font  color='#FF0000'>%s</font>件，<font  color='#FF0000'>￥%s</font>", item.getTotal_number(), item.getTotal_price());
         tv_count_content.setText(Html.fromHtml(content));
-        //     tv_details.setText(getCountContent(item.getDetail()));
+        tv_traces.setVisibility(TextUtils.isEmpty(item.getKd_no()) ? View.VISIBLE : View.VISIBLE);
+        helper.addOnClickListener(R.id.tv_traces);
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(manager);
