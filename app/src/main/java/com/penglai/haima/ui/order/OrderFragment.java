@@ -1,11 +1,13 @@
 package com.penglai.haima.ui.order;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.request.GetRequest;
 import com.penglai.haima.R;
@@ -17,15 +19,19 @@ import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.penglai.haima.base.BaseActivity.PULL_DOWN_TIME;
 
 /**
  * Created by  on 2019/10/30.
  * 文件说明：
  */
-public class OrderFragment extends BaseFragmentV4 {
+public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
 
     private SmartRefreshLayout smartRefreshLayout;
     private RecyclerView recyclerView;
@@ -51,7 +57,13 @@ public class OrderFragment extends BaseFragmentV4 {
         recyclerView.addItemDecoration(new DividerItemDecoration(R.drawable.divider_drawable_8dp, mContext));
         recyclerView.setAdapter(orderListAdapter);
         smartRefreshLayout.setEnableLoadMore(false);
-        smartRefreshLayout.setEnableRefresh(false);
+        smartRefreshLayout.setEnableRefresh(true);
+        orderListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
     }
 
     @Override
@@ -77,12 +89,12 @@ public class OrderFragment extends BaseFragmentV4 {
      * 获取订单列表
      */
     private void getOrderListData() {
-        GetRequest getRequest = OkGo.<CommonReturnData<List<OrderListBean>>>get(Constants.URL_FOR_OTHER + "hot/queryOrderList")
+        GetRequest<CommonReturnData<List<OrderListBean>>> request = OkGo.<CommonReturnData<List<OrderListBean>>>get(Constants.URL_FOR_OTHER + "hot/queryOrderList")
                 .params("mobile", getUserMobile());
         if (state >= 0) {
-            getRequest.params("stateApp", state);
+            request.params("stateApp", state);
         }
-        getRequest.execute(new DialogCallback<CommonReturnData<List<OrderListBean>>>(getActivity()) {
+        request.execute(new DialogCallback<CommonReturnData<List<OrderListBean>>>(getActivity()) {
                     @Override
                     public void onSuccess(CommonReturnData<List<OrderListBean>> commonReturnData) {
                         orderListBeans.clear();
@@ -93,5 +105,17 @@ public class OrderFragment extends BaseFragmentV4 {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+        refreshLayout.getLayout().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getOrderListData();
+                refreshLayout.finishRefresh();
+                refreshLayout.setNoMoreData(false);
+            }
+        }, PULL_DOWN_TIME);
     }
 }

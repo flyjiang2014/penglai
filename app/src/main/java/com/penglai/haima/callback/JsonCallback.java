@@ -171,7 +171,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         } else if (e instanceof HttpException) {
             ToastUtil.showToast(e.getMessage());
         } else if (e instanceof TimeOutException) {
-            showDialog();
+            showLoginOutDialog();
 //            ToastUtil.showToast("重新登录");
 //            Intent intent = new Intent(mActivity, LoginActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -188,8 +188,11 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
 
     public abstract void onSuccess(T t);
 
+    /**
+     * 退出登录
+     */
     @SuppressLint("CheckResult")
-    public void showDialog() {
+    private void showLoginOutDialog() {
         final MessageShowDialog dialog = new MessageShowDialog((BaseActivity) mActivity);
         dialog.setContentText("您的登录信息已过期，\n请重新登录");
         dialog.setViewStatue();
