@@ -33,10 +33,12 @@ import com.penglai.haima.ui.order.ProductOrderSubmitActivity;
 import com.penglai.haima.utils.MathUtil;
 import com.penglai.haima.utils.ToastUtil;
 import com.penglai.haima.widget.DividerItemDecoration;
+import com.penglai.haima.widget.GlideImageLoader;
 import com.penglai.haima.widget.MyListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.youth.banner.Banner;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -64,6 +66,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     private BottomSheetLayout bottomSheetLayout;
     private TextView tv_car;
     private TextView tv_go_charge, tv_total_money;
+    private Banner banner;
     Double totalMoney = 0d;
     private TextView tv_show_num;
     private SparseArray<ProductBean> selectedList;
@@ -90,10 +93,21 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         smartRefreshLayout.setOnRefreshListener(this);
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setEnableRefresh(false);
+        List<String> images = new ArrayList<>();
+        images.add(Constants.URL_FOR_PIC + "banner/banner1.png");
+        images.add(Constants.URL_FOR_PIC + "banner/banner2.png");
+        images.add(Constants.URL_FOR_PIC + "banner/banner3.png");
+        images.add(Constants.URL_FOR_PIC + "banner/banner4.png");
+        images.add(Constants.URL_FOR_PIC + "banner/banner5.png");
+        banner.setImageLoader(new GlideImageLoader());
+        banner.setImages(images);
+
+        banner.start();
     }
 
     private void initView(View view) {
         recyclerView = view.findViewById(R.id.recyclerView);
+        banner = view.findViewById(R.id.banner);
         smartRefreshLayout = view.findViewById(R.id.smartRefreshLayout);
         bottomSheetLayout = view.findViewById(R.id.bottomSheetLayout);
         tv_total_money = view.findViewById(R.id.tv_total_money);

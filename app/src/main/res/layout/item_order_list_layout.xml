@@ -100,7 +100,7 @@
             android:id="@+id/tv_go_pay"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_grey333"
+            android:textColor="@color/white"
             android:layout_marginTop="5dp"
             android:gravity="center"
             android:paddingTop="4dp"

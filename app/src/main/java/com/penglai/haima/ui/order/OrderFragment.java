@@ -73,8 +73,8 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.tv_traces) {
-                    //   getTracesInfo(orderListBeans.get(position).getKd_company(),orderListBeans.get(position).getKd_no());
-                    getTracesInfo("YTO", "YT2018589953982");
+                    getTracesInfo(orderListBeans.get(position).getKd_company(), orderListBeans.get(position).getKd_no());
+                    // getTracesInfo("YTO", "YT2018589953982");
                 } else if (view.getId() == R.id.tv_go_pay) {
                     Intent intent = new Intent(mContext, TradePayActivity.class);
                     intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
