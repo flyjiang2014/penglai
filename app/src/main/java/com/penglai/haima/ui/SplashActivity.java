@@ -48,7 +48,7 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void accept(@NonNull Long aLong) throws Exception {
                         Intent intent = new Intent();
-                        if (SharepreferenceUtil.getBoolean(Constants.IS_GOLIN)) {
+                        if (SharepreferenceUtil.getBoolean(Constants.IS_LOGIN)) {
                             intent.setClass(SplashActivity.this, Main2Activity.class);
                         } else {
                             intent.setClass(SplashActivity.this, LoginActivity.class);

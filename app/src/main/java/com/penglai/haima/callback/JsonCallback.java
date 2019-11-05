@@ -175,7 +175,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
 //            ToastUtil.showToast("重新登录");
 //            Intent intent = new Intent(mActivity, LoginActivity.class);
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            SharepreferenceUtil.removeKeyValue(Constants.IS_GOLIN);
+//            SharepreferenceUtil.removeKeyValue(Constants.IS_LOGIN);
 //            SharepreferenceUtil.removeKeyValue(Constants.TOKEN);
 //            mActivity.startActivity(intent);
 //            for (int i = 0, size = activityStack.size(); i < size; i++) {  //关闭登录页面外的其他页面
@@ -206,7 +206,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
                         dialog.dismiss();
                         Intent intent = new Intent(mActivity, LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        SharepreferenceUtil.removeKeyValue(Constants.IS_GOLIN);
+                        SharepreferenceUtil.removeKeyValue(Constants.IS_LOGIN);
                         SharepreferenceUtil.removeKeyValue(Constants.TOKEN);
                         mActivity.startActivity(intent);
                         for (int i = 0, size = activityStack.size(); i < size; i++) {  //关闭登录页面外的其他页面

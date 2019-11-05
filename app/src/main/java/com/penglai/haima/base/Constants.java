@@ -11,7 +11,7 @@ public class Constants {
     public final static String PIC_JPG = ".jpg";
     public final static String MOBILE = "mobile";
     public final static String TOKEN = "token";
-    public final static String IS_GOLIN = "is_login";
+    public final static String IS_LOGIN = "is_login";
     public final static String TOKEN_TIMEOUT = "LG0001";
     public static final String WECHAT_APP_ID = "wxccfc962edd5bea78";
 }

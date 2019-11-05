@@ -45,7 +45,7 @@ public class SettingActivity extends BaseActivity {
             case R.id.ll_about_us:
                 break;
             case R.id.tv_login_out:
-                SharepreferenceUtil.removeKeyValue(Constants.IS_GOLIN);
+                SharepreferenceUtil.removeKeyValue(Constants.IS_LOGIN);
                 SharepreferenceUtil.removeKeyValue(Constants.TOKEN);
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);

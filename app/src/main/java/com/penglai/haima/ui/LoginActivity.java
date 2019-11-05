@@ -129,7 +129,7 @@ public class LoginActivity extends BaseActivity {
                     public void onSuccess(CommonReturnData<LoginSuccessBean> commonReturnData) {
                         String token = commonReturnData.getData().getToken();
                         etCode.setText("");
-                        SharepreferenceUtil.saveBoolean(Constants.IS_GOLIN, true);
+                        SharepreferenceUtil.saveBoolean(Constants.IS_LOGIN, true);
                         SharepreferenceUtil.saveString(Constants.MOBILE, mobile);
                         SharepreferenceUtil.saveString(Constants.TOKEN, token);
                         startActivity(new Intent(mContext, Main2Activity.class));
