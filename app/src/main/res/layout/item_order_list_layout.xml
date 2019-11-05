@@ -83,12 +83,11 @@
 
         <TextView
             android:id="@+id/tv_traces"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_marginTop="5dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:gravity="center"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
             android:visibility="visible"
@@ -96,5 +95,20 @@
             android:layout_marginRight="10dp"
             android:textSize="14sp"
             android:text="查看物流"></TextView>
+
+        <TextView
+            android:id="@+id/tv_go_pay"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_grey333"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:visibility="visible"
+            android:background="@drawable/frame_solid_grey_sec"
+            android:layout_marginRight="10dp"
+            android:textSize="14sp"
+            android:text="去支付"></TextView>
     </LinearLayout>
 </LinearLayout>

@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
  */
 public abstract class BaseView extends LinearLayout implements BaseInitializeStep {
 
-    private BaseActivity mActivity;
+    protected BaseActivity mActivity;
     protected String tag = "";
 
     public BaseView(BaseActivity activity) {

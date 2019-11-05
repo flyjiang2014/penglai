@@ -1,5 +1,6 @@
 package com.penglai.haima.ui.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,10 +13,13 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.request.GetRequest;
 import com.penglai.haima.R;
 import com.penglai.haima.adapter.OrderListAdapter;
+import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.OrderListBean;
+import com.penglai.haima.bean.TraceBean;
 import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.dialog.TraceFlowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -39,6 +43,7 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
     private int state = -1; // 0：待上线，1:上线中,2:已下线  -1 全部（自定义状态）
     List<OrderListBean> orderListBeans = new ArrayList<>();
     OrderListAdapter orderListAdapter;
+    TraceFlowDialog traceFlowDialog;
 
     @Override
     protected View initView(LayoutInflater inflater) {
@@ -68,10 +73,35 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.tv_traces) {
-                    showToast("点击");
+                    //   getTracesInfo(orderListBeans.get(position).getKd_company(),orderListBeans.get(position).getKd_no());
+                    getTracesInfo("YTO", "YT2018589953982");
+                } else if (view.getId() == R.id.tv_go_pay) {
+                    Intent intent = new Intent(mContext, TradePayActivity.class);
+                    intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
+                    intent.putExtra("totalMoney", orderListBeans.get(position).getTotal_price());
+                    intent.putExtra("hasNoBalance", true);
+                    startActivity(intent);
                 }
             }
         });
+    }
+
+    /**
+     * 获取物流信息
+     *
+     * @param
+     */
+    private void getTracesInfo(String company, final String no) {
+        OkGo.<CommonReturnData<TraceBean>>get(Constants.URL_FOR_OTHER + "express/query")
+                .params("company", company)
+                .params("no", no)
+                .execute(new DialogCallback<CommonReturnData<TraceBean>>(getActivity()) {
+                    @Override
+                    public void onSuccess(CommonReturnData<TraceBean> commonReturnData) {
+                        traceFlowDialog = new TraceFlowDialog((BaseActivity) getActivity(), commonReturnData.getData(), no);
+                        traceFlowDialog.show();
+                    }
+                });
     }
 
     @Override

@@ -79,6 +79,7 @@ dependencies {
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     implementation 'me.majiajie:pager-bottom-tab-strip:+'
     implementation 'com.flipboard:bottomsheet-core:1.5.1'
+    implementation 'com.youth.banner:banner:1.4.10'
 }
 // 强制统一版本
 configurations.all {

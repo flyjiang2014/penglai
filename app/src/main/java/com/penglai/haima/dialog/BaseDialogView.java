@@ -21,7 +21,7 @@ public abstract class BaseDialogView extends BaseView {
         super(activity);
         dialog = new Dialog(getActivity(), R.style.MyDialog);
         dialog.setContentView(this);
-        dialog.setCancelable(true);
+        dialog.setCancelable(false);
     }
 
     public BaseDialogView(BaseActivity activity, int style) {

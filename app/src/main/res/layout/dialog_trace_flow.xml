@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:maxHeight="200dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/frame_solid_white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/frame_solid_grey_third"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="签收"
+                android:textColor="@color/text_grey333"
+                android:textSize="18sp"></TextView>
+
+            <TextView
+                android:id="@+id/tv_trace_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text=""
+                android:textColor="@color/text_grey666"
+                android:textSize="12sp"></TextView>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="100dp"
+            android:paddingBottom="8dp">
+
+            <com.penglai.haima.widget.MaxHeightRecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:maxHeight="380dp"></com.penglai.haima.widget.MaxHeightRecyclerView>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_below="@id/ll_up"
+        android:layout_centerHorizontal="true"
+        android:background="@color/transparent">
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:src="@drawable/close"></ImageView>
+    </LinearLayout>
+</RelativeLayout>

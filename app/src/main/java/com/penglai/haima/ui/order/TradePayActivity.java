@@ -6,7 +6,6 @@ import android.text.Html;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
@@ -19,11 +18,9 @@ import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.charge.ChargePayActivity;
 import com.penglai.haima.utils.ClickUtil;
 import com.penglai.haima.utils.SharepreferenceUtil;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -45,6 +42,7 @@ public class TradePayActivity extends BaseActivity {
     private String balance = "";
     private String totalMoney = "";
     private MessageShowDialog dialog;
+    private boolean hasNoBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +59,24 @@ public class TradePayActivity extends BaseActivity {
     public void init() {
         EventBus.getDefault().register(this);
         tradeNo = getIntent().getStringExtra("tradeNo");
-        balance = getIntent().getStringExtra("balance");
         totalMoney = getIntent().getStringExtra("totalMoney");
         tvPayMoney.setText(("￥" + totalMoney));
-        String details = String.format("从账户个人余额（<font  color='#FF0000'>￥%s</font>）中扣除", balance);
-        tvLeftMoney.setText(Html.fromHtml(details));
-        if (Integer.parseInt(totalMoney) > Integer.parseInt(balance)) {//支付金额大于余额
-            tvNoMoney.setVisibility(View.VISIBLE);
-            rlCharge.setEnabled(false);
-            rlCharge.setBackgroundResource(R.drawable.frame_solid_grey);
-            rlGoPay.setVisibility(View.VISIBLE);
+        hasNoBalance = getIntent().getBooleanExtra("hasNoBalance", false);
+        if (hasNoBalance) {
+            getIndexData();
+        } else {
+            balance = getIntent().getStringExtra("balance");
+            String details = String.format("从账户个人余额（<font  color='#FF0000'>￥%s</font>）中扣除", balance);
+            tvLeftMoney.setText(Html.fromHtml(details));
+            if (Integer.parseInt(totalMoney) > Integer.parseInt(balance)) {//支付金额大于余额
+                tvNoMoney.setVisibility(View.VISIBLE);
+                rlCharge.setEnabled(false);
+                rlCharge.setBackgroundResource(R.drawable.frame_solid_grey);
+                rlGoPay.setVisibility(View.VISIBLE);
+            }
         }
     }
+
 
     /**
      * 支付
@@ -84,6 +88,7 @@ public class TradePayActivity extends BaseActivity {
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                        EventBus.getDefault().post(new EventBean(EventBean.ORDER_REPAY_SUCCESS));//待支付订单支付
                         dialog = new MessageShowDialog(TradePayActivity.this, new MessageShowDialog.OperateListener() {
                             @Override
                             public void sure() {
@@ -93,7 +98,6 @@ public class TradePayActivity extends BaseActivity {
                         });
                         dialog.setContentText("交易成功");
                         dialog.show();
-
                     }
                 });
     }
@@ -127,7 +131,7 @@ public class TradePayActivity extends BaseActivity {
      */
     private void getIndexData() {
         OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL_FOR_OTHER + "getUserInfo")
-                .execute(new DialogCallback<CommonReturnData<UserInfoBean>>(this) {
+                .execute(new DialogCallback<CommonReturnData<UserInfoBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
                         UserInfoBean userInfo = commonReturnData.getData();
@@ -147,6 +151,12 @@ public class TradePayActivity extends BaseActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void reLoadData() {
+        super.reLoadData();
+        getIndexData();
     }
 
     @Override

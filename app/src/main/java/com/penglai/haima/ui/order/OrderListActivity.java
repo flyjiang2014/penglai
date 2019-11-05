@@ -10,7 +10,12 @@ import android.util.TypedValue;
 
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
+import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.widget.PagerSlidingTabStrip;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +46,10 @@ public class OrderListActivity extends BaseActivity {
         return R.layout.activity_order_list;
     }
 
+
     @Override
     public void init() {
+        EventBus.getDefault().register(this);
         dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
@@ -118,5 +125,20 @@ public class OrderListActivity extends BaseActivity {
         public Fragment getItem(int position) {
             return fragments.get(position);
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(EventBean data) {
+        switch (data.getEvent()) {
+            case EventBean.ORDER_REPAY_SUCCESS:
+                fragments.get(viewPager.getCurrentItem()).initData();
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
