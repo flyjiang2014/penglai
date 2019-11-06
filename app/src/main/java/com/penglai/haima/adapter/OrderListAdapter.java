@@ -1,10 +1,12 @@
 package com.penglai.haima.adapter;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,7 +16,6 @@ import com.penglai.haima.R;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.OrderListBean;
 import com.penglai.haima.bean.OrderProductItemBean;
-import com.penglai.haima.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,9 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseViewHo
         super(R.layout.item_order_list_layout, data);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void convert(BaseViewHolder helper, OrderListBean item) {
+    protected void convert(final BaseViewHolder helper, OrderListBean item) {
         TextView tv_time = helper.getView(R.id.tv_time);
         TextView tv_state = helper.getView(R.id.tv_state);
         TextView tv_count_content = helper.getView(R.id.tv_count_content);
@@ -50,13 +52,16 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseViewHo
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(manager);
         OrderPicItemAdapter orderPicItemAdapter = new OrderPicItemAdapter(getPics(item.getDetail()));
-        orderPicItemAdapter.setOnItemClickListener(new OnItemClickListener() {
+        recyclerView.setAdapter(orderPicItemAdapter);
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtil.showToast("测试");
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    helper.getView(R.id.ll_whole).performClick();//模拟父控件的点击
+                }
+                return false;
             }
         });
-        recyclerView.setAdapter(orderPicItemAdapter);
     }
 
     /**
