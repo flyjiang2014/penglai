@@ -2,7 +2,6 @@ package com.penglai.haima.ui.order;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -149,7 +148,7 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
     }
 
     @Override
-    public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+    public void onRefresh(final RefreshLayout refreshLayout) {
         refreshLayout.getLayout().postDelayed(new Runnable() {
             @Override
             public void run() {

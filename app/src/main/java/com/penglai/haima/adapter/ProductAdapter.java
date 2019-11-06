@@ -1,6 +1,5 @@
 package com.penglai.haima.adapter;
 
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -27,7 +26,7 @@ import java.util.List;
 public class ProductAdapter extends BaseQuickAdapter<ProductBean, BaseViewHolder> {
     ProductIndexFragment fragment;
 
-    public ProductAdapter(ProductIndexFragment fragment, @Nullable List<ProductBean> data) {
+    public ProductAdapter(ProductIndexFragment fragment, List<ProductBean> data) {
         super(R.layout.item_product_layout, data);
         this.fragment = fragment;
     }

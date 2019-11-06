@@ -1,7 +1,6 @@
 package com.penglai.haima.adapter;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -9,16 +8,15 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.penglai.haima.R;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.OrderListBean;
 import com.penglai.haima.bean.OrderProductItemBean;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by  on 2019/10/30.
@@ -26,7 +24,7 @@ import java.util.List;
  */
 public class OrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseViewHolder> {
 
-    public OrderListAdapter(@Nullable List<OrderListBean> data) {
+    public OrderListAdapter(List<OrderListBean> data) {
         super(R.layout.item_order_list_layout, data);
     }
 

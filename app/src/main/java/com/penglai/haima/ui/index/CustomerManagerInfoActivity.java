@@ -59,7 +59,7 @@ public class CustomerManagerInfoActivity extends BaseActivity {
      * 获取客户经理数据
      */
     private void getManagerInfoData() {
-        OkGo.<CommonReturnData<ManagerInfoBean>>post(Constants.URL + "getCusManInfo")
+        OkGo.<CommonReturnData<ManagerInfoBean>>post(Constants.URL + "getCusManInfoForApp")
                 .execute(new DialogCallback<CommonReturnData<ManagerInfoBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<ManagerInfoBean> commonReturnData) {
