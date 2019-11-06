@@ -14,6 +14,7 @@ import com.penglai.haima.R;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.OrderListBean;
 import com.penglai.haima.bean.OrderProductItemBean;
+import com.penglai.haima.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +45,18 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseViewHo
         tv_go_pay.setVisibility("0".equals(item.getState()) ? View.VISIBLE : View.GONE);
         helper.addOnClickListener(R.id.tv_traces);
         helper.addOnClickListener(R.id.tv_go_pay);
+        helper.addOnClickListener(R.id.rl_recyclerView);
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(new OrderPicItemAdapter(getPics(item.getDetail())));
+        OrderPicItemAdapter orderPicItemAdapter = new OrderPicItemAdapter(getPics(item.getDetail()));
+        orderPicItemAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ToastUtil.showToast("测试");
+            }
+        });
+        recyclerView.setAdapter(orderPicItemAdapter);
     }
 
     /**

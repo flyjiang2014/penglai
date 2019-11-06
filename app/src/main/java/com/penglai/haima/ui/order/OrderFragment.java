@@ -66,9 +66,12 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
         orderListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                Intent intent = new Intent(mContext, OrderDetailsActivity.class);
+                intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
+                startActivity(intent);
             }
         });
+
         orderListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

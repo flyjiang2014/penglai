@@ -33,16 +33,15 @@
     <include layout="@layout/include_bg_single_line" />
 
     <RelativeLayout
+        android:id="@+id/rl_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp"
         android:paddingTop="8dp">
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never" />
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
     <TextView
