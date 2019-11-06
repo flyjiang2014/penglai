@@ -26,13 +26,13 @@
                 <View
                     android:id="@+id/view"
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                    android:layout_height="25dp"
                     android:background="@color/title_layout_bg"></View>
 
                 <com.youth.banner.Banner
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
-                    android:layout_height="170dp"
+                    android:layout_height="150dp"
                     android:layout_marginBottom="5dp" />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -47,7 +47,7 @@
     <RelativeLayout
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@color/white"
         android:layout_alignParentBottom="true">
 

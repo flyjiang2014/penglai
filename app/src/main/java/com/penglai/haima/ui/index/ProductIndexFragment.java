@@ -67,10 +67,10 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     private TextView tv_car;
     private TextView tv_go_charge, tv_total_money;
     private Banner banner;
-    Double totalMoney = 0d;
+    private Double totalMoney = 0d;
     private TextView tv_show_num;
     private SparseArray<ProductBean> selectedList;
-    ProductForCarAdapter productForCarAdapter;//底部购物车的adapter
+    private ProductForCarAdapter productForCarAdapter;//底部购物车的adapter
 
     @Override
     protected View initView(LayoutInflater inflater) {

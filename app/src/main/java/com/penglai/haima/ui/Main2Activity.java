@@ -56,13 +56,6 @@ public class Main2Activity extends BaseActivity {
                 .addItem(newItem(R.drawable.index_unselect, R.drawable.index_select, "商品"))
                 .addItem(newItem(R.drawable.me_unselect, R.drawable.me_select, "我的"))
                 .build();
-//         final  String s1 ="http://218.90.187.218:8888/upload/img/shopmaintype/20190529/6818b0e5d100480eaf1236c6142ee4e7.png";
-//         final String s2 ="http://218.90.187.218:8888/upload/img/shopmaintype/20190529/d6b1099226ac4820aca27c5b66a18235.png";
-//         Drawable d1 = loadImageFromNetwork(s1);
-//         Drawable d2 = loadImageFromNetwork(s2);
-//         navigationController.setDefaultDrawable(0,d1);
-//         navigationController.setSelectedDrawable(0,d2);
-
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
