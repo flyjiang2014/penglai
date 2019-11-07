@@ -12,6 +12,7 @@ import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.ui.index.PersonIndexFragment;
 import com.penglai.haima.ui.index.ProductIndexFragment;
+import com.penglai.haima.utils.ActivityManager;
 import com.penglai.haima.utils.AndroidWorkaround;
 
 import java.util.ArrayList;
@@ -126,6 +127,22 @@ public class Main2Activity extends BaseActivity {
         super.onRestart();
         if (viewPager.getCurrentItem() == 1) {
             fragments.get(viewPager.getCurrentItem()).initData();
+        }
+    }
+
+    /**
+     * 连续按两次返回键关闭程序
+     */
+    private long mExitClickTime = 0;
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - mExitClickTime > 2000) {
+            showToast("再按一次返回键关闭程序");
+            mExitClickTime = System.currentTimeMillis();
+        } else {
+            ActivityManager.finishAllActivity();
+            System.exit(0);
         }
     }
 

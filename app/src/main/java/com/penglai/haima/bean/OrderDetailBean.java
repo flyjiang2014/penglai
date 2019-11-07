@@ -1,5 +1,8 @@
 package com.penglai.haima.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by  on 2019/11/6.
  * 文件说明：
@@ -11,7 +14,7 @@ public class OrderDetailBean {
     private String state = "";
     private String receiveNotes = "";
     private String receiveMobile = "";
-    //  private List<ProductSelectBean> merclist = new ArrayList<>();
+    private List<ProductSelectBean> merclist = new ArrayList<>();
 
     public String getAmount() {
         return amount;
@@ -61,11 +64,11 @@ public class OrderDetailBean {
         this.receiveMobile = receiveMobile;
     }
 
-//    public List<ProductSelectBean> getMerclist() {
-//        return merclist;
-//    }
-//
-//    public void setMerclist(List<ProductSelectBean> merclist) {
-//        this.merclist = merclist;
-//    }
+    public List<ProductSelectBean> getMerclist() {
+        return merclist;
+    }
+
+    public void setMerclist(List<ProductSelectBean> merclist) {
+        this.merclist = merclist;
+    }
 }

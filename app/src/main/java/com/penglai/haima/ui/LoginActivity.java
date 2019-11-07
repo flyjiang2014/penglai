@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lzy.okgo.OkGo;
@@ -17,7 +16,6 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.LoginSuccessBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
-import com.penglai.haima.utils.ImageViewHWRateUtil;
 import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.StringUtil;
 
@@ -35,10 +33,6 @@ public class LoginActivity extends BaseActivity {
     TextView tvLogin;
     @BindView(R.id.tv_register)
     TextView tvRegister;
-    @BindView(R.id.img_top)
-    ImageView imgTop;
-    @BindView(R.id.img_bottom)
-    ImageView imgBottom;
     private TimeCount timeCount;
 
     @Override
@@ -54,8 +48,6 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void init() {
-        ImageViewHWRateUtil.setHeightWidthRate(mContext, imgTop, 1.61);//1256/781
-        ImageViewHWRateUtil.setHeightWidthRate(mContext, imgBottom, 1.44);//1256/875
         timeCount = new TimeCount(60000, 1000);// 构造CountDownTimer对象
         etMobile.setText(SharepreferenceUtil.getString(Constants.MOBILE));
     }
