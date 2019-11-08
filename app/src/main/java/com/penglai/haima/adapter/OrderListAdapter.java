@@ -30,6 +30,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseViewHo
         super(R.layout.item_order_list_layout, data);
     }
 
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void convert(final BaseViewHolder helper, OrderListBean item) {
@@ -62,7 +63,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseViewHo
                         init_x = event.getX();
                         break;
                     case MotionEvent.ACTION_UP:
-                        if (Math.abs(init_x - event.getX()) < 10) {//说明时点击，而不是滑动
+                        if (Math.abs(init_x - event.getX()) < 10) {//说明是点击，而不是滑动
                             helper.getView(R.id.ll_whole).performClick();
                         }
                         break;

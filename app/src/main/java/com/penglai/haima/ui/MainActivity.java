@@ -62,6 +62,7 @@ public class MainActivity extends BaseActivity {
                 .addItem(newItem(R.drawable.me_unselect, R.drawable.me_select, "我的"))
                 .build();
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        navigationController.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -69,7 +70,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (fragments.get(position).getVisibleTimes() > 1 && position == 1) {
+                if (fragments.get(position).getVisibleTimes() > 1 && position == 2) {
                     fragments.get(position).initData();
                 }
             }
@@ -92,42 +93,8 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-//    private Drawable loadImageFromNetwork(String imageUrl)
-//    {
-//        Drawable drawable = null;
-//        try {
-//            // 可以在这里通过文件名来判断，是否本地有此图片
-//            drawable = Drawable.createFromStream(
-//                    new URL(imageUrl).openStream(), "image.jpg");
-//        } catch (IOException e) {
-//            Log.d("test", e.getMessage());
-//        }
-//        if (drawable == null) {
-//            Log.d("test", "null drawable");
-//        } else {
-//            Log.d("test", "not null drawable");
-//        }
-//
-//        return drawable ;
-//    }
-//    public  Drawable getDrawable(String urlpath){
-//        Drawable drawable = null;
-//        try {
-//            URL url = new URL(urlpath);
-//            URLConnection conn = url.openConnection();
-//            conn.connect();
-//            InputStream in;
-//            in = conn.getInputStream();
-//            drawable = Drawable.createFromStream(in, "background");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return drawable;
-//    }
-
-
     @Override
-    protected void onRestart() { //返回列表页面刷新数据
+    protected void onRestart() {
         super.onRestart();
         if (viewPager.getCurrentItem() == 2) {
             fragments.get(viewPager.getCurrentItem()).initData();
@@ -166,7 +133,7 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override

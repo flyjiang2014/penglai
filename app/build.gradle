@@ -80,6 +80,7 @@ dependencies {
     implementation 'me.majiajie:pager-bottom-tab-strip:+'
     implementation 'com.flipboard:bottomsheet-core:1.5.1'
     implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
 }
 // 强制统一版本
 configurations.all {

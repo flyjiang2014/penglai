@@ -1,52 +1,48 @@
 package com.penglai.haima.ui.index;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.view.ViewGroup;
 
+import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
-import com.penglai.haima.bean.UserInfoBean;
-import com.penglai.haima.callback.JsonCallback;
-import com.penglai.haima.config.GlideCircleTransformWithBorder;
+import com.penglai.haima.bean.ServiceTypeBean;
+import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
-import com.penglai.haima.ui.SettingActivity;
-import com.penglai.haima.ui.charge.ChargePayActivity;
-import com.penglai.haima.ui.charge.ChargeRecordActivity;
-import com.penglai.haima.ui.order.OrderListActivity;
+import com.penglai.haima.utils.PhoneUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ${flyjiang} on 2019/10/22.
  * 文件说明：
  */
-public class ServiceIndexFragment extends BaseFragmentV4 implements View.OnClickListener {
-    ImageView imgHead;
-    LinearLayout llPersonInfo;
-    LinearLayout llCustomerManager;
-    TextView tvPersonBalance;
-    LinearLayout llPersonBalance;
-    TextView tvFreeDelivery;
-    LinearLayout llFreeDelivery;
-    TextView tvPersonName;
-    Button btnChargePay;
-    LinearLayout llChargeRecord;
-    RelativeLayout rlSetting;
-    LinearLayout llMyOrders;
+public class ServiceIndexFragment extends BaseFragmentV4 implements OnTabSelectListener {
+
     private int state = -1;
-    GlideCircleTransformWithBorder glideCircleTransformWithBorder;
+    private SlidingTabLayout tab_layout;
+    private ArrayList<BaseFragmentV4> mFragments = new ArrayList<>();
+    private ViewPager viewPager;
+
+    List<ServiceTypeBean> types = new ArrayList();
+    private MyFragmentAdapter mAdapter;
+    private View view_top;
+
 
     @Override
     protected View initView(LayoutInflater inflater) {
         state = getArguments().getInt("state");
-        View view = inflater.inflate(R.layout.fragment_person_index, null);
+        View view = inflater.inflate(R.layout.fragment_service_index, null);
         initView(view);
         initViewData();
         return view;
@@ -54,34 +50,25 @@ public class ServiceIndexFragment extends BaseFragmentV4 implements View.OnClick
 
     @Override
     protected void initViewData() {
-        glideCircleTransformWithBorder = new GlideCircleTransformWithBorder(mContext, 1, getResources().getColor(R.color.white));
-
+        ViewGroup.LayoutParams params = view_top.getLayoutParams();
+        //获取当前控件的布局对象
+        params.height = PhoneUtil.getStatusHeight(getActivity()) + 5;//设置当前控件布局的高度
+        view_top.setLayoutParams(params);
+        mAdapter = new MyFragmentAdapter(getChildFragmentManager(), mFragments);
+        viewPager.setAdapter(mAdapter);
     }
 
     private void initView(View view) {
-        imgHead = view.findViewById(R.id.img_head);
-        llPersonInfo = view.findViewById(R.id.ll_person_info);
-        llCustomerManager = view.findViewById(R.id.ll_customer_manager);
-        tvPersonBalance = view.findViewById(R.id.tv_person_balance);
-        llPersonBalance = view.findViewById(R.id.ll_person_balance);
-        tvFreeDelivery = view.findViewById(R.id.tv_free_delivery);
-        llFreeDelivery = view.findViewById(R.id.ll_free_delivery);
-        tvPersonName = view.findViewById(R.id.tv_person_name);
-        btnChargePay = view.findViewById(R.id.btn_charge_pay);
-        llChargeRecord = view.findViewById(R.id.ll_charge_record);
-        rlSetting = view.findViewById(R.id.rl_setting);
-        llMyOrders = view.findViewById(R.id.ll_my_orders);
-        llPersonInfo.setOnClickListener(this);
-        llCustomerManager.setOnClickListener(this);
-        llChargeRecord.setOnClickListener(this);
-        btnChargePay.setOnClickListener(this);
-        rlSetting.setOnClickListener(this);
-        llMyOrders.setOnClickListener(this);
+        view_top = view.findViewById(R.id.view);
+        viewPager = view.findViewById(R.id.viewPager);
+        tab_layout = view.findViewById(R.id.tab_layout);
     }
 
     @Override
     public void initData() {
-        getIndexData();
+        if (types.size() <= 0) {
+            getServiceTypes();
+        }
     }
 
     public static ServiceIndexFragment getInstance(int state) {
@@ -92,42 +79,83 @@ public class ServiceIndexFragment extends BaseFragmentV4 implements View.OnClick
         return fragment;
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.ll_person_info:
-                startActivity(new Intent(mContext, PersonInfoActivity.class));
-                break;
-            case R.id.ll_customer_manager:
-                startActivity(new Intent(mContext, CustomerManagerInfoActivity.class));
-                break;
-            case R.id.ll_charge_record:
-                startActivity(new Intent(mContext, ChargeRecordActivity.class));
-                break;
-            case R.id.ll_my_orders:
-                startActivity(new Intent(mContext, OrderListActivity.class));
-                break;
-            case R.id.btn_charge_pay:
-                startActivity(new Intent(mContext, ChargePayActivity.class));
-                break;
-            case R.id.rl_setting:
-                startActivity(new Intent(mContext, SettingActivity.class));
-                break;
-        }
-    }
-
     /**
-     * 获取个人主页数据
+     * 获取标题
      */
-    private void getIndexData() {
-        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL_FOR_OTHER + "getUserInfo")
-                .execute(new JsonCallback<CommonReturnData<UserInfoBean>>(getActivity(), true) {
+    private void getServiceTypes() {
+        OkGo.<CommonReturnData<List<ServiceTypeBean>>>get(Constants.URL_FOR_OTHER + "service/getServiceType")
+                .execute(new DialogCallback<CommonReturnData<List<ServiceTypeBean>>>(getActivity()) {
                     @Override
-                    public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
-                        UserInfoBean userInfo = commonReturnData.getData();
-                        tvPersonName.setText(userInfo.getName());
-                        tvPersonBalance.setText(userInfo.getBalance() + "元");
+                    public void onSuccess(CommonReturnData<List<ServiceTypeBean>> commonReturnData) {
+                        types.clear();
+                        types.addAll(commonReturnData.getData());
+                        mFragments.clear();
+                        for (ServiceTypeBean serviceTypeBean : types) {
+                            ServiceItemFragment fragment = ServiceItemFragment.getInstance(serviceTypeBean.getId());
+                            mFragments.add(fragment);
+                            mAdapter.notifyDataSetChanged();
+                            tab_layout.setViewPager(viewPager);
+                            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                                @Override
+                                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                                }
+
+                                @Override
+                                public void onPageSelected(int position) {
+                                    if (mFragments.get(position).getVisibleTimes() > 1) {
+                                        mFragments.get(position).initData();
+                                    }
+                                }
+
+                                @Override
+                                public void onPageScrollStateChanged(int state) {
+                                }
+                            });
+
+                        }
                     }
                 });
+    }
+
+    @Override
+    public void onTabSelect(int i) {
+    }
+
+    @Override
+    public void onTabReselect(int i) {
+    }
+
+    public class MyFragmentAdapter extends FragmentStatePagerAdapter {
+        private ArrayList<BaseFragmentV4> mFragments;//碎片数组
+        FragmentManager fm;
+
+        public MyFragmentAdapter(FragmentManager fm, ArrayList<BaseFragmentV4> mFragments) {
+            super(fm);
+            this.fm = fm;
+            this.mFragments = mFragments;
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE; //这个是必须的
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return types.get(position).getType();
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            int size = mFragments.size();
+            if (position >= size && size > 0)
+                return mFragments.get(size - 1);
+            return mFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
     }
 }

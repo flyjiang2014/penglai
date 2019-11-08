@@ -55,7 +55,6 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
 
     @Override
     protected void initViewData() {
-        emptyView = getEmptyView();
         orderListAdapter = new OrderListAdapter(orderListBeans);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.addItemDecoration(new DividerItemDecoration(R.drawable.divider_drawable_8dp, mContext));

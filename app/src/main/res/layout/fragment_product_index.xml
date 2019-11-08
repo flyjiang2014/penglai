@@ -100,15 +100,15 @@
 
         <TextView
             android:id="@+id/tv_go_charge"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="95dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
-            android:background="@color/red"
-            android:gravity="right|center"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:background="@drawable/frame_solid_red"
+            android:layout_centerVertical="true"
+            android:gravity="center"
             android:text="去结算"
+            android:layout_marginRight="15dp"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </RelativeLayout>
 </RelativeLayout>

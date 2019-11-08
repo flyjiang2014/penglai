@@ -16,7 +16,6 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
@@ -41,15 +40,12 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.penglai.haima.base.BaseActivity.PULL_DOWN_TIME;
 
 /**
