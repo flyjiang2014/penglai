@@ -89,7 +89,7 @@
 
 #---------------------------------3.与js互相调用的类------------------------
 
-#-keepclasseswithmembers class com.demo.login.bean.ui.MainActivity$JSInterface {
+#-keepclasseswithmembers class com.demo.login.bean.ui.MainActivity2$JSInterface {
 #      <methods>;
 #}
 

@@ -31,7 +31,9 @@ import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.order.ProductOrderSubmitActivity;
 import com.penglai.haima.utils.MathUtil;
+import com.penglai.haima.utils.PhoneUtil;
 import com.penglai.haima.utils.ToastUtil;
+import com.penglai.haima.utils.ViewHWRateUtil;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.penglai.haima.widget.GlideImageLoader;
 import com.penglai.haima.widget.MyListView;
@@ -63,6 +65,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     private View emptyView;
     private LinearLayout ll_shop_car;
     private View bottomSheet;
+    private View view_top;
     private BottomSheetLayout bottomSheetLayout;
     private TextView tv_car;
     private TextView tv_go_charge, tv_total_money;
@@ -84,6 +87,11 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     @Override
     protected void initViewData() {
         EventBus.getDefault().register(this);
+        ViewGroup.LayoutParams params = view_top.getLayoutParams();
+        //获取当前控件的布局对象
+        params.height = PhoneUtil.getStatusHeight(getActivity()) + 5;//设置当前控件布局的高度
+        view_top.setLayoutParams(params);
+        ViewHWRateUtil.setHeightWidthRate(mContext, banner, 2.13);//640/300
         emptyView = getEmptyView();
         selectedList = new SparseArray<>();
         productAdapter = new ProductAdapter(this, productBeanList);
@@ -101,13 +109,13 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         images.add(Constants.URL_FOR_PIC + "banner/banner5.png");
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(images);
-
         banner.start();
     }
 
     private void initView(View view) {
         recyclerView = view.findViewById(R.id.recyclerView);
         banner = view.findViewById(R.id.banner);
+        view_top = view.findViewById(R.id.view);
         smartRefreshLayout = view.findViewById(R.id.smartRefreshLayout);
         bottomSheetLayout = view.findViewById(R.id.bottomSheetLayout);
         tv_total_money = view.findViewById(R.id.tv_total_money);

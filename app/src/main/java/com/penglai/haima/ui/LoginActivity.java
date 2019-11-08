@@ -124,7 +124,7 @@ public class LoginActivity extends BaseActivity {
                         SharepreferenceUtil.saveBoolean(Constants.IS_LOGIN, true);
                         SharepreferenceUtil.saveString(Constants.MOBILE, mobile);
                         SharepreferenceUtil.saveString(Constants.TOKEN, token);
-                        startActivity(new Intent(mContext, Main2Activity.class));
+                        startActivity(new Intent(mContext, MainActivity.class));
                         finish();
                     }
                 });

@@ -8,12 +8,14 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.penglai.haima.R;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.OrderListBean;
 import com.penglai.haima.bean.OrderProductItemBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,11 +54,20 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseViewHo
         OrderPicItemAdapter orderPicItemAdapter = new OrderPicItemAdapter(getPics(item.getDetail()));
         recyclerView.setAdapter(orderPicItemAdapter);
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            float init_x = 0;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    helper.getView(R.id.ll_whole).performClick();//模拟父控件的点击
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        init_x = event.getX();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        if (Math.abs(init_x - event.getX()) < 10) {//说明时点击，而不是滑动
+                            helper.getView(R.id.ll_whole).performClick();
+                        }
+                        break;
                 }
+
                 return false;
             }
         });

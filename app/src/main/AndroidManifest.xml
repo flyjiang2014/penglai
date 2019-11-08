@@ -31,10 +31,10 @@
             android:name=".ui.RegisterActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.MainActivity2"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.Main2Activity"
+            android:name=".ui.MainActivity"
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.index.PersonInfoActivity"
