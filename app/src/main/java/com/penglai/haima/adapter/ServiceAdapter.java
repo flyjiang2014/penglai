@@ -1,12 +1,15 @@
 package com.penglai.haima.adapter;
 
-import android.annotation.SuppressLint;
-import android.widget.TextView;
+import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.MultipleItemRvAdapter;
+import com.chad.library.adapter.base.provider.BaseItemProvider;
 import com.penglai.haima.R;
+import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.ServiceBean;
+import com.penglai.haima.config.GlideApp;
 
 import java.util.List;
 
@@ -15,18 +18,74 @@ import java.util.List;
  * Created by  on 2019/10/30.
  * 文件说明：
  */
-public class ServiceAdapter extends BaseQuickAdapter<ServiceBean, BaseViewHolder> {
+public class ServiceAdapter extends MultipleItemRvAdapter<ServiceBean, BaseViewHolder> {
 
-    public ServiceAdapter(List<ServiceBean> data) {
-        super(R.layout.item_service_layout, data);
+    public static final int SERVICE_PERSON = 100;
+    public static final int SERVICE_ORG = 200;
+
+    public ServiceAdapter(@Nullable List<ServiceBean> data) {
+        super(data);
+        finishInitialize();
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
-    protected void convert(final BaseViewHolder helper, ServiceBean item) {
-        TextView tv_time = helper.getView(R.id.tv_time);
-        TextView tv_state = helper.getView(R.id.tv_state);
-        tv_time.setText(item.getName());
-        tv_state.setText(item.getInd_price());
+    protected int getViewType(ServiceBean serviceBean) {
+        if ("0".equals(serviceBean.getOrgtype())) {
+            return SERVICE_PERSON;
+        } else if ("1".equals(serviceBean.getOrgtype())) {
+            return SERVICE_ORG;
+        }
+        return 0;
     }
+
+    @Override
+    public void registerItemProvider() {
+        mProviderDelegate.registerProvider(new ServicePersonProvider());
+        mProviderDelegate.registerProvider(new ServiceORGProvider());
+    }
+
+    class ServicePersonProvider extends BaseItemProvider<ServiceBean, BaseViewHolder> {
+        @Override
+        public int viewType() {
+            return SERVICE_PERSON;
+        }
+
+        @Override
+        public int layout() {
+            return R.layout.item_service_person_layout;
+        }
+
+        @Override
+        public void convert(BaseViewHolder helper, ServiceBean data, int position) {
+            helper.setText(R.id.tv_name, data.getName());
+            helper.setText(R.id.tv_age, data.getAge() + "岁");
+            helper.setText(R.id.tv_summary, data.getInd_summary());
+            helper.setText(R.id.tv_score, data.getScore() + "%");
+            ImageView img_pic = helper.getView(R.id.img_pic);
+            GlideApp.with(mContext).load(Constants.URL_FOR_PIC2 + data.getCover_image() + Constants.PIC_JPG).defaultOptions().into(img_pic);
+
+        }
+    }
+
+    class ServiceORGProvider extends BaseItemProvider<ServiceBean, BaseViewHolder> {
+        @Override
+        public int viewType() {
+            return SERVICE_ORG;
+        }
+
+        @Override
+        public int layout() {
+            return R.layout.item_service_org_layout;
+        }
+
+        @Override
+        public void convert(BaseViewHolder helper, ServiceBean data, int position) {
+            helper.setText(R.id.tv_title, data.getTitle());
+            helper.setText(R.id.tv_summary, data.getOrg_summary());
+            helper.setText(R.id.tv_price, ("￥" + data.getOrg_price()));
+            ImageView img_pic = helper.getView(R.id.img_pic);
+            GlideApp.with(mContext).load(Constants.URL_FOR_PIC2 + data.getCover_image() + Constants.PIC_JPG).defaultOptions().into(img_pic);
+        }
+    }
+
 }
