@@ -28,7 +28,7 @@
         tl:tl_tab_space_equal="true"
         tl:tl_textSelectColor="#FFA500"
         tl:tl_textUnselectColor="#66000000"
-        tl:tl_underline_color="#00000000"
+        tl:tl_underline_color="#10000000"
         tl:tl_underline_height="1dp" />
 
     <android.support.v4.view.ViewPager
