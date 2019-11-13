@@ -1,7 +1,6 @@
 package com.penglai.haima.callback;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
@@ -11,6 +10,7 @@ import com.lzy.okgo.callback.AbsCallback;
 import com.lzy.okgo.exception.HttpException;
 import com.lzy.okgo.request.base.Request;
 import com.penglai.haima.base.BaseActivity;
+import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.config.TimeOutException;
 import com.penglai.haima.dialog.MessageShowDialog;
@@ -41,38 +41,38 @@ import static com.penglai.haima.utils.ActivityManager.activityStack;
 /**
  * 网络请求callBack处理
  */
-public abstract class JsonCallback<T> extends AbsCallback<T> {
-    Activity mActivity;
+public abstract class JsonFragmentCallback<T> extends AbsCallback<T> {
+    BaseFragmentV4 mFragment;
     boolean showStatue; //请求是否响应loading状态,用于展示noNetView, loadingView，emptyView,errorView
+    boolean showDialog = true; //是否显示dialog
 
     @Override
     public void onStart(Request<T, ? extends Request> request) {
         super.onStart(request);
-        // 主要用于在所有请求之前添加公共的请求头或请求参数
-        // 例如登录授权的 token
-        // 使用的设备信息
-        // 可以随意添加,也可以什么都不传
-        // 还可以在这里对所有的参数进行加密，均在这里实现
-//        CookieStore cookieStore = OkGo.getInstance().getCookieJar().getCookieStore();
-//        List<Cookie> allCookie = cookieStore.getAllCookie();
-//        if (allCookie.size() > 0) {
-//            request.headers("Cookie", allCookie.get(0).toString());
-//            request.headers("Access-Control-Expose-Headers", "sessionstatus");
-//        }
+        if (mFragment.getActivity() != null && showDialog) {
+            ((BaseActivity) (mFragment.getActivity())).getDialog().show();
+        }
         request.params("token", SharepreferenceUtil.getString(Constants.TOKEN));
         if (!request.getParams().urlParamsMap.containsKey("mobile")) { //原来不含mobile这个传参，添加全局的mobile,这边相当于userId使用。
             request.params("mobile", SharepreferenceUtil.getString(Constants.MOBILE));
         }
-        request.tag(mActivity.getClass().getSimpleName());
+        request.tag(mFragment.getActivity().getClass().getSimpleName());
     }
 
-    public JsonCallback(Activity mActivity, boolean showStatue) {
-        this.mActivity = mActivity;
+
+    @Override
+    public void onFinish() {
+        super.onFinish();
+        //网络请求结束后关闭对话框
+        if (mFragment.getActivity() != null && showDialog) {
+            ((BaseActivity) (mFragment.getActivity())).getDialog().dismiss();
+        }
+    }
+
+    public JsonFragmentCallback(BaseFragmentV4 mFragment, boolean showStatue, boolean showDialog) {
+        this.mFragment = mFragment;
         this.showStatue = showStatue;
-    }
-
-    public JsonCallback(Activity mActivity) {
-        this.mActivity = mActivity;
+        this.showDialog = showDialog;
     }
 
     /**
@@ -114,7 +114,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
     @Override
     public void onSuccess(com.lzy.okgo.model.Response<T> response) {
         if (showStatue) {
-            ((BaseActivity) mActivity).getmLoadingLayout().setStatus(LoadingLayout.Success);
+            mFragment.getmLoadingLayout().setStatus(LoadingLayout.Success);
         }
         onSuccess(response.body());
     }
@@ -122,6 +122,9 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
     @Override
     public void onError(com.lzy.okgo.model.Response<T> response) {
         super.onError(response);
+        if (mFragment.getActivity() != null && showDialog) {
+            ((BaseActivity) (mFragment.getActivity())).getDialog().dismiss();//请求框架可能出现 OnError回调后,OnFinish 不回调情况，这边补充关闭 dialog.
+        }
         Exception e = (Exception) response.getException();
         handleError(e);
     }
@@ -135,28 +138,28 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         if (e instanceof ConnectException) {
             //网络异常，请求超时
             ToastUtil.showToast("当前未连接到网络");
-            if (showStatue && ((BaseActivity) mActivity).getmLoadingLayout() != null) {
-                ((BaseActivity) mActivity).getmLoadingLayout().setStatus(LoadingLayout.No_Network);
+            if (showStatue && mFragment.getmLoadingLayout() != null) {
+                mFragment.getmLoadingLayout().setStatus(LoadingLayout.No_Network);
             }
 
         } else if (e instanceof UnknownHostException) {
             // ToastUtil.showToast(e.toString());
             ToastUtil.showToast("网络服务器连接失败");
-            if (showStatue && ((BaseActivity) mActivity).getmLoadingLayout() != null) {
-                ((BaseActivity) mActivity).getmLoadingLayout().setStatus(LoadingLayout.No_Network);
+            if (showStatue && mFragment.getmLoadingLayout() != null) {
+                mFragment.getmLoadingLayout().setStatus(LoadingLayout.No_Network);
             }
         } else if (e instanceof SocketException) {
             //网络异常，读取数据超时
             ToastUtil.showToast(e.toString());
-            if (showStatue && ((BaseActivity) mActivity).getmLoadingLayout() != null) {
-                ((BaseActivity) mActivity).getmLoadingLayout().setStatus(LoadingLayout.No_Network);
+            if (showStatue && mFragment.getmLoadingLayout() != null) {
+                mFragment.getmLoadingLayout().setStatus(LoadingLayout.No_Network);
             }
         } else if (e instanceof JsonSyntaxException) {
             ToastUtil.showToast(e.toString());
         } else if (e instanceof SocketTimeoutException) {
             ToastUtil.showToast(e.toString());
-            if (showStatue && ((BaseActivity) mActivity).getmLoadingLayout() != null) {
-                ((BaseActivity) mActivity).getmLoadingLayout().setStatus(LoadingLayout.No_Network);
+            if (showStatue && mFragment.getmLoadingLayout() != null) {
+                mFragment.getmLoadingLayout().setStatus(LoadingLayout.No_Network);
             }
         } else if (e instanceof IllegalStateException) {
             ToastUtil.showToast(e.getMessage());
@@ -174,7 +177,7 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
      */
     @SuppressLint("CheckResult")
     private void showLoginOutDialog() {
-        final MessageShowDialog dialog = new MessageShowDialog((BaseActivity) mActivity);
+        final MessageShowDialog dialog = new MessageShowDialog((BaseActivity) mFragment.getActivity());
         dialog.setContentText("您的登录信息已过期，\n请重新登录");
         dialog.setViewStatue();
         dialog.show();
@@ -185,11 +188,11 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
                     @Override
                     public void accept(@NonNull Long aLong) throws Exception {
                         dialog.dismiss();
-                        Intent intent = new Intent(mActivity, LoginActivity.class);
+                        Intent intent = new Intent(mFragment.getActivity(), LoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         SharepreferenceUtil.removeKeyValue(Constants.IS_LOGIN);
                         SharepreferenceUtil.removeKeyValue(Constants.TOKEN);
-                        mActivity.startActivity(intent);
+                        mFragment.getActivity().startActivity(intent);
                         for (int i = 0, size = activityStack.size(); i < size; i++) {  //关闭登录页面外的其他页面
                             if (null != activityStack.get(i) && !(activityStack.get(i) instanceof LoginActivity)) {
                                 activityStack.get(i).finish();

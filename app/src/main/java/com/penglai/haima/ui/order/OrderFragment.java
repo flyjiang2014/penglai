@@ -18,6 +18,7 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.OrderListBean;
 import com.penglai.haima.bean.TraceBean;
 import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.dialog.TraceFlowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.widget.DividerItemDecoration;
@@ -61,6 +62,7 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
         recyclerView.setAdapter(orderListAdapter);
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setEnableRefresh(true);
+        smartRefreshLayout.setOnRefreshListener(this);
         orderListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -110,6 +112,12 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
         getOrderListData();
     }
 
+    @Override
+    public void reLoadData() {
+        super.reLoadData();
+        getOrderListData();
+    }
+
     private void initView(View view) {
         smartRefreshLayout = (SmartRefreshLayout) view.findViewById(R.id.smartRefreshLayout);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -133,7 +141,7 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
         if (state >= 0) {
             request.params("stateApp", state);
         }
-        request.execute(new DialogCallback<CommonReturnData<List<OrderListBean>>>(getActivity()) {
+        request.execute(new JsonFragmentCallback<CommonReturnData<List<OrderListBean>>>(this, true, true) {
                     @Override
                     public void onSuccess(CommonReturnData<List<OrderListBean>> commonReturnData) {
                         orderListBeans.clear();

@@ -59,7 +59,8 @@ public class ServiceAdapter extends MultipleItemRvAdapter<ServiceBean, BaseViewH
         public void convert(BaseViewHolder helper, ServiceBean data, int position) {
             helper.setText(R.id.tv_name, data.getName());
             helper.setText(R.id.tv_age, data.getAge() + "岁");
-            helper.setText(R.id.tv_summary, data.getInd_summary());
+            String summary = data.getInd_summary().replace("/br", "\n");
+            helper.setText(R.id.tv_summary, summary);
             helper.setText(R.id.tv_score, data.getScore() + "%");
             ImageView img_pic = helper.getView(R.id.img_pic);
             GlideApp.with(mContext).load(Constants.URL_FOR_PIC2 + data.getCover_image() + Constants.PIC_JPG).defaultOptions().into(img_pic);
@@ -81,7 +82,8 @@ public class ServiceAdapter extends MultipleItemRvAdapter<ServiceBean, BaseViewH
         @Override
         public void convert(BaseViewHolder helper, ServiceBean data, int position) {
             helper.setText(R.id.tv_title, data.getTitle());
-            helper.setText(R.id.tv_summary, data.getOrg_summary());
+            String summary = data.getOrg_summary().replace("/br", "\n");
+            helper.setText(R.id.tv_summary, summary);
             helper.setText(R.id.tv_price, ("￥" + data.getOrg_price()));
             ImageView img_pic = helper.getView(R.id.img_pic);
             GlideApp.with(mContext).load(Constants.URL_FOR_PIC2 + data.getCover_image() + Constants.PIC_JPG).defaultOptions().into(img_pic);

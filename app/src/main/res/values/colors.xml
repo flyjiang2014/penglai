@@ -47,6 +47,7 @@
     <color name="text_grey999">#999999</color>
     <color name="text_grey666">#666666</color>
     <color name="text_grey333">#333333</color>
+    <color name="text_grey333_90">#90333333</color>
     <color name="shape_grey">#969696</color>
     <color name="bg_line">#e7e7e7</color>
     <color name="xian">#ecedef</color>

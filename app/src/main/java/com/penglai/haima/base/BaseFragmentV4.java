@@ -31,7 +31,7 @@ public abstract class BaseFragmentV4 extends Fragment {
     /**
      * 是否使用loading框架
      */
-    private boolean isUseLoading = false;
+    private boolean isUseLoading = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public abstract class BaseFragmentV4 extends Fragment {
         }
         if(isUseLoading){
             mLoadingLayout = (LoadingLayout) inflater.inflate(R.layout.loading_layout, null);
-            mLoadingLayout.addView(rootView,0); //自定义的界面加载到最底层
+            mLoadingLayout.addView(rootView, 0); //自定义的界面加载到最底层
             mLoadingLayout.setOnReloadListener(new LoadingLayout.OnReloadListener() { //load点击重试功能
                 @Override
                 public void onReload(View v) {

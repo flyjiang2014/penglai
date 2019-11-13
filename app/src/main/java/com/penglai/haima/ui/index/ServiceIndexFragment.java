@@ -16,7 +16,7 @@ import com.penglai.haima.R;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.ServiceTypeBean;
-import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.PhoneUtil;
 
@@ -71,6 +71,7 @@ public class ServiceIndexFragment extends BaseFragmentV4 implements OnTabSelectL
         }
     }
 
+
     public static ServiceIndexFragment getInstance(int state) {
         ServiceIndexFragment fragment = new ServiceIndexFragment();
         Bundle bundle = new Bundle();
@@ -79,12 +80,20 @@ public class ServiceIndexFragment extends BaseFragmentV4 implements OnTabSelectL
         return fragment;
     }
 
+    @Override
+    public void reLoadData() {
+        super.reLoadData();
+        if (types.size() <= 0) {
+            getServiceTypes();
+        }
+    }
+
     /**
      * 获取标题
      */
     private void getServiceTypes() {
         OkGo.<CommonReturnData<List<ServiceTypeBean>>>get(Constants.URL_FOR_OTHER + "service/getServiceType")
-                .execute(new DialogCallback<CommonReturnData<List<ServiceTypeBean>>>(getActivity()) {
+                .execute(new JsonFragmentCallback<CommonReturnData<List<ServiceTypeBean>>>(this, true, true) {
                     @Override
                     public void onSuccess(CommonReturnData<List<ServiceTypeBean>> commonReturnData) {
                         types.clear();

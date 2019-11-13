@@ -1,12 +1,10 @@
 package com.penglai.haima.ui;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.BaseFragmentV4;
@@ -15,17 +13,14 @@ import com.penglai.haima.ui.index.ProductIndexFragment;
 import com.penglai.haima.ui.index.ServiceIndexFragment;
 import com.penglai.haima.utils.ActivityManager;
 import com.penglai.haima.utils.AndroidWorkaround;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import me.majiajie.pagerbottomtabstrip.NavigationController;
 import me.majiajie.pagerbottomtabstrip.PageNavigationView;
 import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
 import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
-
 public class MainActivity extends BaseActivity {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
@@ -44,12 +39,7 @@ public class MainActivity extends BaseActivity {
         if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
             AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
         }
-        ProductIndexFragment productIndexFragment = ProductIndexFragment.getInstance(0);
-        ServiceIndexFragment serviceIndexFragment = ServiceIndexFragment.getInstance(1);
-        PersonIndexFragment personIndexFragment = PersonIndexFragment.getInstance(2);
-        fragments.add(productIndexFragment);
-        fragments.add(serviceIndexFragment);
-        fragments.add(personIndexFragment);
+
     }
 
     @Override
@@ -61,6 +51,12 @@ public class MainActivity extends BaseActivity {
                 .addItem(newItem(R.drawable.service_unselect, R.drawable.service_select, "服务"))
                 .addItem(newItem(R.drawable.me_unselect, R.drawable.me_select, "我的"))
                 .build();
+        ProductIndexFragment productIndexFragment = ProductIndexFragment.getInstance(0);
+        ServiceIndexFragment serviceIndexFragment = ServiceIndexFragment.getInstance(1);
+        PersonIndexFragment personIndexFragment = PersonIndexFragment.getInstance(2);
+        fragments.add(productIndexFragment);
+        fragments.add(serviceIndexFragment);
+        fragments.add(personIndexFragment);
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         navigationController.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -70,7 +66,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (fragments.get(position).getVisibleTimes() > 1 && position == 2) {
+                if (fragments.get(position).getVisibleTimes() > 1) {
                     fragments.get(position).initData();
                 }
             }
@@ -133,7 +129,7 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return fragments.size();
         }
 
         @Override

@@ -1,5 +1,6 @@
 package com.penglai.haima.ui.index;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +15,7 @@ import com.penglai.haima.adapter.ServiceAdapter;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.ServiceBean;
-import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -39,7 +40,6 @@ public class ServiceItemFragment extends BaseFragmentV4 implements OnRefreshList
     private ServiceAdapter serviceAdapter;
     List<ServiceBean> serviceBeans = new ArrayList<>();
 
-
     @Override
     protected View initView(LayoutInflater inflater) {
         service_type = getArguments().getString("service_type");
@@ -61,21 +61,32 @@ public class ServiceItemFragment extends BaseFragmentV4 implements OnRefreshList
     protected void initViewData() {
         serviceAdapter = new ServiceAdapter(serviceBeans);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.addItemDecoration(new DividerItemDecoration(R.drawable.divider_drawable_8dp, mContext));
+        recyclerView.addItemDecoration(new DividerItemDecoration(mContext));
         recyclerView.setAdapter(serviceAdapter);
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setEnableRefresh(true);
+        smartRefreshLayout.setOnRefreshListener(this);
         serviceAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                showToast("点击了");
-
+                Intent intent = new Intent(mContext, ServiceDetailsActivity.class);
+                intent.putExtra("orgType", serviceBeans.get(position).getOrgtype());
+                intent.putExtra("address", serviceBeans.get(position).getAddress());
+                intent.putExtra("ind_price", serviceBeans.get(position).getInd_price());
+                intent.putExtra("detail", serviceBeans.get(position).getDetail());
+                startActivity(intent);
             }
         });
     }
 
     @Override
     public void initData() {
+        getDataList();
+    }
+
+    @Override
+    public void reLoadData() {
+        super.reLoadData();
         getDataList();
     }
 
@@ -103,7 +114,7 @@ public class ServiceItemFragment extends BaseFragmentV4 implements OnRefreshList
     private void getDataList() {
         OkGo.<CommonReturnData<List<ServiceBean>>>get(Constants.URL_FOR_OTHER + "service/getService")
                 .params("serviceType", service_type)
-                .execute(new DialogCallback<CommonReturnData<List<ServiceBean>>>(getActivity()) {
+                .execute(new JsonFragmentCallback<CommonReturnData<List<ServiceBean>>>(this, true, true) {
                     @Override
                     public void onSuccess(CommonReturnData<List<ServiceBean>> commonReturnData) {
                         serviceBeans.clear();

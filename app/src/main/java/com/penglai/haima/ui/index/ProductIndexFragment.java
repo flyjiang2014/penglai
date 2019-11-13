@@ -16,6 +16,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
@@ -26,7 +27,7 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.ProductBean;
 import com.penglai.haima.bean.ProductSelectBean;
-import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.order.ProductOrderSubmitActivity;
 import com.penglai.haima.utils.MathUtil;
@@ -40,12 +41,15 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import static com.penglai.haima.base.BaseActivity.PULL_DOWN_TIME;
 
 /**
@@ -151,9 +155,16 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
 
     @Override
     public void initData() {
-        getProductListData();
+        if (productBeanList.size() <= 0) {
+            getProductListData();
+        }
     }
 
+    @Override
+    public void reLoadData() {
+        super.reLoadData();
+        getProductListData();
+    }
 
     public static ProductIndexFragment getInstance(int state) {
         ProductIndexFragment fragment = new ProductIndexFragment();
@@ -167,8 +178,8 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
      * 获取商品列表
      */
     private void getProductListData() {
-        OkGo.<CommonReturnData<List<ProductBean>>>post(Constants.URL_FOR_OTHER + "hot/getHotList")
-                .execute(new DialogCallback<CommonReturnData<List<ProductBean>>>(getActivity()) {
+        OkGo.<CommonReturnData<List<ProductBean>>>get(Constants.URL_FOR_OTHER + "hot/getHotList")
+                .execute(new JsonFragmentCallback<CommonReturnData<List<ProductBean>>>(this, true, true) {
                     @Override
                     public void onSuccess(CommonReturnData<List<ProductBean>> commonReturnData) {
                         productBeanList.clear();

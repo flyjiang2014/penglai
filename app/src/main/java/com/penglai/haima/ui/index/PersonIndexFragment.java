@@ -15,7 +15,7 @@ import com.penglai.haima.R;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.UserInfoBean;
-import com.penglai.haima.callback.JsonCallback;
+import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.config.GlideCircleTransformWithBorder;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.SettingActivity;
@@ -84,6 +84,12 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
         getIndexData();
     }
 
+    @Override
+    public void reLoadData() {
+        super.reLoadData();
+        getIndexData();
+    }
+
     public static PersonIndexFragment getInstance(int state) {
         PersonIndexFragment fragment = new PersonIndexFragment();
         Bundle bundle = new Bundle();
@@ -120,8 +126,8 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
      * 获取个人主页数据
      */
     private void getIndexData() {
-        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL_FOR_OTHER + "getUserInfo")
-                .execute(new JsonCallback<CommonReturnData<UserInfoBean>>(getActivity(), true) {
+        OkGo.<CommonReturnData<UserInfoBean>>get(Constants.URL_FOR_OTHER + "getUserInfo")
+                .execute(new JsonFragmentCallback<CommonReturnData<UserInfoBean>>(this, true, false) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
                         UserInfoBean userInfo = commonReturnData.getData();
