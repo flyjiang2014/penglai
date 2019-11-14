@@ -40,6 +40,7 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
     LinearLayout llChargeRecord;
     RelativeLayout rlSetting;
     LinearLayout llMyOrders;
+    LinearLayout llServiceOrders;
     private int state = -1;
     GlideCircleTransformWithBorder glideCircleTransformWithBorder;
 
@@ -71,12 +72,14 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
         llChargeRecord = view.findViewById(R.id.ll_charge_record);
         rlSetting = view.findViewById(R.id.rl_setting);
         llMyOrders = view.findViewById(R.id.ll_my_orders);
+        llServiceOrders = view.findViewById(R.id.ll_service_orders);
         llPersonInfo.setOnClickListener(this);
         llCustomerManager.setOnClickListener(this);
         llChargeRecord.setOnClickListener(this);
         btnChargePay.setOnClickListener(this);
         rlSetting.setOnClickListener(this);
         llMyOrders.setOnClickListener(this);
+        llServiceOrders.setOnClickListener(this);
     }
 
     @Override
@@ -113,6 +116,9 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
             case R.id.ll_my_orders:
                 startActivity(new Intent(mContext, OrderListActivity.class));
                 break;
+            case R.id.ll_service_orders:
+                startActivity(new Intent(mContext, ServiceOrderListActivity.class));
+                break;
             case R.id.btn_charge_pay:
                 startActivity(new Intent(mContext, ChargePayActivity.class));
                 break;
@@ -126,7 +132,7 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
      * 获取个人主页数据
      */
     private void getIndexData() {
-        OkGo.<CommonReturnData<UserInfoBean>>get(Constants.URL_FOR_OTHER + "getUserInfo")
+        OkGo.<CommonReturnData<UserInfoBean>>get(Constants.BASE_URL + "getUserInfo")
                 .execute(new JsonFragmentCallback<CommonReturnData<UserInfoBean>>(this, true, false) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {

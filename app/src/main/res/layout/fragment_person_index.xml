@@ -197,7 +197,40 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:textColor="@color/text_grey333"
-            android:text="我的订单"
+            android:text="商品订单"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow_right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_service_orders"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="25dp"
+            android:src="@drawable/service" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/text_grey333"
+            android:text="服务订单"
             android:textSize="14sp" />
 
         <ImageView

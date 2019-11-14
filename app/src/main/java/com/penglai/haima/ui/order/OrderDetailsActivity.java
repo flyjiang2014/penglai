@@ -82,7 +82,7 @@ public class OrderDetailsActivity extends BaseActivity {
     }
 
     public void getData() {
-        OkGo.<CommonReturnData<OrderDetailBean>>get(Constants.URL_FOR_OTHER + "hot/queryOrderSingle")
+        OkGo.<CommonReturnData<OrderDetailBean>>get(Constants.BASE_URL + "hot/queryOrderSingle")
                 .params("tradeNo", tradeNo)
                 .execute(new DialogCallback<CommonReturnData<OrderDetailBean>>(this, true) {
                     @Override

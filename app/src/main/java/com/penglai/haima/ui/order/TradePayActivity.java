@@ -82,7 +82,7 @@ public class TradePayActivity extends BaseActivity {
      * 支付
      */
     public void payForTrade() {
-        OkGo.<CommonReturnData<Object>>post(Constants.URL_FOR_OTHER + "hot/payOrderList")
+        OkGo.<CommonReturnData<Object>>post(Constants.BASE_URL + "hot/payOrderList")
                 .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
                 .params("tradeNo", tradeNo)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
@@ -130,7 +130,7 @@ public class TradePayActivity extends BaseActivity {
      * 获取个人主页数据
      */
     private void getIndexData() {
-        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL_FOR_OTHER + "getUserInfo")
+        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.BASE_URL + "getUserInfo")
                 .execute(new DialogCallback<CommonReturnData<UserInfoBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {

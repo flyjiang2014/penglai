@@ -92,7 +92,7 @@ public class ServiceIndexFragment extends BaseFragmentV4 implements OnTabSelectL
      * 获取标题
      */
     private void getServiceTypes() {
-        OkGo.<CommonReturnData<List<ServiceTypeBean>>>get(Constants.URL_FOR_OTHER + "service/getServiceType")
+        OkGo.<CommonReturnData<List<ServiceTypeBean>>>get(Constants.BASE_URL + "service/getServiceType")
                 .execute(new JsonFragmentCallback<CommonReturnData<List<ServiceTypeBean>>>(this, true, true) {
                     @Override
                     public void onSuccess(CommonReturnData<List<ServiceTypeBean>> commonReturnData) {
@@ -104,22 +104,22 @@ public class ServiceIndexFragment extends BaseFragmentV4 implements OnTabSelectL
                             mFragments.add(fragment);
                             mAdapter.notifyDataSetChanged();
                             tab_layout.setViewPager(viewPager);
-                            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                                @Override
-                                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                                }
-
-                                @Override
-                                public void onPageSelected(int position) {
-                                    if (mFragments.get(position).getVisibleTimes() > 1) {
-                                        mFragments.get(position).initData();
-                                    }
-                                }
-
-                                @Override
-                                public void onPageScrollStateChanged(int state) {
-                                }
-                            });
+//                            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//                                @Override
+//                                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                                }
+//
+//                                @Override
+//                                public void onPageSelected(int position) {
+//                                    if (mFragments.get(position).getVisibleTimes() > 1) {
+//                                        mFragments.get(position).initData();
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onPageScrollStateChanged(int state) {
+//                                }
+//                            });
 
                         }
                     }

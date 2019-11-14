@@ -112,7 +112,7 @@ public class ProductOrderSubmitActivity extends BaseActivity {
      * 获取个人主页数据
      */
     private void getIndexData() {
-        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL_FOR_OTHER + "getUserInfo")
+        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.BASE_URL + "getUserInfo")
                 .execute(new DialogCallback<CommonReturnData<UserInfoBean>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
@@ -124,8 +124,17 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                 });
     }
 
+    /**
+     * 创建订单
+     *
+     * @param merclist
+     * @param receiveName
+     * @param receiveMobile
+     * @param receiveAddress
+     * @param receiveNotes
+     */
     private void createOrder(String merclist, String receiveName, String receiveMobile, String receiveAddress, String receiveNotes) {
-        OkGo.<CommonReturnData<TradeBean>>post(Constants.URL_FOR_OTHER + "hot/insertOrderList")
+        OkGo.<CommonReturnData<TradeBean>>post(Constants.BASE_URL + "hot/insertOrderList")
                 .params("mobile", getUserMobile())
                 .params("merclist", merclist)
                 .params("amount", totalMoney)

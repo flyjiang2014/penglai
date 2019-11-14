@@ -70,7 +70,7 @@ public class ChargePayActivity extends BaseActivity {
      * @param cashnum
      */
     private void charge_pay(String cashnum) {
-        OkGo.<CommonReturnData<WeChatPayResponse>>post(Constants.URL_FOR_OTHER + "order/pay")
+        OkGo.<CommonReturnData<WeChatPayResponse>>post(Constants.BASE_URL + "order/pay")
                 .params("cashnum", "1")
                 .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
                 .params("mercid", "001")

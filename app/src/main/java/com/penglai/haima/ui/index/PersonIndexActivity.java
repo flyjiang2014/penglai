@@ -26,6 +26,7 @@ import com.penglai.haima.utils.ActivityManager;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+@Deprecated
 public class PersonIndexActivity extends BaseActivity {
     @BindView(R.id.img_head)
     ImageView imgHead;
@@ -88,7 +89,7 @@ public class PersonIndexActivity extends BaseActivity {
      * 获取个人主页数据
      */
     private void getIndexData() {
-        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.URL_FOR_OTHER + "getUserInfo")
+        OkGo.<CommonReturnData<UserInfoBean>>post(Constants.BASE_URL + "getUserInfo")
                 .execute(new DialogCallback<CommonReturnData<UserInfoBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {

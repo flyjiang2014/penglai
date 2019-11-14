@@ -21,8 +21,8 @@ public abstract class BaseFragmentV4 extends Fragment {
     protected Context mContext;
     protected boolean isVisible; //是否可见
     protected boolean isPrepared;  //View是否已加载完毕
-    protected boolean isFirst = true;//是否第一次加载数据,为false时，切换不在重新加载数据
-    protected int visibleTimes =0; //被可见的次数
+    //  protected boolean isFirst = true;//是否第一次加载数据,为false时，切换不在重新加载数据
+    //  protected int visibleTimes =0; //被可见的次数
     protected int pageSize = 10;
     /**
      * 页面加载过程布局
@@ -66,11 +66,11 @@ public abstract class BaseFragmentV4 extends Fragment {
     }
 
     public void lazyLoad(){
-        if (!isPrepared  || !isVisible  || !isFirst ) {
+        if (!isPrepared || !isVisible) {
             return;
         }
         initData();
-        isFirst = false;
+        // isFirst = false; || !isFirst
     }
 
     /**
@@ -79,9 +79,9 @@ public abstract class BaseFragmentV4 extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
-            visibleTimes ++;
-        }
+//        if(isVisibleToUser){
+//            visibleTimes ++;
+//        }
         if (getUserVisibleHint()) {
             isVisible = true;
             lazyLoad();
@@ -116,6 +116,8 @@ public abstract class BaseFragmentV4 extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        isVisible = false;
+        isPrepared = false;
         if (rootView != null && rootView.getParent() != null) {
             ((ViewGroup) rootView.getParent()).removeView(rootView);
         }
@@ -142,12 +144,12 @@ public abstract class BaseFragmentV4 extends Fragment {
     public void setUseLoading(boolean useLoading) {
         isUseLoading = useLoading;
     }
-    /**
-     * 获取可见次数
-     */
-    public int getVisibleTimes() {
-        return visibleTimes;
-    }
+//    /**
+//     * 获取可见次数
+//     */
+//    public int getVisibleTimes() {
+//        return visibleTimes;
+//    }
 
     public LoadingLayout getmLoadingLayout() {
         return mLoadingLayout;

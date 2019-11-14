@@ -178,7 +178,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
      * 获取商品列表
      */
     private void getProductListData() {
-        OkGo.<CommonReturnData<List<ProductBean>>>get(Constants.URL_FOR_OTHER + "hot/getHotList")
+        OkGo.<CommonReturnData<List<ProductBean>>>get(Constants.BASE_URL + "hot/getHotList")
                 .execute(new JsonFragmentCallback<CommonReturnData<List<ProductBean>>>(this, true, true) {
                     @Override
                     public void onSuccess(CommonReturnData<List<ProductBean>> commonReturnData) {

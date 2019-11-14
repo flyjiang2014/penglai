@@ -113,7 +113,7 @@ public class LoginActivity extends BaseActivity {
      * @param valCode 验证码
      */
     private void login(final String mobile, String valCode) {
-        OkGo.<CommonReturnData<LoginSuccessBean>>post(Constants.URL_FOR_OTHER + "login/validateCode")
+        OkGo.<CommonReturnData<LoginSuccessBean>>post(Constants.BASE_URL + "login/validateCode")
                 .params("mobile", mobile)
                 .params("valCode", valCode)
                 .execute(new DialogCallback<CommonReturnData<LoginSuccessBean>>(this) {

@@ -71,6 +71,7 @@ public class ServiceItemFragment extends BaseFragmentV4 implements OnRefreshList
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(mContext, ServiceDetailsActivity.class);
                 intent.putExtra("orgType", serviceBeans.get(position).getOrgtype());
+                intent.putExtra("serviceId", serviceBeans.get(position).getId());
                 intent.putExtra("address", serviceBeans.get(position).getAddress());
                 intent.putExtra("ind_price", serviceBeans.get(position).getInd_price());
                 intent.putExtra("detail", serviceBeans.get(position).getDetail());
@@ -112,7 +113,7 @@ public class ServiceItemFragment extends BaseFragmentV4 implements OnRefreshList
      * 获取服务内容
      */
     private void getDataList() {
-        OkGo.<CommonReturnData<List<ServiceBean>>>get(Constants.URL_FOR_OTHER + "service/getService")
+        OkGo.<CommonReturnData<List<ServiceBean>>>get(Constants.BASE_URL + "service/getService")
                 .params("serviceType", service_type)
                 .execute(new JsonFragmentCallback<CommonReturnData<List<ServiceBean>>>(this, true, true) {
                     @Override

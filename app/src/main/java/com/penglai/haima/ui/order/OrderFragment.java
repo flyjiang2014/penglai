@@ -95,7 +95,7 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
      * @param
      */
     private void getTracesInfo(String company, final String no) {
-        OkGo.<CommonReturnData<TraceBean>>get(Constants.URL_FOR_OTHER + "express/query")
+        OkGo.<CommonReturnData<TraceBean>>get(Constants.BASE_URL + "express/query")
                 .params("company", company)
                 .params("no", no)
                 .execute(new DialogCallback<CommonReturnData<TraceBean>>(getActivity()) {
@@ -136,7 +136,7 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
      * 获取订单列表
      */
     private void getOrderListData() {
-        GetRequest<CommonReturnData<List<OrderListBean>>> request = OkGo.<CommonReturnData<List<OrderListBean>>>get(Constants.URL_FOR_OTHER + "hot/queryOrderList")
+        GetRequest<CommonReturnData<List<OrderListBean>>> request = OkGo.<CommonReturnData<List<OrderListBean>>>get(Constants.BASE_URL + "hot/queryOrderList")
                 .params("mobile", getUserMobile());
         if (state >= 0) {
             request.params("stateApp", state);

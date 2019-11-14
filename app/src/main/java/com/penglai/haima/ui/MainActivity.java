@@ -59,22 +59,22 @@ public class MainActivity extends BaseActivity {
         fragments.add(personIndexFragment);
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         navigationController.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (fragments.get(position).getVisibleTimes() > 1) {
-                    fragments.get(position).initData();
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                if (fragments.get(position).getVisibleTimes() > 1) {
+//                    fragments.get(position).initData();
+//                }
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//            }
+//        });
 
         navigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
