@@ -97,7 +97,6 @@ public class ServiceDetailsActivity extends BaseActivity {
         });
         commonOperateDialog.setContentText("尊敬的客户，预约成功之后，商家会与您沟通服务时间");
         commonOperateDialog.show();
-
     }
 
 
