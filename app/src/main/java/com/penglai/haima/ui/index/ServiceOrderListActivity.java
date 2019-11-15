@@ -75,6 +75,8 @@ public class ServiceOrderListActivity extends BaseActivity implements OnRefreshL
                 Intent intent = new Intent(mContext, ServiceOrderActivity.class);
                 intent.putExtra("serviceId", serviceOrderDataBeans.get(position).getService_id());
                 intent.putExtra("trade_no", serviceOrderDataBeans.get(position).getTrade_no());
+                intent.putExtra("state", serviceOrderDataBeans.get(position).getState());
+                intent.putExtra("amount", serviceOrderDataBeans.get(position).getAmount());
                 startActivity(intent);
             }
         });

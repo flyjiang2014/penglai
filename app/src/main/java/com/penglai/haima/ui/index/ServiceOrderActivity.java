@@ -10,6 +10,7 @@ import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
+import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.ServiceDetailBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
@@ -17,6 +18,10 @@ import com.penglai.haima.ui.order.TradePayActivity;
 import com.penglai.haima.utils.ViewHWRateUtil;
 import com.penglai.haima.widget.GlideImageLoader;
 import com.youth.banner.Banner;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +43,8 @@ public class ServiceOrderActivity extends BaseActivity {
     TextView tvCharge;
     private String serviceId = "";
     private String trade_no = "";
-    private String price = "";
+    private String amount = "";
+    private String state = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +59,13 @@ public class ServiceOrderActivity extends BaseActivity {
 
     @Override
     public void init() {
+        EventBus.getDefault().register(this);
         ViewHWRateUtil.setHeightWidthRate(mContext, banner, 2.13);//640/300
         serviceId = getIntent().getStringExtra("serviceId");
         trade_no = getIntent().getStringExtra("trade_no");
+        state = getIntent().getStringExtra("state");
+        amount = getIntent().getStringExtra("amount");
+        setState();
         getData();
     }
 
@@ -69,10 +79,10 @@ public class ServiceOrderActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_charge:
-                if (!TextUtils.isEmpty(price)) {
+                if (!TextUtils.isEmpty(amount)) {
                     Intent intent = new Intent(mContext, TradePayActivity.class);
                     intent.putExtra("tradeNo", trade_no);
-                    intent.putExtra("totalMoney", price);
+                    intent.putExtra("totalMoney", amount);
                     intent.putExtra("hasNoBalance", true);
                     intent.putExtra("isForService", true);
                     startActivity(intent);
@@ -92,15 +102,12 @@ public class ServiceOrderActivity extends BaseActivity {
                         if ("0".equals(orgType)) {//个人
                             tvType.setText("价格");
                             tvTypeContent.setText("￥" + serviceDetailBean.getInd_price());
-                            price = serviceDetailBean.getInd_price();
 
                         } else if ("1".equals(orgType)) {//机构
                             tvType.setText("服务地址");
                             tvTypeContent.setText(serviceDetailBean.getAddress());
-                            price = serviceDetailBean.getOrg_price();
                         }
                         tvServiceContent.setText(serviceDetailBean.getDetail());
-
                         List<String> images = new ArrayList<>();
                         for (int i = 1; i < 4; i++) {
                             images.add(Constants.URL_FOR_PIC2 + serviceDetailBean.getCover_image() + "_" + i + Constants.PIC_JPG);
@@ -112,4 +119,51 @@ public class ServiceOrderActivity extends BaseActivity {
                     }
                 });
     }
+
+    public void setState() {
+        switch (state) {
+            case "0":  //待商家确认
+                tvCharge.setText("去支付");
+                tvCharge.setEnabled(false);
+                tvCharge.setBackgroundResource(R.drawable.frame_solid_grey);
+                break;
+            case "1":  //待支付
+                tvCharge.setText("去支付");
+                tvCharge.setEnabled(true);
+                tvCharge.setBackgroundResource(R.drawable.frame_solid_orange);
+                break;
+            case "2": //待服务
+                tvCharge.setText("去评价");
+                tvCharge.setEnabled(false);
+                tvCharge.setBackgroundResource(R.drawable.frame_solid_grey);
+                break;
+            case "3": //服务完成
+                break;
+            case "4": //待评价
+                tvCharge.setText("去评价");
+                tvCharge.setEnabled(true);
+                tvCharge.setBackgroundResource(R.drawable.frame_solid_orange);
+                break;
+            case "5": //已关闭
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(EventBean data) {
+        switch (data.getEvent()) {
+            case EventBean.ORDER_REPAY_SUCCESS:
+                tvCharge.setText("去评价");
+                tvCharge.setEnabled(false);
+                tvCharge.setBackgroundResource(R.drawable.frame_solid_grey);
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

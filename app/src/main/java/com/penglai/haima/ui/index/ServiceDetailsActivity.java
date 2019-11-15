@@ -124,14 +124,12 @@ public class ServiceDetailsActivity extends BaseActivity {
                             tvTypeContent.setText(serviceDetailBean.getAddress());
                         }
                         tvServiceContent.setText(serviceDetailBean.getDetail());
-
                         List<String> images = new ArrayList<>();
                         for (int i = 1; i < 4; i++) {
                             images.add(Constants.URL_FOR_PIC2 + serviceDetailBean.getCover_image() + "_" + i + Constants.PIC_JPG);
                         }
                         banner.setImageLoader(new GlideImageLoader());
                         banner.setImages(images);
-                        // banner.stopAutoPlay();
                         banner.start();
                     }
                 });
