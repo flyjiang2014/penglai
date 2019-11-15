@@ -43,6 +43,7 @@ public class TradePayActivity extends BaseActivity {
     private String totalMoney = "";
     private MessageShowDialog dialog;
     private boolean hasNoBalance;
+    private boolean isForService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class TradePayActivity extends BaseActivity {
         totalMoney = getIntent().getStringExtra("totalMoney");
         tvPayMoney.setText(("￥" + totalMoney));
         hasNoBalance = getIntent().getBooleanExtra("hasNoBalance", false);
+        isForService = getIntent().getBooleanExtra("isForService", false);
         if (hasNoBalance) {
             getIndexData();
         } else {
@@ -102,6 +104,30 @@ public class TradePayActivity extends BaseActivity {
                 });
     }
 
+    /**
+     * 服务支付
+     */
+    public void payForServiceTrade() {
+        OkGo.<CommonReturnData<Object>>post(Constants.BASE_URL + "/service/payServiceOrder")
+                .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
+                .params("tradeNo", tradeNo)
+                .execute(new DialogCallback<CommonReturnData<Object>>(this) {
+                    @Override
+                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                        EventBus.getDefault().post(new EventBean(EventBean.ORDER_REPAY_SUCCESS));//待支付订单支付
+                        dialog = new MessageShowDialog(TradePayActivity.this, new MessageShowDialog.OperateListener() {
+                            @Override
+                            public void sure() {
+                                dialog.dismiss();
+                                TradePayActivity.this.finish();
+                            }
+                        });
+                        dialog.setContentText("交易成功");
+                        dialog.show();
+                    }
+                });
+    }
+
     @OnClick({R.id.rl_charge, R.id.rl_go_pay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -109,7 +135,11 @@ public class TradePayActivity extends BaseActivity {
                 if (ClickUtil.isFastDoubleClick()) {
                     return;  //防止快速多次点击
                 }
-                payForTrade();
+                if (isForService) {
+                    payForServiceTrade();
+                } else {
+                    payForTrade();
+                }
                 break;
             case R.id.rl_go_pay:
                 startActivity(new Intent(mContext, ChargePayActivity.class));

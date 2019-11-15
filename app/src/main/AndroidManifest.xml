@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.index.ServiceOrderListActivity"></activity>
+        <activity android:name=".ui.index.ServiceOrderActivity"></activity>
+        <activity android:name=".ui.index.ServiceOrderListActivity" />
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
