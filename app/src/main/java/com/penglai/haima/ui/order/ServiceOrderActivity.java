@@ -28,6 +28,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+
+/**
+ * 服务订单详情
+ */
 public class ServiceOrderActivity extends BaseActivity {
 
     @BindView(R.id.banner)
@@ -135,6 +139,7 @@ public class ServiceOrderActivity extends BaseActivity {
     public void setState() {
         switch (state) {
             case "0":  //待商家确认
+                tvCharge.setVisibility(View.GONE);
                 tvCharge.setText("去支付");
                 tvCharge.setEnabled(false);
                 tvCharge.setBackgroundResource(R.drawable.frame_solid_grey);
@@ -145,6 +150,7 @@ public class ServiceOrderActivity extends BaseActivity {
                 tvCharge.setBackgroundResource(R.drawable.frame_solid_orange);
                 break;
             case "2": //待服务
+                tvCharge.setVisibility(View.GONE);
                 tvCharge.setText("去评价");
                 tvCharge.setEnabled(false);
                 tvCharge.setBackgroundResource(R.drawable.frame_solid_grey);
@@ -157,6 +163,7 @@ public class ServiceOrderActivity extends BaseActivity {
                 tvCharge.setBackgroundResource(R.drawable.frame_solid_orange);
                 break;
             case "5": //已关闭
+                tvCharge.setVisibility(View.GONE);
                 tvCharge.setText("已关闭");
                 tvCharge.setEnabled(false);
                 tvCharge.setBackgroundResource(R.drawable.frame_solid_grey);
@@ -168,11 +175,13 @@ public class ServiceOrderActivity extends BaseActivity {
     public void onEvent(EventBean data) {
         switch (data.getEvent()) {
             case EventBean.ORDER_REPAY_SUCCESS:
+                tvCharge.setVisibility(View.GONE);
                 tvCharge.setText("去评价");
                 tvCharge.setEnabled(false);
                 tvCharge.setBackgroundResource(R.drawable.frame_solid_grey);
                 break;
             case EventBean.SERVICE_COMMENT_SUCCESS:
+                tvCharge.setVisibility(View.GONE);
                 tvCharge.setText("已关闭");
                 tvCharge.setEnabled(false);
                 tvCharge.setBackgroundResource(R.drawable.frame_solid_grey);

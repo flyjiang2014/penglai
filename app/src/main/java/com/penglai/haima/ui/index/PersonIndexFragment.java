@@ -26,7 +26,7 @@ import com.penglai.haima.ui.order.ServiceOrderListActivity;
 
 /**
  * Created by ${flyjiang} on 2019/10/22.
- * 文件说明：
+ * 文件说明：个人主页“我的”页面
  */
 public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickListener {
     ImageView imgHead;

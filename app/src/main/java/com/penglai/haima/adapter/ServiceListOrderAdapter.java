@@ -59,7 +59,7 @@ public class ServiceListOrderAdapter extends BaseQuickAdapter<ServiceOrderDataBe
             case "3":
                 return "已完成";
             case "4":
-                return "已评价";
+                return "待评价";
             case "5":
                 return "已关闭";
         }

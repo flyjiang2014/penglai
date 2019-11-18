@@ -33,7 +33,7 @@ import static com.penglai.haima.base.BaseActivity.PULL_DOWN_TIME;
 
 /**
  * Created by  on 2019/10/30.
- * 文件说明：
+ * 文件说明：订单列表fragment
  */
 public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
 

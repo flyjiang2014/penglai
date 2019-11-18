@@ -24,6 +24,10 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+
+/**
+ * 订单支付
+ */
 public class TradePayActivity extends BaseActivity {
 
     @BindView(R.id.tv_pay_money)

@@ -22,6 +22,9 @@ import com.penglai.haima.utils.StringUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 登录
+ */
 public class LoginActivity extends BaseActivity {
     @BindView(R.id.et_mobile)
     EditText etMobile;

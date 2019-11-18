@@ -33,6 +33,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+
+/**
+ * 商品订单提交
+ */
 public class ProductOrderSubmitActivity extends BaseActivity {
 
     @BindView(R.id.rv_select_product)

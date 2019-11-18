@@ -24,6 +24,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 服务详情
+ */
 public class ServiceDetailsActivity extends BaseActivity {
 
     @BindView(R.id.banner)

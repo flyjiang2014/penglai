@@ -30,7 +30,7 @@ import static com.penglai.haima.base.BaseActivity.PULL_DOWN_TIME;
 
 /**
  * Created by  on 2019/11/8.
- * 文件说明：
+ * 文件说明：服务列表展示
  */
 public class ServiceItemFragment extends BaseFragmentV4 implements OnRefreshListener {
 

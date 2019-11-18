@@ -31,6 +31,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * 服务列表
+ */
 public class ServiceOrderListActivity extends BaseActivity implements OnRefreshListener {
 
     @BindView(R.id.recyclerView)

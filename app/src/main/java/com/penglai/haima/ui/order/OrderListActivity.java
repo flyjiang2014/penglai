@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 
+/**
+ * 订单列表
+ */
 public class OrderListActivity extends BaseActivity {
 
     @BindView(R.id.my_tabs)

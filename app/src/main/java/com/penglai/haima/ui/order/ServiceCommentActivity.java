@@ -21,6 +21,9 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 服务点评
+ */
 public class ServiceCommentActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;

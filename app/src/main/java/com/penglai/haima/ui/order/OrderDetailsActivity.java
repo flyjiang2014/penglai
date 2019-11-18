@@ -26,6 +26,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+
+/**
+ * 商品订单详情
+ */
 public class OrderDetailsActivity extends BaseActivity {
     @BindView(R.id.tv_trade_no)
     TextView tvTradeNo;
