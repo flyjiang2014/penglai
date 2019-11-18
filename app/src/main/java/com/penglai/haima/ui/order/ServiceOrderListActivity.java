@@ -1,4 +1,4 @@
-package com.penglai.haima.ui.index;
+package com.penglai.haima.ui.order;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -118,6 +118,7 @@ public class ServiceOrderListActivity extends BaseActivity implements OnRefreshL
     public void onEvent(EventBean data) {
         switch (data.getEvent()) {
             case EventBean.ORDER_REPAY_SUCCESS:
+            case EventBean.SERVICE_COMMENT_SUCCESS:
                 getOrderListData();
                 break;
         }

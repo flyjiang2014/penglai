@@ -22,6 +22,7 @@ import com.penglai.haima.ui.SettingActivity;
 import com.penglai.haima.ui.charge.ChargePayActivity;
 import com.penglai.haima.ui.charge.ChargeRecordActivity;
 import com.penglai.haima.ui.order.OrderListActivity;
+import com.penglai.haima.ui.order.ServiceOrderListActivity;
 
 /**
  * Created by ${flyjiang} on 2019/10/22.

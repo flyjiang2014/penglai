@@ -1,4 +1,4 @@
-package com.penglai.haima.ui.index;
+package com.penglai.haima.ui.order;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.ServiceDetailBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
-import com.penglai.haima.ui.order.TradePayActivity;
 import com.penglai.haima.utils.ViewHWRateUtil;
 import com.penglai.haima.widget.GlideImageLoader;
 import com.youth.banner.Banner;
@@ -45,6 +44,8 @@ public class ServiceOrderActivity extends BaseActivity {
     private String trade_no = "";
     private String amount = "";
     private String state = "";
+    private String title = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,14 +80,22 @@ public class ServiceOrderActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_charge:
-                if (!TextUtils.isEmpty(amount)) {
-                    Intent intent = new Intent(mContext, TradePayActivity.class);
-                    intent.putExtra("tradeNo", trade_no);
-                    intent.putExtra("totalMoney", amount);
-                    intent.putExtra("hasNoBalance", true);
-                    intent.putExtra("isForService", true);
+                if (tvCharge.getText().toString().contains("去支付")) {
+                    if (!TextUtils.isEmpty(amount)) {
+                        Intent intent = new Intent(mContext, TradePayActivity.class);
+                        intent.putExtra("tradeNo", trade_no);
+                        intent.putExtra("totalMoney", amount);
+                        intent.putExtra("hasNoBalance", true);
+                        intent.putExtra("isForService", true);
+                        startActivity(intent);
+                    }
+                } else if (tvCharge.getText().toString().contains("去评价")) {
+                    Intent intent = new Intent(mContext, ServiceCommentActivity.class);
+                    intent.putExtra("serviceId", serviceId);
+                    intent.putExtra("title", title);
                     startActivity(intent);
                 }
+
                 break;
         }
     }
@@ -99,13 +108,16 @@ public class ServiceOrderActivity extends BaseActivity {
                     public void onSuccess(CommonReturnData<ServiceDetailBean> commonReturnData) {
                         ServiceDetailBean serviceDetailBean = commonReturnData.getData();
                         String orgType = serviceDetailBean.getOrgtype();
+
                         if ("0".equals(orgType)) {//个人
                             tvType.setText("价格");
                             tvTypeContent.setText("￥" + serviceDetailBean.getInd_price());
+                            title = serviceDetailBean.getTitle();
 
                         } else if ("1".equals(orgType)) {//机构
                             tvType.setText("服务地址");
                             tvTypeContent.setText(serviceDetailBean.getAddress());
+                            title = serviceDetailBean.getOrg_summary();
                         }
                         tvServiceContent.setText(serviceDetailBean.getDetail());
                         List<String> images = new ArrayList<>();
@@ -145,6 +157,9 @@ public class ServiceOrderActivity extends BaseActivity {
                 tvCharge.setBackgroundResource(R.drawable.frame_solid_orange);
                 break;
             case "5": //已关闭
+                tvCharge.setText("已关闭");
+                tvCharge.setEnabled(false);
+                tvCharge.setBackgroundResource(R.drawable.frame_solid_grey);
                 break;
         }
     }
@@ -157,6 +172,11 @@ public class ServiceOrderActivity extends BaseActivity {
                 tvCharge.setEnabled(false);
                 tvCharge.setBackgroundResource(R.drawable.frame_solid_grey);
                 break;
+            case EventBean.SERVICE_COMMENT_SUCCESS:
+                tvCharge.setText("已关闭");
+                tvCharge.setEnabled(false);
+                tvCharge.setBackgroundResource(R.drawable.frame_solid_grey);
+                break;
         }
     }
 
@@ -165,5 +185,4 @@ public class ServiceOrderActivity extends BaseActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-
 }

@@ -17,6 +17,7 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.ServiceBean;
 import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.ui.order.ServiceDetailsActivity;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
