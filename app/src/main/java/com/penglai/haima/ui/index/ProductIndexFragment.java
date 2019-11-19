@@ -1,8 +1,10 @@
 package com.penglai.haima.ui.index;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,13 +37,13 @@ import com.penglai.haima.utils.MathUtil;
 import com.penglai.haima.utils.PhoneUtil;
 import com.penglai.haima.utils.ToastUtil;
 import com.penglai.haima.utils.ViewHWRateUtil;
-import com.penglai.haima.widget.BannerRound;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.penglai.haima.widget.GlideImageLoaderLocal;
 import com.penglai.haima.widget.MyListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.youth.banner.Banner;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -70,12 +72,13 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     private BottomSheetLayout bottomSheetLayout;
     private TextView tv_car;
     private TextView tv_go_charge, tv_total_money;
-    private BannerRound banner;
+    private Banner banner;
     private Double totalMoney = 0d;
     private TextView tv_show_num;
     private SparseArray<ProductBean> selectedList;
     private ProductForCarAdapter productForCarAdapter;//底部购物车的adapter
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected View initView(LayoutInflater inflater) {
         state = getArguments().getInt("state");
@@ -85,17 +88,13 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void initViewData() {
         ViewGroup.LayoutParams params = view_top.getLayoutParams();
         //获取当前控件的布局对象
         params.height = PhoneUtil.getStatusHeight(getActivity()) + 5;//设置当前控件布局的高度
         view_top.setLayoutParams(params);
-
-//        ViewGroup.LayoutParams params01 = banner.getLayoutParams();
-//        //获取当前控件的布局对象
-//        params.height = PhoneUtil.getStatusHeight(getActivity()) + 5;//设置当前控件布局的高度
-//        view_top.setLayoutParams(params);
 
         ViewHWRateUtil.setHeightWidthRate(mContext, banner, 2.13);//640/300
         emptyView = getEmptyView();
@@ -109,10 +108,10 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         smartRefreshLayout.setEnableRefresh(false);
         List<String> images = new ArrayList<>();
         images.add(Constants.URL_FOR_PIC + "banner/banner1.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner2.png");
         images.add(Constants.URL_FOR_PIC + "banner/banner3.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner4.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner5.png");
+        images.add(Constants.URL_FOR_PIC + "banner/banner1.png");
+        images.add(Constants.URL_FOR_PIC + "banner/banner3.png");
+        images.add(Constants.URL_FOR_PIC + "banner/banner1.png");
         banner.setImageLoader(new GlideImageLoaderLocal());
         banner.setImages(images);
         banner.start();

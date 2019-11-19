@@ -25,7 +25,6 @@ public class SettingActivity extends BaseActivity {
     LinearLayout llAboutUs;
     @BindView(R.id.tv_login_out)
     TextView tvLoginOut;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +38,6 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     public void init() {
-
     }
 
     @OnClick({R.id.ll_about_us, R.id.tv_login_out})

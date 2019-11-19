@@ -9,12 +9,9 @@ import com.youth.banner.loader.ImageLoaderInterface;
  * 文件说明：
  */
 public abstract class ImageLoaderLocal implements ImageLoaderInterface<RoundImageView> {
-    RoundImageView roundImageView;
-
     @Override
     public RoundImageView createImageView(Context context) {
-
-        roundImageView = new RoundImageView(context);
+        RoundImageView roundImageView = new RoundImageView(context);
         return roundImageView;
     }
 }

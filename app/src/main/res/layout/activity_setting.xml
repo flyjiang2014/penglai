@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.SettingActivity"
     android:orientation="vertical">
-
     <LinearLayout
         android:id="@+id/ll_about_us"
         android:layout_width="match_parent"
