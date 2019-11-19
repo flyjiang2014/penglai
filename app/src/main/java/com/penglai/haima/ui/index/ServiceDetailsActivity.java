@@ -106,7 +106,7 @@ public class ServiceDetailsActivity extends BaseActivity {
     private void createServiceOrder() {
         OkGo.<CommonReturnData<Object>>post(Constants.BASE_URL + "service/insertOrder")
                 .params("serviceId", serviceId)
-                .execute(new DialogCallback<CommonReturnData<Object>>(this, true) {
+                .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {
                         dialog = new MessageShowDialog(ServiceDetailsActivity.this, new MessageShowDialog.OperateListener() {
