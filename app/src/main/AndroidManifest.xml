@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.index.ServiceOrderListActivity"></activity>
+
+        <activity android:name=".ui.order.ServiceCommentActivity" />
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
@@ -70,10 +71,16 @@
             android:name=".ui.index.PersonIndexActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".ui.index.ServiceDetailsActivity"
+            android:name=".ui.order.OrderDetailsActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".ui.order.OrderDetailsActivity"
+            android:name=".ui.order.ServiceDetailsActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.order.ServiceOrderActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.order.ServiceOrderListActivity"
             android:launchMode="singleTop" />
     </application>
 

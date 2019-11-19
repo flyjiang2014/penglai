@@ -16,6 +16,9 @@ import butterknife.OnClick;
 
 import static com.penglai.haima.utils.ActivityManager.activityStack;
 
+/**
+ * 设置页面
+ */
 public class SettingActivity extends BaseActivity {
 
     @BindView(R.id.ll_about_us)

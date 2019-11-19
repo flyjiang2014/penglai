@@ -23,6 +23,10 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+
+/**
+ * 个人信息
+ */
 public class PersonInfoActivity extends BaseActivity {
     @BindView(R.id.et_name)
     EditText etName;
@@ -39,6 +43,7 @@ public class PersonInfoActivity extends BaseActivity {
     @BindView(R.id.tv_mobile)
     TextView tvMobile;
     private TimeCount timeCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

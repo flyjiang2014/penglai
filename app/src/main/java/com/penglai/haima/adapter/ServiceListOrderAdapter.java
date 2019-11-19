@@ -28,9 +28,11 @@ public class ServiceListOrderAdapter extends BaseQuickAdapter<ServiceOrderDataBe
         TextView tv_time = helper.getView(R.id.tv_time);
         TextView tv_content_type = helper.getView(R.id.tv_content_type);
         TextView tv_content = helper.getView(R.id.tv_content);
+        TextView tv_price = helper.getView(R.id.tv_price);
         tv_type.setText(item.getType());
         tv_state.setText(getStateShow(item.getState()));
         tv_time.setText(item.getInsert_time());
+        tv_price.setText("￥" + item.getAmount());
         if ("0".equals(item.getOrgtype())) {//个人
             tv_content_type.setText(item.getName());
             tv_content.setText(item.getTitle());
@@ -57,7 +59,7 @@ public class ServiceListOrderAdapter extends BaseQuickAdapter<ServiceOrderDataBe
             case "3":
                 return "已完成";
             case "4":
-                return "已评价";
+                return "待评价";
             case "5":
                 return "已关闭";
         }

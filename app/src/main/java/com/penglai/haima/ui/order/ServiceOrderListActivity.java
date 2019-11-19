@@ -1,16 +1,19 @@
-package com.penglai.haima.ui.index;
+package com.penglai.haima.ui.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.adapter.ServiceListOrderAdapter;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
+import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.ServiceOrderDataBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
@@ -19,11 +22,18 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * 服务列表
+ */
 public class ServiceOrderListActivity extends BaseActivity implements OnRefreshListener {
 
     @BindView(R.id.recyclerView)
@@ -53,6 +63,7 @@ public class ServiceOrderListActivity extends BaseActivity implements OnRefreshL
 
     @Override
     public void init() {
+        EventBus.getDefault().register(this);
         emptyView = getEmptyView();
         serviceListOrderAdapter = new ServiceListOrderAdapter(serviceOrderDataBeans);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -61,6 +72,17 @@ public class ServiceOrderListActivity extends BaseActivity implements OnRefreshL
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setEnableRefresh(true);
         smartRefreshLayout.setOnRefreshListener(this);
+        serviceListOrderAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(mContext, ServiceOrderActivity.class);
+                intent.putExtra("serviceId", serviceOrderDataBeans.get(position).getService_id());
+                intent.putExtra("trade_no", serviceOrderDataBeans.get(position).getTrade_no());
+                intent.putExtra("state", serviceOrderDataBeans.get(position).getState());
+                intent.putExtra("amount", serviceOrderDataBeans.get(position).getAmount());
+                startActivity(intent);
+            }
+        });
         getOrderListData();
     }
 
@@ -93,5 +115,21 @@ public class ServiceOrderListActivity extends BaseActivity implements OnRefreshL
                 refreshLayout.setNoMoreData(false);
             }
         }, PULL_DOWN_TIME);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(EventBean data) {
+        switch (data.getEvent()) {
+            case EventBean.ORDER_REPAY_SUCCESS:
+            case EventBean.SERVICE_COMMENT_SUCCESS:
+                getOrderListData();
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -25,11 +25,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/title_layout_bg"></View>
-                <com.youth.banner.Banner
+
+                <com.penglai.haima.widget.BannerRound
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:layout_marginBottom="5dp" />
+                    android:padding="10dp"
+                    android:background="@color/red" />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"

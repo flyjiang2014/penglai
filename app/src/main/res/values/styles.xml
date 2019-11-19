@@ -60,4 +60,8 @@
         <attr name="maxHeight" format="dimension" />
     </declare-styleable>
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/gray</item>
+        <item name="colorControlActivated">@color/orange</item>
+    </style>
 </resources>

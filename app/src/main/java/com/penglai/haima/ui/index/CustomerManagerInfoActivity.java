@@ -18,6 +18,9 @@ import com.penglai.haima.okgomodel.CommonReturnData;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 客户经理详情
+ */
 public class CustomerManagerInfoActivity extends BaseActivity {
 
     @BindView(R.id.img_head)

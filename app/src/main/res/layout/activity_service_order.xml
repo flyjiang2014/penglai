@@ -104,7 +104,8 @@
             android:background="@drawable/frame_solid_orange"
             android:textColor="@color/white"
             android:gravity="center"
+            android:enabled="false"
             android:textSize="14sp"
-            android:text="预约服务" />
+            android:text="" />
     </LinearLayout>
 </LinearLayout>

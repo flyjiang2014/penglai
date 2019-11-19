@@ -23,6 +23,9 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 注册
+ */
 public class RegisterActivity extends BaseActivity {
     @BindView(R.id.et_name)
     EditText etName;

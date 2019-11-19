@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,13 +35,13 @@ import com.penglai.haima.utils.MathUtil;
 import com.penglai.haima.utils.PhoneUtil;
 import com.penglai.haima.utils.ToastUtil;
 import com.penglai.haima.utils.ViewHWRateUtil;
+import com.penglai.haima.widget.BannerRound;
 import com.penglai.haima.widget.DividerItemDecoration;
-import com.penglai.haima.widget.GlideImageLoader;
+import com.penglai.haima.widget.GlideImageLoaderLocal;
 import com.penglai.haima.widget.MyListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.youth.banner.Banner;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -69,7 +70,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     private BottomSheetLayout bottomSheetLayout;
     private TextView tv_car;
     private TextView tv_go_charge, tv_total_money;
-    private Banner banner;
+    private BannerRound banner;
     private Double totalMoney = 0d;
     private TextView tv_show_num;
     private SparseArray<ProductBean> selectedList;
@@ -86,11 +87,16 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
 
     @Override
     protected void initViewData() {
-        EventBus.getDefault().register(this);
         ViewGroup.LayoutParams params = view_top.getLayoutParams();
         //获取当前控件的布局对象
         params.height = PhoneUtil.getStatusHeight(getActivity()) + 5;//设置当前控件布局的高度
         view_top.setLayoutParams(params);
+
+//        ViewGroup.LayoutParams params01 = banner.getLayoutParams();
+//        //获取当前控件的布局对象
+//        params.height = PhoneUtil.getStatusHeight(getActivity()) + 5;//设置当前控件布局的高度
+//        view_top.setLayoutParams(params);
+
         ViewHWRateUtil.setHeightWidthRate(mContext, banner, 2.13);//640/300
         emptyView = getEmptyView();
         selectedList = new SparseArray<>();
@@ -107,9 +113,15 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         images.add(Constants.URL_FOR_PIC + "banner/banner3.png");
         images.add(Constants.URL_FOR_PIC + "banner/banner4.png");
         images.add(Constants.URL_FOR_PIC + "banner/banner5.png");
-        banner.setImageLoader(new GlideImageLoader());
+        banner.setImageLoader(new GlideImageLoaderLocal());
         banner.setImages(images);
         banner.start();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     private void initView(View view) {
@@ -400,6 +412,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     public void onEvent(EventBean data) {
         switch (data.getEvent()) {
             case EventBean.TRADE_PAY_SUCCESS:
+                Log.e("jiang", "success");
                 clearCart();
                 getProductListData();
                 break;

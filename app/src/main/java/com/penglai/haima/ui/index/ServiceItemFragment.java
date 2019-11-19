@@ -17,6 +17,7 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.ServiceBean;
 import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.ui.order.ServiceDetailsActivity;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -29,7 +30,7 @@ import static com.penglai.haima.base.BaseActivity.PULL_DOWN_TIME;
 
 /**
  * Created by  on 2019/11/8.
- * 文件说明：
+ * 文件说明：服务列表展示
  */
 public class ServiceItemFragment extends BaseFragmentV4 implements OnRefreshListener {
 

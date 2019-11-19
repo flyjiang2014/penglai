@@ -150,14 +150,14 @@ public abstract class JsonFragmentCallback<T> extends AbsCallback<T> {
             }
         } else if (e instanceof SocketException) {
             //网络异常，读取数据超时
-            ToastUtil.showToast(e.toString());
+            //   ToastUtil.showToast(e.toString());
             if (showStatue && mFragment.getmLoadingLayout() != null) {
                 mFragment.getmLoadingLayout().setStatus(LoadingLayout.No_Network);
             }
         } else if (e instanceof JsonSyntaxException) {
             ToastUtil.showToast(e.toString());
         } else if (e instanceof SocketTimeoutException) {
-            ToastUtil.showToast(e.toString());
+            //  ToastUtil.showToast(e.toString());
             if (showStatue && mFragment.getmLoadingLayout() != null) {
                 mFragment.getmLoadingLayout().setStatus(LoadingLayout.No_Network);
             }

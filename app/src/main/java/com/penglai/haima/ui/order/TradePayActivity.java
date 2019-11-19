@@ -6,6 +6,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
@@ -13,17 +14,24 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.UserInfoBean;
 import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.dialog.CommonOperateDialog;
 import com.penglai.haima.dialog.MessageShowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.charge.ChargePayActivity;
 import com.penglai.haima.utils.ClickUtil;
 import com.penglai.haima.utils.SharepreferenceUtil;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
+
+/**
+ * 订单支付
+ */
 public class TradePayActivity extends BaseActivity {
 
     @BindView(R.id.tv_pay_money)
@@ -43,6 +51,8 @@ public class TradePayActivity extends BaseActivity {
     private String totalMoney = "";
     private MessageShowDialog dialog;
     private boolean hasNoBalance;
+    private boolean isForService;
+    private CommonOperateDialog commonOperateDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +72,7 @@ public class TradePayActivity extends BaseActivity {
         totalMoney = getIntent().getStringExtra("totalMoney");
         tvPayMoney.setText(("￥" + totalMoney));
         hasNoBalance = getIntent().getBooleanExtra("hasNoBalance", false);
+        isForService = getIntent().getBooleanExtra("isForService", false);
         if (hasNoBalance) {
             getIndexData();
         } else {
@@ -102,6 +113,30 @@ public class TradePayActivity extends BaseActivity {
                 });
     }
 
+    /**
+     * 服务支付
+     */
+    public void payForServiceTrade() {
+        OkGo.<CommonReturnData<Object>>post(Constants.BASE_URL + "/service/payServiceOrder")
+                .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
+                .params("tradeNo", tradeNo)
+                .execute(new DialogCallback<CommonReturnData<Object>>(this) {
+                    @Override
+                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                        EventBus.getDefault().post(new EventBean(EventBean.ORDER_REPAY_SUCCESS));//待支付订单支付
+                        dialog = new MessageShowDialog(TradePayActivity.this, new MessageShowDialog.OperateListener() {
+                            @Override
+                            public void sure() {
+                                dialog.dismiss();
+                                TradePayActivity.this.finish();
+                            }
+                        });
+                        dialog.setContentText("交易成功");
+                        dialog.show();
+                    }
+                });
+    }
+
     @OnClick({R.id.rl_charge, R.id.rl_go_pay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -109,7 +144,19 @@ public class TradePayActivity extends BaseActivity {
                 if (ClickUtil.isFastDoubleClick()) {
                     return;  //防止快速多次点击
                 }
-                payForTrade();
+                commonOperateDialog = new CommonOperateDialog(this, new CommonOperateDialog.OperateListener() {
+                    @Override
+                    public void sure() {
+                        if (isForService) {  //服务支付
+                            payForServiceTrade();
+                        } else {
+                            payForTrade();
+                        }
+                        commonOperateDialog.dismiss();
+                    }
+                });
+                commonOperateDialog.setContentText("确认支付");
+                commonOperateDialog.show();
                 break;
             case R.id.rl_go_pay:
                 startActivity(new Intent(mContext, ChargePayActivity.class));

@@ -1,4 +1,4 @@
-package com.penglai.haima.ui.index;
+package com.penglai.haima.ui.order;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
+import com.penglai.haima.bean.ServiceDetailBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.dialog.CommonOperateDialog;
 import com.penglai.haima.dialog.MessageShowDialog;
@@ -23,6 +24,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 服务详情
+ */
 public class ServiceDetailsActivity extends BaseActivity {
 
     @BindView(R.id.banner)
@@ -35,7 +39,6 @@ public class ServiceDetailsActivity extends BaseActivity {
     TextView tvTypeContent;
     @BindView(R.id.tv_charge)
     TextView tvCharge;
-    private String orgType;
     private String serviceId = "";
     private MessageShowDialog dialog;
     private CommonOperateDialog commonOperateDialog;
@@ -54,30 +57,38 @@ public class ServiceDetailsActivity extends BaseActivity {
     @Override
     public void init() {
         ViewHWRateUtil.setHeightWidthRate(mContext, banner, 2.13);//640/300
-        orgType = getIntent().getStringExtra("orgType");
         serviceId = getIntent().getStringExtra("serviceId");
 
-        if ("0".equals(orgType)) {//个人
-            tvType.setText("价格");
-            String price = getIntent().getStringExtra("ind_price");
-            tvTypeContent.setText("￥" + price);
+        //  orgType = getIntent().getStringExtra("orgType");
+//
+//        if ("0".equals(orgType)) {//个人
+//            tvType.setText("价格");
+//            String price = getIntent().getStringExtra("ind_price");
+//            tvTypeContent.setText("￥" + price);
+//
+//        } else if ("1".equals(orgType)) {//机构
+//            tvType.setText("服务地址");
+//            String address = getIntent().getStringExtra("address");
+//            tvTypeContent.setText(address);
+//        }
+//        tvServiceContent.setText(getIntent().getStringExtra("detail"));
+//
+//        List<String> images = new ArrayList<>();
+//        images.add(Constants.URL_FOR_PIC + "banner/banner1.png");
+//        images.add(Constants.URL_FOR_PIC + "banner/banner2.png");
+//        images.add(Constants.URL_FOR_PIC + "banner/banner3.png");
+//        images.add(Constants.URL_FOR_PIC + "banner/banner4.png");
+//        images.add(Constants.URL_FOR_PIC + "banner/banner5.png");
+//        banner.setImageLoader(new GlideImageLoader());
+//        banner.setImages(images);
+//        banner.start();
+        getData();
+    }
 
-        } else if ("1".equals(orgType)) {//机构
-            tvType.setText("服务地址");
-            String address = getIntent().getStringExtra("address");
-            tvTypeContent.setText(address);
-        }
-        tvServiceContent.setText(getIntent().getStringExtra("detail"));
-
-        List<String> images = new ArrayList<>();
-        images.add(Constants.URL_FOR_PIC + "banner/banner1.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner2.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner3.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner4.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner5.png");
-        banner.setImageLoader(new GlideImageLoader());
-        banner.setImages(images);
-        banner.start();
+    @Override
+    public void reLoadData() {
+        super.reLoadData();
+        getData();
     }
 
     @OnClick(R.id.tv_charge)
@@ -97,6 +108,34 @@ public class ServiceDetailsActivity extends BaseActivity {
         });
         commonOperateDialog.setContentText("尊敬的客户，预约成功之后，商家会与您沟通服务时间");
         commonOperateDialog.show();
+    }
+
+
+    private void getData() {
+        OkGo.<CommonReturnData<ServiceDetailBean>>get(Constants.BASE_URL + "service/getServiceById")
+                .params("serviceId", serviceId)
+                .execute(new DialogCallback<CommonReturnData<ServiceDetailBean>>(this, true) {
+                    @Override
+                    public void onSuccess(CommonReturnData<ServiceDetailBean> commonReturnData) {
+                        ServiceDetailBean serviceDetailBean = commonReturnData.getData();
+                        String orgType = serviceDetailBean.getOrgtype();
+                        if ("0".equals(orgType)) {//个人
+                            tvType.setText("价格");
+                            tvTypeContent.setText("￥" + serviceDetailBean.getInd_price());
+                        } else if ("1".equals(orgType)) {//机构
+                            tvType.setText("服务地址");
+                            tvTypeContent.setText(serviceDetailBean.getAddress());
+                        }
+                        tvServiceContent.setText(serviceDetailBean.getDetail());
+                        List<String> images = new ArrayList<>();
+                        for (int i = 1; i < 4; i++) {
+                            images.add(Constants.URL_FOR_PIC2 + serviceDetailBean.getCover_image() + "_" + i + Constants.PIC_JPG);
+                        }
+                        banner.setImageLoader(new GlideImageLoader());
+                        banner.setImages(images);
+                        banner.start();
+                    }
+                });
     }
 
 

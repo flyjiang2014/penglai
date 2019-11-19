@@ -7,21 +7,20 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.widget.PagerSlidingTabStrip;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 
+/**
+ * 订单列表
+ */
 public class OrderListActivity extends BaseActivity {
 
     @BindView(R.id.my_tabs)
@@ -53,22 +52,6 @@ public class OrderListActivity extends BaseActivity {
         dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
-//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-//                if (fragments.get(position).getVisibleTimes() > 1) {
-//                    fragments.get(position).initData();
-//                }
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//            }
-//        });
         myTabs.setViewPager(viewPager);
         setTabsValue();
     }

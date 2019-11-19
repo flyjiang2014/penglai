@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  * Created by ${flyjiang} on 2019/10/22.
- * 文件说明：
+ * 文件说明：服务列表模块
  */
 public class ServiceIndexFragment extends BaseFragmentV4 implements OnTabSelectListener {
 
