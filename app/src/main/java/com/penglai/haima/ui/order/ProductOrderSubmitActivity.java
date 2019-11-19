@@ -149,12 +149,12 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                 .execute(new DialogCallback<CommonReturnData<TradeBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<TradeBean> commonReturnData) {
+                        EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS));
                         Intent intent = new Intent(mContext, TradePayActivity.class);
                         intent.putExtra("tradeNo", commonReturnData.getData().getTradeNo());
                         intent.putExtra("balance", commonReturnData.getData().getBalance());
                         intent.putExtra("totalMoney", totalMoney);
                         startActivity(intent);
-                        EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS));
                         finish();
                     }
                 });

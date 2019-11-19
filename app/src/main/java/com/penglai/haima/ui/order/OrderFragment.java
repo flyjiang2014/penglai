@@ -21,7 +21,6 @@ import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.dialog.TraceFlowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
-import com.penglai.haima.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -58,7 +57,7 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
     protected void initViewData() {
         orderListAdapter = new OrderListAdapter(orderListBeans);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.addItemDecoration(new DividerItemDecoration(R.drawable.divider_drawable_8dp, mContext));
+        //   recyclerView.addItemDecoration(new DividerItemDecoration(R.drawable.divider_drawable_8dp, mContext));
         recyclerView.setAdapter(orderListAdapter);
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setEnableRefresh(true);

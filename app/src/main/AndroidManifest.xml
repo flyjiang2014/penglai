@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.order.ServiceCommentActivity"></activity>
+
+        <activity android:name=".ui.order.ServiceCommentActivity" />
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"

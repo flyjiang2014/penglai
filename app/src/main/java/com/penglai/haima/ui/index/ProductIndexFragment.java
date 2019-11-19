@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,7 +87,6 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
 
     @Override
     protected void initViewData() {
-        EventBus.getDefault().register(this);
         ViewGroup.LayoutParams params = view_top.getLayoutParams();
         //获取当前控件的布局对象
         params.height = PhoneUtil.getStatusHeight(getActivity()) + 5;//设置当前控件布局的高度
@@ -110,6 +110,12 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         banner.setImageLoader(new GlideImageLoader());
         banner.setImages(images);
         banner.start();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     private void initView(View view) {
@@ -400,6 +406,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     public void onEvent(EventBean data) {
         switch (data.getEvent()) {
             case EventBean.TRADE_PAY_SUCCESS:
+                Log.e("jiang", "success");
                 clearCart();
                 getProductListData();
                 break;
