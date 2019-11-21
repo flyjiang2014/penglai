@@ -38,7 +38,7 @@ import com.penglai.haima.utils.PhoneUtil;
 import com.penglai.haima.utils.ToastUtil;
 import com.penglai.haima.utils.ViewHWRateUtil;
 import com.penglai.haima.widget.DividerItemDecoration;
-import com.penglai.haima.widget.GlideImageLoaderLocal;
+import com.penglai.haima.widget.GlideRoundImageLoader;
 import com.penglai.haima.widget.MyListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -108,11 +108,11 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         smartRefreshLayout.setEnableRefresh(false);
         List<String> images = new ArrayList<>();
         images.add(Constants.URL_FOR_PIC + "banner/banner1.png");
+        images.add(Constants.URL_FOR_PIC + "banner/banner2.png");
         images.add(Constants.URL_FOR_PIC + "banner/banner3.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner1.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner3.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner1.png");
-        banner.setImageLoader(new GlideImageLoaderLocal());
+        images.add(Constants.URL_FOR_PIC + "banner/banner4.png");
+        images.add(Constants.URL_FOR_PIC + "banner/banner5.png");
+        banner.setImageLoader(new GlideRoundImageLoader());
         banner.setImages(images);
         banner.start();
     }

@@ -15,7 +15,7 @@ import com.penglai.haima.bean.ServiceDetailBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.ViewHWRateUtil;
-import com.penglai.haima.widget.GlideImageLoaderLocal;
+import com.penglai.haima.widget.GlideRoundImageLoader;
 import com.youth.banner.Banner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -128,7 +128,7 @@ public class ServiceOrderActivity extends BaseActivity {
                         for (int i = 1; i < 4; i++) {
                             images.add(Constants.URL_FOR_PIC2 + serviceDetailBean.getCover_image() + "_" + i + Constants.PIC_JPG);
                         }
-                        banner.setImageLoader(new GlideImageLoaderLocal());
+                        banner.setImageLoader(new GlideRoundImageLoader());
                         banner.setImages(images);
                         // banner.stopAutoPlay();
                         banner.start();

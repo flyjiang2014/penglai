@@ -15,7 +15,7 @@ import com.penglai.haima.dialog.MessageShowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.ClickUtil;
 import com.penglai.haima.utils.ViewHWRateUtil;
-import com.penglai.haima.widget.GlideImageLoaderLocal;
+import com.penglai.haima.widget.GlideRoundImageLoader;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
@@ -131,7 +131,7 @@ public class ServiceDetailsActivity extends BaseActivity {
                         for (int i = 1; i < 4; i++) {
                             images.add(Constants.URL_FOR_PIC2 + serviceDetailBean.getCover_image() + "_" + i + Constants.PIC_JPG);
                         }
-                        banner.setImageLoader(new GlideImageLoaderLocal());
+                        banner.setImageLoader(new GlideRoundImageLoader());
                         banner.setImages(images);
                         banner.start();
                     }

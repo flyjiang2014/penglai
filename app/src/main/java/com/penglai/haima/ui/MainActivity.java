@@ -39,7 +39,6 @@ public class MainActivity extends BaseActivity {
         if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
             AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
         }
-
     }
 
     @Override
