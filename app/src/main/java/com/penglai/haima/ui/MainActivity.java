@@ -1,20 +1,25 @@
 package com.penglai.haima.ui;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.ui.index.PersonIndexFragment;
 import com.penglai.haima.ui.index.ProductIndexFragment;
 import com.penglai.haima.ui.index.ServiceIndexFragment;
+import com.penglai.haima.ui.index.ShopIndexFragment;
 import com.penglai.haima.utils.ActivityManager;
 import com.penglai.haima.utils.AndroidWorkaround;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import me.majiajie.pagerbottomtabstrip.NavigationController;
 import me.majiajie.pagerbottomtabstrip.PageNavigationView;
@@ -47,13 +52,16 @@ public class MainActivity extends BaseActivity {
         //注意这里调用了custom()方法
         final NavigationController navigationController = tab.custom()
                 .addItem(newItem(R.drawable.index_unselect, R.drawable.index_select, "商品"))
+                .addItem(newItem(R.drawable.shop_unselect, R.drawable.shop_select, "商家"))
                 .addItem(newItem(R.drawable.service_unselect, R.drawable.service_select, "服务"))
                 .addItem(newItem(R.drawable.me_unselect, R.drawable.me_select, "我的"))
                 .build();
         ProductIndexFragment productIndexFragment = ProductIndexFragment.getInstance(0);
-        ServiceIndexFragment serviceIndexFragment = ServiceIndexFragment.getInstance(1);
-        PersonIndexFragment personIndexFragment = PersonIndexFragment.getInstance(2);
+        ShopIndexFragment shopIndexFragment = ShopIndexFragment.getInstance(1);
+        ServiceIndexFragment serviceIndexFragment = ServiceIndexFragment.getInstance(2);
+        PersonIndexFragment personIndexFragment = PersonIndexFragment.getInstance(3);
         fragments.add(productIndexFragment);
+        fragments.add(shopIndexFragment);
         fragments.add(serviceIndexFragment);
         fragments.add(personIndexFragment);
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
@@ -91,7 +99,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (viewPager.getCurrentItem() == 2) {
+        if (viewPager.getCurrentItem() == 3) {
             fragments.get(viewPager.getCurrentItem()).initData();
         }
     }
