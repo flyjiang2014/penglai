@@ -60,6 +60,8 @@ public class ProductOrderSubmitActivity extends BaseActivity {
     ProductSelectAdapter productSelectAdapter;
     @BindView(R.id.tv_details)
     TextView tvDetails;
+    boolean isShopProduct;
+    private String providerId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,10 @@ public class ProductOrderSubmitActivity extends BaseActivity {
     @Override
     public void init() {
         mData = (List<ProductSelectBean>) getIntent().getSerializableExtra("mData");
+        isShopProduct = getIntent().getBooleanExtra("isShopProduct", false);
+        if (isShopProduct) {
+            providerId = getIntent().getStringExtra("providerId");
+        }
         totalMoney = getIntent().getStringExtra("totalMoney");
         tvFinalPrice.setText("￥" + totalMoney);
         String details = String.format("共计<font  color='#FF0000'>%s</font>件，<font  color='#FF0000'>￥%s</font>", getCount(), getTotalPrice());
@@ -146,10 +152,16 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                 .params("receiveMobile", receiveMobile)
                 .params("receiveAddress", receiveAddress)
                 .params("receiveNotes", receiveNotes)
+                .params("type", isShopProduct ? "1" : "0")
+                .params("providerId", isShopProduct ? providerId : "SELF")
                 .execute(new DialogCallback<CommonReturnData<TradeBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<TradeBean> commonReturnData) {
-                        EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS));
+                        if (isShopProduct) {
+                            EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS_FOR_SHOP));
+                        } else {
+                            EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS));
+                        }
                         Intent intent = new Intent(mContext, TradePayActivity.class);
                         intent.putExtra("tradeNo", commonReturnData.getData().getTradeNo());
                         intent.putExtra("balance", commonReturnData.getData().getBalance());

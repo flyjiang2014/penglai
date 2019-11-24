@@ -1,54 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.shop.ShopDetailsActivity"
-    android:orientation="vertical">
+    tools:context=".ui.shop.ShopDetailsActivity">
 
     <RelativeLayout
-        android:id="@+id/rl_top"
+        android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
 
-        <ImageView
-            android:id="@+id/img_pic"
+        <LinearLayout
+            android:id="@+id/ll_shop_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/bg_shop_car" />
+
+            <TextView
+                android:id="@+id/tv_show_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_data"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_total_money"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/ll_shop_car"
+            android:gravity="center"
+            android:text="￥0"
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_go_charge"
+            android:layout_width="95dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/frame_solid_red"
+            android:gravity="center"
+            android:text="去结算"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/view2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"></ImageView>
+            android:layout_height="1dp"
+            android:background="#dddddd" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <com.flipboard.bottomsheet.BottomSheetLayout
+        android:id="@+id/bottomSheetLayout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:padding="5dp"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_above="@id/rl_bottom">
 
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/text_grey333"
-            android:text="地址" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_tel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/text_grey333"
-            android:text="电话" />
-    </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/rl_top"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never" />
-</LinearLayout>
+                <ImageView
+                    android:id="@+id/img_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"></ImageView>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_marginTop="2dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地址"
+                    android:textColor="@color/text_grey333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="电话"
+                    android:textColor="@color/text_grey333"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:background="@color/white"
+                android:overScrollMode="never" />
+        </LinearLayout>
+    </com.flipboard.bottomsheet.BottomSheetLayout>
+</RelativeLayout>

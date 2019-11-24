@@ -13,6 +13,7 @@ public class EventBean {
     public static final int RECHARGE_PAY_SUCCESS = 102;  //充值成功
     public static final int ORDER_REPAY_SUCCESS = 103;  //服务支付成功
     public static final int SERVICE_COMMENT_SUCCESS = 104;  //服务评价成功
+    public static final int TRADE_PAY_SUCCESS_FOR_SHOP = 105;  //自提商品下单成功
 
     public EventBean(int event) {
         this.mEvent = event;

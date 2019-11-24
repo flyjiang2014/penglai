@@ -17,7 +17,6 @@ public class ProductBean {
     private int number;
     private String price = "";
     private String title = "";
-
     private int choose_number;
 
     public String getContent() {

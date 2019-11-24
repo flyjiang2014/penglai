@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -411,7 +410,6 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     public void onEvent(EventBean data) {
         switch (data.getEvent()) {
             case EventBean.TRADE_PAY_SUCCESS:
-                Log.e("jiang", "success");
                 clearCart();
                 getProductListData();
                 break;

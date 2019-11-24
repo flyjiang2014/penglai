@@ -13,15 +13,17 @@ package com.penglai.haima.bean;
  * "title": "lucas papaw"
  */
 public class ShopProductBean {
-    private String id = "";
+    private int id;
+    private String content = "";
     private String image_name = "";
     private String model = "";
     private String number = "";
     private String price = "";
     private String provider_id = "";
     private String title = "";
+    private int choose_number;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -47,5 +49,21 @@ public class ShopProductBean {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public int getChoose_number() {
+        return choose_number;
+    }
+
+    public void setChoose_number(int choose_number) {
+        this.choose_number = choose_number;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

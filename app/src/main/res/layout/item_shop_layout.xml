@@ -50,6 +50,5 @@
                 android:textColor="@color/text_grey333"
                 android:textSize="14sp" />
         </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>
