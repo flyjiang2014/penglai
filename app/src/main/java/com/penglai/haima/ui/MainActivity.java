@@ -51,8 +51,8 @@ public class MainActivity extends BaseActivity {
         tab = findViewById(R.id.tab);
         //注意这里调用了custom()方法
         final NavigationController navigationController = tab.custom()
-                .addItem(newItem(R.drawable.index_unselect, R.drawable.index_select, "商品"))
-                .addItem(newItem(R.drawable.shop_unselect, R.drawable.shop_select, "商家"))
+                .addItem(newItem(R.drawable.index_unselect, R.drawable.index_select, "在线"))
+                .addItem(newItem(R.drawable.shop_unselect, R.drawable.shop_select, "自提"))
                 .addItem(newItem(R.drawable.service_unselect, R.drawable.service_select, "服务"))
                 .addItem(newItem(R.drawable.me_unselect, R.drawable.me_select, "我的"))
                 .build();

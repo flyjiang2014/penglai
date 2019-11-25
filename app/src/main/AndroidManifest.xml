@@ -65,6 +65,9 @@
             android:name=".ui.order.OrderListActivity"
             android:launchMode="singleTop" />
         <activity
+            android:name=".ui.order.SelfOrderListActivity"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".ui.order.TradePayActivity"
             android:launchMode="singleTop" />
         <activity

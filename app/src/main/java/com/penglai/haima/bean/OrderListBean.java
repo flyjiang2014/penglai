@@ -1,5 +1,7 @@
 package com.penglai.haima.bean;
 
+import android.text.TextUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +53,7 @@ public class OrderListBean {
     }
 
     public String getState() {
-        return state;
+        return TextUtils.isEmpty(state) ? "" : state;
     }
 
     public void setState(String state) {

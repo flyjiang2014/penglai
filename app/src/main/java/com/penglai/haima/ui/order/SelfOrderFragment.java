@@ -11,13 +11,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.request.GetRequest;
 import com.penglai.haima.R;
-import com.penglai.haima.adapter.OrderListAdapter;
-import com.penglai.haima.base.BaseActivity;
+import com.penglai.haima.adapter.SelfOrderListAdapter;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.OrderListBean;
-import com.penglai.haima.bean.TraceBean;
-import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.dialog.TraceFlowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
@@ -32,16 +29,16 @@ import static com.penglai.haima.base.BaseActivity.PULL_DOWN_TIME;
 
 /**
  * Created by  on 2019/10/30.
- * 文件说明：订单列表fragment
+ * 文件说明：自提订单列表fragment
  */
-public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
+public class SelfOrderFragment extends BaseFragmentV4 implements OnRefreshListener {
 
     private SmartRefreshLayout smartRefreshLayout;
     private RecyclerView recyclerView;
     private View emptyView;
-    private int state = -1; // 0：待上线，1:上线中,2:已下线  -1 全部（自定义状态）
+    private int state = -1;
     List<OrderListBean> orderListBeans = new ArrayList<>();
-    OrderListAdapter orderListAdapter;
+    SelfOrderListAdapter selfOrderListAdapter;
     TraceFlowDialog traceFlowDialog;
 
     @Override
@@ -55,55 +52,33 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
 
     @Override
     protected void initViewData() {
-        orderListAdapter = new OrderListAdapter(orderListBeans);
+        selfOrderListAdapter = new SelfOrderListAdapter(orderListBeans);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         //   recyclerView.addItemDecoration(new DividerItemDecoration(R.drawable.divider_drawable_8dp, mContext));
-        recyclerView.setAdapter(orderListAdapter);
+        recyclerView.setAdapter(selfOrderListAdapter);
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setEnableRefresh(true);
         smartRefreshLayout.setOnRefreshListener(this);
-        orderListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        selfOrderListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(mContext, OrderDetailsActivity.class);
-                intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
-                startActivity(intent);
+//                Intent intent = new Intent(mContext, OrderDetailsActivity.class);
+//                intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
+//                startActivity(intent);
             }
         });
 
-        orderListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        selfOrderListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.tv_traces) {
-                    getTracesInfo(orderListBeans.get(position).getKd_company(), orderListBeans.get(position).getKd_no());
-                    // getTracesInfo("YTO", "YT2018589953982");
-                } else if (view.getId() == R.id.tv_go_pay) {
-                    Intent intent = new Intent(mContext, TradePayActivity.class);
-                    intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
-                    intent.putExtra("totalMoney", orderListBeans.get(position).getTotal_price());
-                    intent.putExtra("hasNoBalance", true);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(mContext, TradePayActivity.class);
+                intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
+                intent.putExtra("totalMoney", orderListBeans.get(position).getTotal_price());
+                intent.putExtra("hasNoBalance", true);
+                startActivity(intent);
+
             }
         });
-    }
-
-    /**
-     * 获取物流信息
-     *
-     * @param
-     */
-    private void getTracesInfo(String company, final String no) {
-        OkGo.<CommonReturnData<TraceBean>>get(Constants.BASE_URL + "express/query")
-                .params("company", company)
-                .params("no", no)
-                .execute(new DialogCallback<CommonReturnData<TraceBean>>(getActivity()) {
-                    @Override
-                    public void onSuccess(CommonReturnData<TraceBean> commonReturnData) {
-                        traceFlowDialog = new TraceFlowDialog((BaseActivity) getActivity(), commonReturnData.getData(), no);
-                        traceFlowDialog.show();
-                    }
-                });
     }
 
     @Override
@@ -123,8 +98,8 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
         emptyView = getEmptyView();
     }
 
-    public static OrderFragment getInstance(int state) {
-        OrderFragment fragment = new OrderFragment();
+    public static SelfOrderFragment getInstance(int state) {
+        SelfOrderFragment fragment = new SelfOrderFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("state", state);
         fragment.setArguments(bundle);
@@ -137,21 +112,21 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
     private void getOrderListData() {
         GetRequest<CommonReturnData<List<OrderListBean>>> request = OkGo.<CommonReturnData<List<OrderListBean>>>get(Constants.BASE_URL + "hot/queryOrderList")
                 .params("mobile", getUserMobile())
-                .params("type", "0");
+                .params("type", "1");
         if (state >= 0) {
             request.params("stateApp", state);
         }
         request.execute(new JsonFragmentCallback<CommonReturnData<List<OrderListBean>>>(this, true, true) {
-                    @Override
-                    public void onSuccess(CommonReturnData<List<OrderListBean>> commonReturnData) {
-                        orderListBeans.clear();
-                        orderListBeans.addAll(commonReturnData.getData());
-                        orderListAdapter.notifyDataSetChanged();
-                        if (orderListBeans.size() == 0) {
-                            orderListAdapter.setEmptyView(emptyView);
-                        }
-                    }
-                });
+            @Override
+            public void onSuccess(CommonReturnData<List<OrderListBean>> commonReturnData) {
+                orderListBeans.clear();
+                orderListBeans.addAll(commonReturnData.getData());
+                selfOrderListAdapter.notifyDataSetChanged();
+                if (orderListBeans.size() == 0) {
+                    selfOrderListAdapter.setEmptyView(emptyView);
+                }
+            }
+        });
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -21,6 +22,7 @@ import com.penglai.haima.bean.ProductSelectBean;
 import com.penglai.haima.bean.TradeBean;
 import com.penglai.haima.bean.UserInfoBean;
 import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.dialog.MessageShowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.ClickUtil;
 import com.penglai.haima.utils.StringUtil;
@@ -61,7 +63,10 @@ public class ProductOrderSubmitActivity extends BaseActivity {
     @BindView(R.id.tv_details)
     TextView tvDetails;
     boolean isShopProduct;
+    @BindView(R.id.ll_address)
+    LinearLayout llAddress;
     private String providerId = "";
+    private MessageShowDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +86,7 @@ public class ProductOrderSubmitActivity extends BaseActivity {
         isShopProduct = getIntent().getBooleanExtra("isShopProduct", false);
         if (isShopProduct) {
             providerId = getIntent().getStringExtra("providerId");
+            llAddress.setVisibility(View.GONE);
         }
         totalMoney = getIntent().getStringExtra("totalMoney");
         tvFinalPrice.setText("￥" + totalMoney);
@@ -159,15 +165,24 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                     public void onSuccess(CommonReturnData<TradeBean> commonReturnData) {
                         if (isShopProduct) {
                             EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS_FOR_SHOP));
+                            dialog = new MessageShowDialog(ProductOrderSubmitActivity.this, new MessageShowDialog.OperateListener() {
+                                @Override
+                                public void sure() {
+                                    dialog.dismiss();
+                                    ProductOrderSubmitActivity.this.finish();
+                                }
+                            });
+                            dialog.setContentText("下单成功");
+                            dialog.show();
                         } else {
                             EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS));
+                            Intent intent = new Intent(mContext, TradePayActivity.class);
+                            intent.putExtra("tradeNo", commonReturnData.getData().getTradeNo());
+                            intent.putExtra("balance", commonReturnData.getData().getBalance());
+                            intent.putExtra("totalMoney", totalMoney);
+                            startActivity(intent);
+                            finish();
                         }
-                        Intent intent = new Intent(mContext, TradePayActivity.class);
-                        intent.putExtra("tradeNo", commonReturnData.getData().getTradeNo());
-                        intent.putExtra("balance", commonReturnData.getData().getBalance());
-                        intent.putExtra("totalMoney", totalMoney);
-                        startActivity(intent);
-                        finish();
                     }
                 });
     }
@@ -194,7 +209,7 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                     showToast("手机号输入不正确");
                     return;
                 }
-                if (TextUtils.isEmpty(address)) {
+                if (!isShopProduct && TextUtils.isEmpty(address)) {
                     showToast("请输入联系地址");
                     return;
                 }

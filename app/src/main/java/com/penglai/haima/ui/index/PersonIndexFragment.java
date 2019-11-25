@@ -22,6 +22,7 @@ import com.penglai.haima.ui.SettingActivity;
 import com.penglai.haima.ui.charge.ChargePayActivity;
 import com.penglai.haima.ui.charge.ChargeRecordActivity;
 import com.penglai.haima.ui.order.OrderListActivity;
+import com.penglai.haima.ui.order.SelfOrderListActivity;
 import com.penglai.haima.ui.order.ServiceOrderListActivity;
 
 /**
@@ -41,6 +42,7 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
     LinearLayout llChargeRecord;
     RelativeLayout rlSetting;
     LinearLayout llMyOrders;
+    LinearLayout llSelfOrders;
     LinearLayout llServiceOrders;
     private int state = -1;
     GlideCircleTransformWithBorder glideCircleTransformWithBorder;
@@ -74,6 +76,7 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
         rlSetting = view.findViewById(R.id.rl_setting);
         llMyOrders = view.findViewById(R.id.ll_my_orders);
         llServiceOrders = view.findViewById(R.id.ll_service_orders);
+        llSelfOrders = view.findViewById(R.id.ll_self_orders);
         llPersonInfo.setOnClickListener(this);
         llCustomerManager.setOnClickListener(this);
         llChargeRecord.setOnClickListener(this);
@@ -81,6 +84,7 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
         rlSetting.setOnClickListener(this);
         llMyOrders.setOnClickListener(this);
         llServiceOrders.setOnClickListener(this);
+        llSelfOrders.setOnClickListener(this);
     }
 
     @Override
@@ -116,6 +120,9 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
                 break;
             case R.id.ll_my_orders:
                 startActivity(new Intent(mContext, OrderListActivity.class));
+                break;
+            case R.id.ll_self_orders:
+                startActivity(new Intent(mContext, SelfOrderListActivity.class));
                 break;
             case R.id.ll_service_orders:
                 startActivity(new Intent(mContext, ServiceOrderListActivity.class));

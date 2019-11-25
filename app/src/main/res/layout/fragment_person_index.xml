@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.index.PersonIndexActivity">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="210dp"
@@ -57,256 +56,301 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_person_info"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="25dp"
-            android:src="@drawable/user" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="个人信息"
-            android:textColor="@color/text_grey333"
-            android:textSize="14sp" />
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/arrow_right" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_person_info"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp">
 
-    <LinearLayout
-        android:id="@+id/ll_customer_manager"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/user" />
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="25dp"
-            android:src="@drawable/customer_service" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="个人信息"
+                    android:textColor="@color/text_grey333"
+                    android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_grey333"
-            android:text="客户经理"
-            android:textSize="14sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/arrow_right" />
+            </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/arrow_right" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_customer_manager"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp">
 
-    <LinearLayout
-        android:id="@+id/ll_person_balance"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/customer_service" />
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="25dp"
-            android:src="@drawable/cash" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text_grey333"
+                    android:text="客户经理"
+                    android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_grey333"
-            android:text="个人余额"
-            android:textSize="14sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/arrow_right" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_person_balance"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="10dp"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:textColor="@color/text_grey333"
-            android:text=""
-            android:textSize="14sp" />
+            <LinearLayout
+                android:id="@+id/ll_person_balance"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp">
 
-        <Button
-            android:id="@+id/btn_charge_pay"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:background="@drawable/frame_solid_orange"
-            android:minWidth="75dp"
-            android:layout_marginRight="5dp"
-            android:text="充值"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-    </LinearLayout>
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/cash" />
 
-    <LinearLayout
-        android:id="@+id/ll_my_orders"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text_grey333"
+                    android:text="个人余额"
+                    android:textSize="14sp" />
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="25dp"
-            android:src="@drawable/my_orders" />
+                <TextView
+                    android:id="@+id/tv_person_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_grey333"
+                    android:text=""
+                    android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_grey333"
-            android:text="商品订单"
-            android:textSize="14sp" />
+                <Button
+                    android:id="@+id/btn_charge_pay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:background="@drawable/frame_solid_orange"
+                    android:minWidth="75dp"
+                    android:layout_marginRight="5dp"
+                    android:text="充值"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/arrow_right" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_my_orders"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp">
 
-    <LinearLayout
-        android:id="@+id/ll_service_orders"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/my_orders" />
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="25dp"
-            android:src="@drawable/service" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text_grey333"
+                    android:text="在线订单"
+                    android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_grey333"
-            android:text="服务订单"
-            android:textSize="14sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/arrow_right" />
+            </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/arrow_right" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_self_orders"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp">
 
-    <LinearLayout
-        android:id="@+id/ll_charge_record"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/my_orders" />
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="25dp"
-            android:src="@drawable/charge_record" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text_grey333"
+                    android:text="自提订单"
+                    android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:textColor="@color/text_grey333"
-            android:text="交易记录"
-            android:textSize="14sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/arrow_right" />
+            </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/arrow_right" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_service_orders"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp">
 
-    <LinearLayout
-        android:id="@+id/ll_free_delivery"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:paddingRight="8dp"
-        android:paddingLeft="8dp">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/service" />
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="25dp"
-            android:src="@drawable/delivery" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text_grey333"
+                    android:text="服务订单"
+                    android:textSize="14sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="免费派送"
-            android:textColor="@color/text_grey333"
-            android:textSize="14sp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/arrow_right" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_free_delivery"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="10dp"
-            android:gravity="center_vertical"
-            android:layout_weight="1"
-            android:textColor="@color/text_grey333"
-            android:text=""
-            android:textSize="14sp" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_charge_record"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/charge_record" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/text_grey333"
+                    android:text="交易记录"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/arrow_right" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_free_delivery"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingRight="8dp"
+                android:paddingLeft="8dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="25dp"
+                    android:src="@drawable/delivery" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="免费派送"
+                    android:textColor="@color/text_grey333"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_free_delivery"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_grey333"
+                    android:text=""
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
