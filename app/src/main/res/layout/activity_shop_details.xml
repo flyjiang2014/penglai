@@ -63,7 +63,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:background="@drawable/frame_solid_red"
+            android:background="@drawable/frame_solid_red_sec"
             android:gravity="center"
             android:text="去结算"
             android:textColor="@color/white"

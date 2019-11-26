@@ -227,7 +227,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
-            android:background="@drawable/frame_solid_red"
+            android:background="@drawable/frame_solid_red_sec"
             android:gravity="center"
             android:text="提交订单"
             android:textColor="@color/white"
