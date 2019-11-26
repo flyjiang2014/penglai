@@ -12,6 +12,7 @@ public class OrderDetailBean {
     private String receiveName = "";
     private String receiveAddress = "";
     private String state = "";
+    private String self_state = "";
     private String receiveNotes = "";
     private String receiveMobile = "";
     private List<ProductSelectBean> merclist = new ArrayList<>();
@@ -70,5 +71,9 @@ public class OrderDetailBean {
 
     public void setMerclist(List<ProductSelectBean> merclist) {
         this.merclist = merclist;
+    }
+
+    public String getSelf_state() {
+        return self_state;
     }
 }

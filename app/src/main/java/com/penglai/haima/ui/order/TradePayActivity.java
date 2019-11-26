@@ -53,6 +53,7 @@ public class TradePayActivity extends BaseActivity {
     private boolean hasNoBalance;
     private boolean isForService;
     private CommonOperateDialog commonOperateDialog;
+    boolean isShopProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,7 @@ public class TradePayActivity extends BaseActivity {
     public void init() {
         EventBus.getDefault().register(this);
         tradeNo = getIntent().getStringExtra("tradeNo");
+        isShopProduct = getIntent().getBooleanExtra("isShopProduct", false);
         totalMoney = getIntent().getStringExtra("totalMoney");
         tvPayMoney.setText(("￥" + totalMoney));
         hasNoBalance = getIntent().getBooleanExtra("hasNoBalance", false);
@@ -96,6 +98,7 @@ public class TradePayActivity extends BaseActivity {
         OkGo.<CommonReturnData<Object>>post(Constants.BASE_URL + "hot/payOrderList")
                 .params("mobile", SharepreferenceUtil.getString(Constants.MOBILE))
                 .params("tradeNo", tradeNo)
+                .params("type", isShopProduct ? "1" : "0")
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {

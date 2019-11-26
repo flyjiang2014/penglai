@@ -40,14 +40,14 @@ public class ProductAdapter extends BaseQuickAdapter<ProductBean, BaseViewHolder
         TextView tv_content = helper.getView(R.id.tv_content);
         TextView tv_model = helper.getView(R.id.tv_model);
         TextView tv_price = helper.getView(R.id.tv_price);
-        TextView tv_number = helper.getView(R.id.tv_number);
+        //  TextView tv_number = helper.getView(R.id.tv_number);
         final TextView tv_count = helper.getView(R.id.tv_count);
 
         tv_price.setText("￥" + item.getPrice());
         tv_title.setText(item.getTitle());
         tv_content.setText(item.getContent());
         tv_model.setText("型号：" + item.getModel());
-        tv_number.setText("库存：" + item.getNumber());
+        //  tv_number.setText("库存：" + item.getNumber());
         GlideApp.with(mContext).load(Constants.URL_FOR_PIC + item.getImage_name() + Constants.PIC_JPG).defaultOptions().into(img_pic);
 
         if (item != null) {

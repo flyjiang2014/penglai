@@ -96,7 +96,7 @@ public class SelfOrderListActivity extends BaseActivity {
             super(fm);
         }
 
-        private final String[] titles = {"全部", "待支付", "待确认", "待提货", "已完成"};
+        private final String[] titles = {"全部", "待确认", "待支付", "待提货", "已完成"};
 
         @Override
         public CharSequence getPageTitle(int position) {

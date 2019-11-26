@@ -77,7 +77,7 @@
                 android:visibility="visible"
                 android:background="@drawable/frame_solid_grey_sec"
                 android:textSize="14sp"
-                android:text="去支付"></TextView>
+                android:text="去支付" />
 
         </LinearLayout>
 
@@ -95,11 +95,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/receive"></ImageView>
+                android:src="@drawable/receive" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp">
 
                 <TextView
@@ -107,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="--"></TextView>
+                    android:text="--" />
 
                 <TextView
                     android:id="@+id/tv_mobile"
@@ -116,7 +118,7 @@
                     android:textSize="14sp"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/tv_name"
-                    android:text="--"></TextView>
+                    android:text="--" />
 
                 <TextView
                     android:id="@+id/tv_address"
@@ -124,7 +126,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:textSize="14sp"
-                    android:layout_below="@id/tv_name"></TextView>
+
+                    android:layout_below="@id/tv_name" />
             </RelativeLayout>
         </LinearLayout>
 

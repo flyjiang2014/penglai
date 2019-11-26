@@ -61,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="-"
+                android:visibility="gone"
                 android:textColor="#5285C5"
                 android:textSize="12sp" />
         </LinearLayout>

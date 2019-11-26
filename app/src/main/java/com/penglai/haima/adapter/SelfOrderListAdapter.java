@@ -36,12 +36,14 @@ public class SelfOrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseVi
         TextView tv_state = helper.getView(R.id.tv_state);
         TextView tv_count_content = helper.getView(R.id.tv_count_content);
         TextView tv_go_pay = helper.getView(R.id.tv_go_pay);
+        TextView tv_code_check = helper.getView(R.id.tv_code_check);
         RecyclerView recyclerView = helper.getView(R.id.recyclerView);
         tv_time.setText(item.getInsert_time());
-        tv_state.setText(getStateShow(item.getState()));
+        tv_state.setText(getStateShow(item.getSelf_state()));
         String content = String.format("共计<font  color='#FF0000'>%s</font>件，<font  color='#FF0000'>￥%s</font>", item.getTotal_number(), item.getTotal_price());
         tv_count_content.setText(Html.fromHtml(content));
-        tv_go_pay.setVisibility("0".equals(item.getState()) ? View.VISIBLE : View.GONE);
+        tv_code_check.setVisibility("2".equals(item.getSelf_state()) ? View.VISIBLE : View.GONE);//查看提货码
+        tv_go_pay.setVisibility("1".equals(item.getSelf_state()) ? View.VISIBLE : View.GONE);//待支付
         helper.addOnClickListener(R.id.tv_go_pay);
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -92,9 +94,9 @@ public class SelfOrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseVi
     private String getStateShow(String state) {
         switch (state) {
             case "0":
-                return "待支付";
-            case "1":
                 return "待确认";
+            case "1":
+                return "待支付";
             case "2":
                 return "待提货";
             case "3":

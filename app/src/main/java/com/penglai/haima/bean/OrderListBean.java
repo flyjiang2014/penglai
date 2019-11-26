@@ -15,6 +15,7 @@ public class OrderListBean {
     private String trade_no = "";
     private String insert_time = "";
     private String state = "";
+    private String self_state = "";
     private String kd_no = "";
     private String kd_company = "";
 
@@ -82,5 +83,9 @@ public class OrderListBean {
 
     public void setKd_company(String kd_company) {
         this.kd_company = kd_company;
+    }
+
+    public String getSelf_state() {
+        return TextUtils.isEmpty(self_state) ? "" : self_state;
     }
 }

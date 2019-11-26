@@ -62,9 +62,10 @@ public class SelfOrderFragment extends BaseFragmentV4 implements OnRefreshListen
         selfOrderListAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                Intent intent = new Intent(mContext, OrderDetailsActivity.class);
-//                intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
-//                startActivity(intent);
+                Intent intent = new Intent(mContext, OrderDetailsActivity.class);
+                intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
+                intent.putExtra("isShopProduct", true);
+                startActivity(intent);
             }
         });
 
@@ -75,6 +76,7 @@ public class SelfOrderFragment extends BaseFragmentV4 implements OnRefreshListen
                 intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
                 intent.putExtra("totalMoney", orderListBeans.get(position).getTotal_price());
                 intent.putExtra("hasNoBalance", true);
+                intent.putExtra("isShopProduct", true);
                 startActivity(intent);
 
             }

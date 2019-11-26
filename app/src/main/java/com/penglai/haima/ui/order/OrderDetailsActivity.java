@@ -14,11 +14,16 @@ import com.penglai.haima.R;
 import com.penglai.haima.adapter.ProductBuyAdapter;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
+import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.OrderDetailBean;
 import com.penglai.haima.bean.ProductSelectBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.widget.DividerItemDecoration;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +62,7 @@ public class OrderDetailsActivity extends BaseActivity {
     private String totalMoney = "";
     private ProductBuyAdapter productBuyAdapter;
     private List<ProductSelectBean> mData = new ArrayList<>();//已购买商品
+    boolean isShopProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +77,16 @@ public class OrderDetailsActivity extends BaseActivity {
 
     @Override
     public void init() {
+        EventBus.getDefault().register(this);
         tradeNo = getIntent().getStringExtra("tradeNo");
+        isShopProduct = getIntent().getBooleanExtra("isShopProduct", false);
         productBuyAdapter = new ProductBuyAdapter(mData);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext));
         recyclerView.setAdapter(productBuyAdapter);
+        if (isShopProduct) {
+            tvAddress.setVisibility(View.GONE);
+        }
         getData();
     }
 
@@ -88,6 +99,7 @@ public class OrderDetailsActivity extends BaseActivity {
     public void getData() {
         OkGo.<CommonReturnData<OrderDetailBean>>get(Constants.BASE_URL + "hot/queryOrderSingle")
                 .params("tradeNo", tradeNo)
+                .params("type", isShopProduct ? "1" : "0")
                 .execute(new DialogCallback<CommonReturnData<OrderDetailBean>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<OrderDetailBean> commonReturnData) {
@@ -95,8 +107,14 @@ public class OrderDetailsActivity extends BaseActivity {
                         tvTradeNo.setText("订单编号：" + tradeNo);
                         totalMoney = orderDetailBean.getAmount();
                         tvPrice.setText("金额：￥" + orderDetailBean.getAmount());
-                        tvTradeState.setText(getStateShow(orderDetailBean.getState()));
-                        llGoPay.setVisibility("0".equals(orderDetailBean.getState()) ? View.VISIBLE : View.GONE);
+                        if (isShopProduct) {
+                            tvTradeState.setText(getSelfStateShow(orderDetailBean.getSelf_state()));
+                            llGoPay.setVisibility("1".equals(orderDetailBean.getSelf_state()) ? View.VISIBLE : View.GONE);
+                        } else {
+                            tvTradeState.setText(getStateShow(orderDetailBean.getState()));
+                            llGoPay.setVisibility("0".equals(orderDetailBean.getState()) ? View.VISIBLE : View.GONE);
+                        }
+
                         tvAddress.setText(orderDetailBean.getReceiveAddress());
                         tvMobile.setText(orderDetailBean.getReceiveMobile());
                         tvName.setText(orderDetailBean.getReceiveName());
@@ -114,7 +132,7 @@ public class OrderDetailsActivity extends BaseActivity {
     }
 
     /**
-     * 获取订单状态
+     * 获取在线订单状态
      *
      * @return
      */
@@ -132,12 +150,33 @@ public class OrderDetailsActivity extends BaseActivity {
         return "";
     }
 
+
+    /**
+     * 获取自提订单状态
+     *
+     * @return
+     */
+    private String getSelfStateShow(String state) {
+        switch (state) {
+            case "0":
+                return "待确认";
+            case "1":
+                return "待支付";
+            case "2":
+                return "待提货";
+            case "3":
+                return "已完成";
+        }
+        return "";
+    }
+
     @OnClick({R.id.tv_go_pay})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_go_pay:
                 Intent intent = new Intent(mContext, TradePayActivity.class);
                 intent.putExtra("tradeNo", tradeNo);
+                intent.putExtra("isShopProduct", isShopProduct);
                 if (!TextUtils.isEmpty(totalMoney)) {
                     intent.putExtra("totalMoney", totalMoney);
                 }
@@ -145,5 +184,20 @@ public class OrderDetailsActivity extends BaseActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(EventBean data) {
+        switch (data.getEvent()) {
+            case EventBean.ORDER_REPAY_SUCCESS:
+                getData();
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
