@@ -172,7 +172,7 @@ public class ProductOrderSubmitActivity extends BaseActivity {
                                     ProductOrderSubmitActivity.this.finish();
                                 }
                             });
-                            dialog.setContentText("下单成功");
+                            dialog.setContentText("下单成功\n请等待商家确认之后\n再进行支付");
                             dialog.show();
                         } else {
                             EventBus.getDefault().post(new EventBean(EventBean.TRADE_PAY_SUCCESS));

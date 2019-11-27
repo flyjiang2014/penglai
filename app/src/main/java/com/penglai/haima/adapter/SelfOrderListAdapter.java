@@ -45,6 +45,7 @@ public class SelfOrderListAdapter extends BaseQuickAdapter<OrderListBean, BaseVi
         tv_code_check.setVisibility("2".equals(item.getSelf_state()) ? View.VISIBLE : View.GONE);//查看提货码
         tv_go_pay.setVisibility("1".equals(item.getSelf_state()) ? View.VISIBLE : View.GONE);//待支付
         helper.addOnClickListener(R.id.tv_go_pay);
+        helper.addOnClickListener(R.id.tv_code_check);
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(manager);

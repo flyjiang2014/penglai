@@ -33,7 +33,7 @@ public class OrderListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitleMiddleText("我的订单");
+        setTitleMiddleText("在线订单");
         for (int i = 0; i < 5; i++) { //添加fragment
             OrderFragment fragment = OrderFragment.getInstance(i - 1);
             fragments.add(fragment);

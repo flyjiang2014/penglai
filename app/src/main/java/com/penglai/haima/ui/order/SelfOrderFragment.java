@@ -12,11 +12,12 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.request.GetRequest;
 import com.penglai.haima.R;
 import com.penglai.haima.adapter.SelfOrderListAdapter;
+import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.OrderListBean;
 import com.penglai.haima.callback.JsonFragmentCallback;
-import com.penglai.haima.dialog.TraceFlowDialog;
+import com.penglai.haima.dialog.TwoCodeShowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -39,7 +40,7 @@ public class SelfOrderFragment extends BaseFragmentV4 implements OnRefreshListen
     private int state = -1;
     List<OrderListBean> orderListBeans = new ArrayList<>();
     SelfOrderListAdapter selfOrderListAdapter;
-    TraceFlowDialog traceFlowDialog;
+    TwoCodeShowDialog twoCodeShowDialog;
 
     @Override
     protected View initView(LayoutInflater inflater) {
@@ -72,13 +73,17 @@ public class SelfOrderFragment extends BaseFragmentV4 implements OnRefreshListen
         selfOrderListAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(mContext, TradePayActivity.class);
-                intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
-                intent.putExtra("totalMoney", orderListBeans.get(position).getTotal_price());
-                intent.putExtra("hasNoBalance", true);
-                intent.putExtra("isShopProduct", true);
-                startActivity(intent);
-
+                if (view.getId() == R.id.tv_code_check) {
+                    twoCodeShowDialog = new TwoCodeShowDialog((BaseActivity) getActivity(), orderListBeans.get(position).getTrade_no() + "&" + orderListBeans.get(position).getReceive_mobile());
+                    twoCodeShowDialog.show();
+                } else if (view.getId() == R.id.tv_go_pay) {
+                    Intent intent = new Intent(mContext, TradePayActivity.class);
+                    intent.putExtra("tradeNo", orderListBeans.get(position).getTrade_no());
+                    intent.putExtra("totalMoney", orderListBeans.get(position).getTotal_price());
+                    intent.putExtra("hasNoBalance", true);
+                    intent.putExtra("isShopProduct", true);
+                    startActivity(intent);
+                }
             }
         });
     }

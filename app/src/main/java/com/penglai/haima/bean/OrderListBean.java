@@ -18,6 +18,7 @@ public class OrderListBean {
     private String self_state = "";
     private String kd_no = "";
     private String kd_company = "";
+    private String receive_mobile = "";
 
     private List<OrderProductItemBean> detail = new ArrayList<>();
 
@@ -87,5 +88,13 @@ public class OrderListBean {
 
     public String getSelf_state() {
         return TextUtils.isEmpty(self_state) ? "" : self_state;
+    }
+
+    public String getReceive_mobile() {
+        return receive_mobile;
+    }
+
+    public void setReceive_mobile(String receive_mobile) {
+        this.receive_mobile = receive_mobile;
     }
 }

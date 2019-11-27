@@ -21,7 +21,6 @@ import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.shop.ShopDetailsActivity;
 import com.penglai.haima.utils.PhoneUtil;
 import com.penglai.haima.utils.ViewHWRateUtil;
-import com.penglai.haima.widget.DividerItemDecoration;
 import com.penglai.haima.widget.GlideRoundImageLoader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -74,7 +73,6 @@ public class ShopIndexFragment extends BaseFragmentV4 implements OnRefreshListen
         ViewHWRateUtil.setHeightWidthRate(mContext, banner, 2.13);//640/300
         shopAdapter = new ShopAdapter(shopDataBeans);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.addItemDecoration(new DividerItemDecoration(mContext));
         recyclerView.setAdapter(shopAdapter);
         smartRefreshLayout.setEnableLoadMore(false);
         smartRefreshLayout.setEnableRefresh(false);
