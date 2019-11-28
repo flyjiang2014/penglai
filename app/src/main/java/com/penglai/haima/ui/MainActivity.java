@@ -18,9 +18,12 @@ import com.penglai.haima.utils.ActivityManager;
 import com.penglai.haima.utils.AndroidWorkaround;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
+import cn.jpush.android.api.JPushInterface;
 import me.majiajie.pagerbottomtabstrip.NavigationController;
 import me.majiajie.pagerbottomtabstrip.PageNavigationView;
 import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
@@ -44,6 +47,10 @@ public class MainActivity extends BaseActivity {
         if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
             AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
         }
+
+        Set<String> tags = new HashSet<>();
+        tags.add("tag1");
+        JPushInterface.setTags(mContext, 0, tags);
     }
 
     @Override

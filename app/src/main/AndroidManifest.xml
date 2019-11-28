@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.penglai.haima">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <permission
+        android:name="com.penglai.haima.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.penglai.haima.permission.JPUSH_MESSAGE" />
 
     <application
         android:name=".base.BaseApplication"
@@ -85,6 +92,25 @@
         <activity
             android:name=".ui.order.ServiceOrderListActivity"
             android:launchMode="singleTop" />
+        <!-- JPUSH start -->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:process=":multiprocess"
+            tools:node="replace" />
+        <service
+            android:name=".jpush.PushService"
+            android:process=":pushcore">
+            <intent-filter>
+                <action android:name="cn.jiguang.user.service.action" />
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".jpush.PushMessageReceiver">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="com.penglai.haima" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

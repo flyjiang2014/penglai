@@ -33,6 +33,7 @@ import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+import cn.jpush.android.api.JPushInterface;
 import in.srain.cube.util.CLog;
 import okhttp3.OkHttpClient;
 
@@ -122,6 +123,8 @@ public class BaseApplication extends Application {
         ToastUtil.init(this);
 //        //初始化工具类
 //        Utils.init(this);
+        JPushInterface.setDebugMode(false);    // 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);            // 初始化 JPush  JPushInterface.setDebugMode(false);    // 设置开启日志,发布时请关闭日志
 }
     /**
      * OkGo的初始化
