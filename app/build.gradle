@@ -53,6 +53,11 @@ android {
         //线程数
         threadCount = 8
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 

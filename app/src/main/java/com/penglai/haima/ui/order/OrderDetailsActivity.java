@@ -1,11 +1,13 @@
 package com.penglai.haima.ui.order;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -58,11 +60,24 @@ public class OrderDetailsActivity extends BaseActivity {
     LinearLayout llGoPay;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.tv_shop_name)
+    TextView tvShopName;
+    @BindView(R.id.tv_shop_address)
+    TextView tvShopAddress;
+    @BindView(R.id.tv_tel)
+    TextView tvTel;
+    @BindView(R.id.img_call)
+    ImageView imgCall;
+    @BindView(R.id.ll_shop)
+    LinearLayout llShop;
+    @BindView(R.id.tv_list)
+    TextView tvList;
     private String tradeNo = "";
     private String totalMoney = "";
     private ProductBuyAdapter productBuyAdapter;
     private List<ProductSelectBean> mData = new ArrayList<>();//已购买商品
-    boolean isShopProduct;
+    private boolean isShopProduct;
+    private String providerPhone = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +101,9 @@ public class OrderDetailsActivity extends BaseActivity {
         recyclerView.setAdapter(productBuyAdapter);
         if (isShopProduct) {
             tvAddress.setVisibility(View.GONE);
+            llShop.setVisibility(View.VISIBLE);
+        } else {
+            llShop.setVisibility(View.GONE);
         }
         getData();
     }
@@ -114,6 +132,10 @@ public class OrderDetailsActivity extends BaseActivity {
                             tvTradeState.setText(getStateShow(orderDetailBean.getState()));
                             llGoPay.setVisibility("0".equals(orderDetailBean.getState()) ? View.VISIBLE : View.GONE);
                         }
+                        providerPhone = orderDetailBean.getProviderPhone();
+                        tvTel.setText("电话:" + providerPhone);//自提商品才有
+                        tvShopAddress.setText("地址:" + orderDetailBean.getProviderAddress());//自提商品才有
+                        tvShopName.setText(orderDetailBean.getProviderName());
 
                         tvAddress.setText(orderDetailBean.getReceiveAddress());
                         tvMobile.setText(orderDetailBean.getReceiveMobile());
@@ -170,9 +192,14 @@ public class OrderDetailsActivity extends BaseActivity {
         return "";
     }
 
-    @OnClick({R.id.tv_go_pay})
+    @OnClick({R.id.tv_go_pay, R.id.img_call})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.img_call:
+                if (!TextUtils.isEmpty(providerPhone)) {
+                    callAction(providerPhone);
+                }
+                break;
             case R.id.tv_go_pay:
                 Intent intent = new Intent(mContext, TradePayActivity.class);
                 intent.putExtra("tradeNo", tradeNo);
@@ -183,6 +210,7 @@ public class OrderDetailsActivity extends BaseActivity {
                 intent.putExtra("hasNoBalance", true);
                 startActivity(intent);
                 break;
+
         }
     }
 
@@ -193,6 +221,16 @@ public class OrderDetailsActivity extends BaseActivity {
                 getData();
                 break;
         }
+    }
+
+    /**
+     * 拨打电话
+     *
+     * @param mobileNumber
+     */
+    public void callAction(String mobileNumber) {
+        Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mobileNumber));
+        startActivity(callIntent);
     }
 
     @Override

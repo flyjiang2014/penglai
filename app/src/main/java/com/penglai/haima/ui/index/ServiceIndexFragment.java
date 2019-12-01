@@ -19,6 +19,8 @@ import com.penglai.haima.bean.ServiceTypeBean;
 import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.PhoneUtil;
+import com.penglai.haima.utils.SharepreferenceUtil;
+import com.penglai.haima.widget.loading.LoadingLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +94,15 @@ public class ServiceIndexFragment extends BaseFragmentV4 implements OnTabSelectL
      * 获取标题
      */
     private void getServiceTypes() {
+        if (!SharepreferenceUtil.getString(Constants.CURRENT_CITY).contains("无锡")) {
+            mLoadingLayout.setStatus(LoadingLayout.Error);
+            mLoadingLayout.setErrorText("当前城市暂未开放,\n敬请期待")
+                    .setErrorImageVisible(false)
+                    .setErrorTextSize(18)
+                    .setReloadButtonBackgroundResource(R.color.transparent)
+                    .setReloadButtonText("");
+            return;
+        }
         OkGo.<CommonReturnData<List<ServiceTypeBean>>>get(Constants.BASE_URL + "service/getServiceType")
                 .execute(new JsonFragmentCallback<CommonReturnData<List<ServiceTypeBean>>>(this, true, true) {
                     @Override

@@ -111,6 +111,15 @@
                 <category android:name="com.penglai.haima" />
             </intent-filter>
         </receiver>
+        <!-- baidu map start -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="eCpHcpHCpjHyUrRCIqrZSGF4okM3oqyQ" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+        <!-- baidu map end -->
     </application>
 
 </manifest>

@@ -15,6 +15,9 @@ public class OrderDetailBean {
     private String self_state = "";
     private String receiveNotes = "";
     private String receiveMobile = "";
+    private String providerAddress = "";
+    private String providerName = "";
+    private String providerPhone = "";
     private List<ProductSelectBean> merclist = new ArrayList<>();
 
     public String getAmount() {
@@ -75,5 +78,33 @@ public class OrderDetailBean {
 
     public String getSelf_state() {
         return self_state;
+    }
+
+    public void setSelf_state(String self_state) {
+        this.self_state = self_state;
+    }
+
+    public String getProviderAddress() {
+        return providerAddress;
+    }
+
+    public void setProviderAddress(String providerAddress) {
+        this.providerAddress = providerAddress;
+    }
+
+    public String getProviderName() {
+        return providerName;
+    }
+
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
+
+    public String getProviderPhone() {
+        return providerPhone;
+    }
+
+    public void setProviderPhone(String providerPhone) {
+        this.providerPhone = providerPhone;
     }
 }

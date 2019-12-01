@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.penglai.haima.base.Constants;
+
 /**
  * 作者：flyjiang
  * 说明: SharedPreferences数据存取工具类
@@ -74,7 +76,7 @@ public class SharepreferenceUtil {
      * @return 有对应的字符串返回对应的字符串，没有则返回空字符
      */
     public static String getString(String key) {
-        return TextUtils.isEmpty(key) || mSharedPreferences == null ? "" : mSharedPreferences.getString(key, "");
+        return TextUtils.isEmpty(key) || mSharedPreferences == null ? getDefaultString(key) : mSharedPreferences.getString(key, getDefaultString(key));
     }
 
     /**
@@ -90,5 +92,13 @@ public class SharepreferenceUtil {
 
     public static boolean getBoolean(String key) {
         return TextUtils.isEmpty(key) || mSharedPreferences == null ? false : mSharedPreferences.getBoolean(key, false);
+    }
+
+    private static String getDefaultString(String key) {
+        if (key.equals(Constants.CURRENT_CITY)) {
+            return "无锡市";
+        } else {
+            return "";
+        }
     }
 }

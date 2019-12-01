@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatDelegate;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -123,6 +124,7 @@ public class BaseApplication extends Application {
         ToastUtil.init(this);
 //        //初始化工具类
 //        Utils.init(this);
+        SDKInitializer.initialize(this);
         JPushInterface.setDebugMode(false);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);            // 初始化 JPush  JPushInterface.setDebugMode(false);    // 设置开启日志,发布时请关闭日志
 }

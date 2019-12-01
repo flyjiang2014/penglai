@@ -1,9 +1,11 @@
 package com.penglai.haima.ui.shop;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,6 +82,8 @@ public class ShopDetailsActivity extends BaseActivity {
     RelativeLayout rlBottom;
     @BindView(R.id.bottomSheetLayout)
     BottomSheetLayout bottomSheetLayout;
+    @BindView(R.id.img_call)
+    ImageView imgCall;
     private View emptyView;
     private SparseArray<ShopProductBean> selectedList;
     private ShopProductForCarAdapter shopProductForCarAdapter;//底部购物车的adapter
@@ -133,9 +137,14 @@ public class ShopDetailsActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.ll_shop_car, R.id.tv_go_charge})
+    @OnClick({R.id.ll_shop_car, R.id.tv_go_charge, R.id.img_call})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.img_call:
+                if (!TextUtils.isEmpty(shopDataBean.getProvider_phone())) {
+                    callAction(shopDataBean.getProvider_phone());
+                }
+                break;
             case R.id.ll_shop_car:
                 showBottomSheet();
                 break;
@@ -161,6 +170,16 @@ public class ShopDetailsActivity extends BaseActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    /**
+     * 拨打电话
+     *
+     * @param mobileNumber
+     */
+    public void callAction(String mobileNumber) {
+        Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mobileNumber));
+        startActivity(callIntent);
     }
 
     //创建购物车view
