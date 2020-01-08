@@ -2,6 +2,8 @@ package com.penglai.haima.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,6 +31,7 @@ public class ServiceListOrderAdapter extends BaseQuickAdapter<ServiceOrderDataBe
         TextView tv_content_type = helper.getView(R.id.tv_content_type);
         TextView tv_content = helper.getView(R.id.tv_content);
         TextView tv_price = helper.getView(R.id.tv_price);
+        LinearLayout ll_code_check = helper.getView(R.id.ll_code_check);
         tv_type.setText(item.getType());
         tv_state.setText(getStateShow(item.getState()));
         tv_time.setText(item.getInsert_time());
@@ -41,6 +44,8 @@ public class ServiceListOrderAdapter extends BaseQuickAdapter<ServiceOrderDataBe
             tv_content_type.setText(item.getTitle());
             tv_content.setText(item.getOrg_summary());
         }
+        ll_code_check.setVisibility("2".equals(item.getState()) ? View.VISIBLE : View.GONE);//待服务
+        helper.addOnClickListener(R.id.tv_code_check);
     }
 
     /**

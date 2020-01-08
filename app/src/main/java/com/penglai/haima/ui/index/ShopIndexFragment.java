@@ -20,10 +20,8 @@ import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.shop.ShopDetailsActivity;
 import com.penglai.haima.utils.PhoneUtil;
-import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.ViewHWRateUtil;
 import com.penglai.haima.widget.GlideRoundImageLoader;
-import com.penglai.haima.widget.loading.LoadingLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -136,15 +134,15 @@ public class ShopIndexFragment extends BaseFragmentV4 implements OnRefreshListen
      * 获取商家列表
      */
     private void getShopList() {
-        if (!SharepreferenceUtil.getString(Constants.CURRENT_CITY).contains("无锡")) {
-            mLoadingLayout.setStatus(LoadingLayout.Error);
-            mLoadingLayout.setErrorText("当前城市暂未开放,\n敬请期待")
-                    .setErrorImageVisible(false)
-                    .setErrorTextSize(18)
-                    .setReloadButtonBackgroundResource(R.color.transparent)
-                    .setReloadButtonText("");
-            return;
-        }
+//        if (!SharepreferenceUtil.getString(Constants.CURRENT_CITY).contains("无锡")) {
+//            mLoadingLayout.setStatus(LoadingLayout.Error);
+//            mLoadingLayout.setErrorText("当前城市暂未开放,\n敬请期待")
+//                    .setErrorImageVisible(false)
+//                    .setErrorTextSize(18)
+//                    .setReloadButtonBackgroundResource(R.color.transparent)
+//                    .setReloadButtonText("");
+//            return;
+//        }
         OkGo.<CommonReturnData<List<ShopDataBean>>>get(Constants.BASE_URL + "provider/getProviderInfo")
                 .execute(new JsonFragmentCallback<CommonReturnData<List<ShopDataBean>>>(this, true, true) {
                     @Override

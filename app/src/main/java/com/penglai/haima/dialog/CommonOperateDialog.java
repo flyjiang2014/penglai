@@ -74,10 +74,6 @@ public class CommonOperateDialog extends BaseDialogView {
         void sure();
     }
 
-    public void setContent(String content) {
-        tvContent.setText(content);
-    }
-
     public void setContentText(String contentText) {
         tvContent.setText(contentText);
     }

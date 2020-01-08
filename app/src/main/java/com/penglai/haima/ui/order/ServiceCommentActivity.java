@@ -11,7 +11,6 @@ import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.EventBean;
-import com.penglai.haima.bean.TradeBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.utils.ClickUtil;
@@ -102,13 +101,13 @@ public class ServiceCommentActivity extends BaseActivity {
      * @param notes
      */
     private void doComment(float score, String notes) {
-        OkGo.<CommonReturnData<TradeBean>>post(Constants.BASE_URL + "score/insertProviderScore")
+        OkGo.<CommonReturnData<Object>>post(Constants.BASE_URL + "score/insertProviderScore")
                 .params("serviceId", serviceId)
                 .params("score", (int) (score))
                 .params("notes", notes)
-                .execute(new DialogCallback<CommonReturnData<TradeBean>>(this, true) {
+                .execute(new DialogCallback<CommonReturnData<Object>>(this, true) {
                     @Override
-                    public void onSuccess(CommonReturnData<TradeBean> commonReturnData) {
+                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
                         showToast("点评成功");
                         EventBus.getDefault().post(new EventBean(EventBean.SERVICE_COMMENT_SUCCESS));
                         ServiceCommentActivity.this.finish();

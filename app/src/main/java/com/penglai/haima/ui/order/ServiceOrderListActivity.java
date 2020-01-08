@@ -16,6 +16,7 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.ServiceOrderDataBean;
 import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.dialog.TwoCodeShowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -43,6 +44,7 @@ public class ServiceOrderListActivity extends BaseActivity implements OnRefreshL
     private ServiceListOrderAdapter serviceListOrderAdapter;
     private List<ServiceOrderDataBean> serviceOrderDataBeans = new ArrayList<>();
     private View emptyView;
+    TwoCodeShowDialog twoCodeShowDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,13 @@ public class ServiceOrderListActivity extends BaseActivity implements OnRefreshL
                 intent.putExtra("state", serviceOrderDataBeans.get(position).getState());
                 intent.putExtra("amount", serviceOrderDataBeans.get(position).getAmount());
                 startActivity(intent);
+            }
+        });
+        serviceListOrderAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                twoCodeShowDialog = new TwoCodeShowDialog(ServiceOrderListActivity.this, "haima&service&" + serviceOrderDataBeans.get(position).getTrade_no() + "&" + serviceOrderDataBeans.get(position).getUser_mobile());
+                twoCodeShowDialog.show();
             }
         });
         getOrderListData();

@@ -76,7 +76,7 @@ public class OrderDetailsActivity extends BaseActivity {
     private String totalMoney = "";
     private ProductBuyAdapter productBuyAdapter;
     private List<ProductSelectBean> mData = new ArrayList<>();//已购买商品
-    private boolean isShopProduct;
+    private boolean isShopProduct; //是否商家自提
     private String providerPhone = "";
 
     @Override

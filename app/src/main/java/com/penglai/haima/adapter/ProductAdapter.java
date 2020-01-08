@@ -27,7 +27,8 @@ public class ProductAdapter extends BaseQuickAdapter<ProductBean, BaseViewHolder
     ProductIndexFragment fragment;
 
     public ProductAdapter(ProductIndexFragment fragment, List<ProductBean> data) {
-        super(R.layout.item_product_layout, data);
+        //   super(R.layout.item_product_layout, data);
+        super(R.layout.item_shop_product_layout, data);
         this.fragment = fragment;
     }
 

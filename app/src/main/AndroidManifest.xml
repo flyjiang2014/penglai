@@ -2,16 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.penglai.haima">
-
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="com.penglai.haima.permission.JPUSH_MESSAGE" />
     <permission
         android:name="com.penglai.haima.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
-
-    <uses-permission android:name="com.penglai.haima.permission.JPUSH_MESSAGE" />
-
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -19,8 +15,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.shop.ShopDetailsActivity"></activity>
-        <activity android:name=".ui.order.ServiceCommentActivity" />
+
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"
@@ -91,6 +86,13 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.order.ServiceOrderListActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.shop.ShopDetailsActivity"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".ui.order.ServiceCommentActivity"
             android:launchMode="singleTop" />
         <!-- JPUSH start -->
         <service

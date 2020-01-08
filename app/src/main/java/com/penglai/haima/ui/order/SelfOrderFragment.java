@@ -74,7 +74,7 @@ public class SelfOrderFragment extends BaseFragmentV4 implements OnRefreshListen
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.tv_code_check) {
-                    twoCodeShowDialog = new TwoCodeShowDialog((BaseActivity) getActivity(), orderListBeans.get(position).getTrade_no() + "&" + orderListBeans.get(position).getReceive_mobile());
+                    twoCodeShowDialog = new TwoCodeShowDialog((BaseActivity) getActivity(), "haima&self&" + orderListBeans.get(position).getTrade_no() + "&" + orderListBeans.get(position).getReceive_mobile());
                     twoCodeShowDialog.show();
                 } else if (view.getId() == R.id.tv_go_pay) {
                     Intent intent = new Intent(mContext, TradePayActivity.class);

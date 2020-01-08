@@ -183,7 +183,6 @@
                     android:textColor="@color/text_grey333"
                     android:layout_marginTop="10dp"
                     android:textSize="14sp"
-
                     android:layout_below="@id/tv_name" />
             </RelativeLayout>
         </LinearLayout>
