@@ -30,6 +30,7 @@ public class GlideRoundImageLoader implements ImageLoaderInterface<ImageView> {
                 @Override
                 public void getOutline(View view, Outline outline) {
                     outline.setRoundRect(20, 20, view.getWidth() - 20, view.getHeight(), 30);
+                    // outline.setRoundRect(0, 0, view.getWidth() - 0, view.getHeight(), 30);
                 }
             });
         }

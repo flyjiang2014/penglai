@@ -54,6 +54,7 @@ public class ServiceOrderActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitleMiddleText("订单详情");
 
     }
 

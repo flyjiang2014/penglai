@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:background="@drawable/bg">
+        android:background="@color/OrangeRed">
 
         <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="wrap_content"
@@ -53,7 +53,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:text="客户经理"
-                android:textColor="@color/text_grey333"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>

@@ -32,7 +32,7 @@
     <color name="Firebrick">#B22222</color>
     <color name="DeepPink">#FF1493</color>
     <color name="DarkViolet">#9400D3</color>
-    <color name="OrangeRed">#8B2500</color>
+    <color name="OrangeRed">#F9764c</color>
     <color name="LightGreen">#90EE90</color>
     <color name="cus_color_grey999">#999999</color>
     <color name="text_black">#3f3f3f</color>
@@ -42,7 +42,7 @@
     <color name="base_text_color_light">#909090</color>
     <color name="pull_refresh_textview">#000000</color>
     <color name="gold">#000000</color>
-    <color name="title_layout_bg">#0A9EF8</color>
+    <color name="title_layout_bg">#F9764c</color>
 
     <color name="text_grey999">#999999</color>
     <color name="text_grey666">#666666</color>

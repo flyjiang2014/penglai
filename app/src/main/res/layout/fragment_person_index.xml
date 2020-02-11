@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:background="@drawable/bg">
+        android:background="@color/OrangeRed">
         <com.balysv.materialripple.MaterialRippleLayout
             android:layout_width="wrap_content"
             android:layout_height="@dimen/title_height"
@@ -50,7 +50,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center_vertical"
                 android:text=""
-                android:textColor="@color/text_grey333"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
     </RelativeLayout>
@@ -313,43 +313,43 @@
                     android:background="@drawable/arrow_right" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_free_delivery"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingRight="8dp"
-                android:paddingLeft="8dp">
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/ll_free_delivery"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="50dp"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                android:background="@color/white"-->
+            <!--                android:gravity="center_vertical"-->
+            <!--                android:paddingRight="8dp"-->
+            <!--                android:paddingLeft="8dp">-->
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="25dp"
-                    android:src="@drawable/delivery" />
+            <!--                <ImageView-->
+            <!--                    android:layout_width="25dp"-->
+            <!--                    android:layout_height="25dp"-->
+            <!--                    android:layout_gravity="center_vertical"-->
+            <!--                    android:layout_marginLeft="5dp"-->
+            <!--                    android:layout_marginRight="25dp"-->
+            <!--                    android:src="@drawable/delivery" />-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="免费派送"
-                    android:textColor="@color/text_grey333"
-                    android:textSize="14sp" />
+            <!--                <TextView-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:gravity="center_vertical"-->
+            <!--                    android:text="免费派送"-->
+            <!--                    android:textColor="@color/text_grey333"-->
+            <!--                    android:textSize="14sp" />-->
 
-                <TextView
-                    android:id="@+id/tv_free_delivery"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="10dp"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:textColor="@color/text_grey333"
-                    android:text=""
-                    android:textSize="14sp" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/tv_free_delivery"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:paddingLeft="10dp"-->
+            <!--                    android:gravity="center_vertical"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:textColor="@color/text_grey333"-->
+            <!--                    android:text=""-->
+            <!--                    android:textSize="14sp" />-->
+            <!--            </LinearLayout>-->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

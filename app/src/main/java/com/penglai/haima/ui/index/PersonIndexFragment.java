@@ -35,8 +35,8 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
     LinearLayout llCustomerManager;
     TextView tvPersonBalance;
     LinearLayout llPersonBalance;
-    TextView tvFreeDelivery;
-    LinearLayout llFreeDelivery;
+    //    TextView tvFreeDelivery;
+//    LinearLayout llFreeDelivery;
     TextView tvPersonName;
     Button btnChargePay;
     LinearLayout llChargeRecord;
@@ -68,8 +68,8 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
         llCustomerManager = view.findViewById(R.id.ll_customer_manager);
         tvPersonBalance = view.findViewById(R.id.tv_person_balance);
         llPersonBalance = view.findViewById(R.id.ll_person_balance);
-        tvFreeDelivery = view.findViewById(R.id.tv_free_delivery);
-        llFreeDelivery = view.findViewById(R.id.ll_free_delivery);
+//        tvFreeDelivery = view.findViewById(R.id.tv_free_delivery);
+//        llFreeDelivery = view.findViewById(R.id.ll_free_delivery);
         tvPersonName = view.findViewById(R.id.tv_person_name);
         btnChargePay = view.findViewById(R.id.btn_charge_pay);
         llChargeRecord = view.findViewById(R.id.ll_charge_record);

@@ -4,8 +4,8 @@
     <solid android:color="@color/bg_app"
         />
     <size
-        android:height="3dp"
-        android:width="1dp" />
+        android:height="7dp"
+        android:width="3.5dp" />
 
     <!--height用于设置纵向分割线宽度-->
     <!--width用于设置横向分割线宽度-->
