@@ -3,30 +3,43 @@ package com.penglai.haima.ui;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.azhon.appupdate.config.UpdateConfiguration;
+import com.azhon.appupdate.listener.OnButtonClickListener;
+import com.azhon.appupdate.listener.OnDownloadListener;
+import com.azhon.appupdate.manager.DownloadManager;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.lzy.okgo.OkGo;
+import com.penglai.haima.BuildConfig;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
+import com.penglai.haima.bean.UpdateDataBean;
+import com.penglai.haima.callback.JsonCallback;
+import com.penglai.haima.dialog.UpdateShowingDialog;
+import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.index.PersonIndexFragment;
 import com.penglai.haima.ui.index.ProductIndexFragment;
 import com.penglai.haima.ui.index.ServiceIndexFragment;
 import com.penglai.haima.ui.index.ShopIndexFragment;
 import com.penglai.haima.utils.ActivityManager;
 import com.penglai.haima.utils.AndroidWorkaround;
+import com.penglai.haima.utils.PhoneUtil;
 import com.penglai.haima.utils.SharepreferenceUtil;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -42,13 +55,14 @@ import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
 import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements OnDownloadListener, OnButtonClickListener {
     @BindView(R.id.viewPager)
     ViewPager viewPager;
     private PageNavigationView tab;
     private List<BaseFragmentV4> fragments = new ArrayList<>();
     LocationClient mLocationClient = null;
     BDLocationListener myListener = new MyLocationListener();
+    UpdateShowingDialog updateShowingDialog;
 
     @Override
     public int setBaseContentView() {
@@ -62,7 +76,6 @@ public class MainActivity extends BaseActivity {
         if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
             AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
         }
-
         Set<String> tags = new HashSet<>();
         tags.add("tag1");
         JPushInterface.setTags(mContext, 0, tags);
@@ -73,6 +86,7 @@ public class MainActivity extends BaseActivity {
         tab = findViewById(R.id.tab);
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(myListener);
+        updateShowingDialog = new UpdateShowingDialog(this);
         permissionApply();
         //注意这里调用了custom()方法
         final NavigationController navigationController = tab.custom()
@@ -102,6 +116,8 @@ public class MainActivity extends BaseActivity {
                 //重复选中时触发
             }
         });
+        postAppInfo();
+        getAppUpdate();
     }
 
     @Override
@@ -141,12 +157,10 @@ public class MainActivity extends BaseActivity {
         MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
-
         @Override
         public int getCount() {
             return fragments.size();
         }
-
         @Override
         public Fragment getItem(int position) {
             return fragments.get(position);
@@ -215,10 +229,128 @@ public class MainActivity extends BaseActivity {
                 });
     }
 
+    private void postAppInfo() {
+        OkGo.<CommonReturnData<Object>>post(Constants.BASE_URL + "admin/insertUpdate")
+                .params("brand", Build.BRAND)
+                .params("model", PhoneUtil.getPhoneModel())
+                .params("platform", "Android")
+                .params("osVersion", PhoneUtil.getPhoneAndroidVERSION())
+                .params("appVersion", BuildConfig.VERSION_NAME)
+                .execute(new JsonCallback<CommonReturnData<Object>>(this) {
+                    @Override
+                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                    }
+                });
+    }
+
+    /**
+     * 获取下载链接
+     */
+    private void getAppUpdate() {
+        OkGo.<CommonReturnData<UpdateDataBean>>post(Constants.BASE_URL + "admin/queryUpdate")
+                .params("updateId", 1)
+                .execute(new JsonCallback<CommonReturnData<UpdateDataBean>>(this) {
+                    @Override
+                    public void onSuccess(CommonReturnData<UpdateDataBean> commonReturnData) {
+                        startUpdate(commonReturnData.getData());
+                    }
+                });
+    }
+
+    private DownloadManager manager;
+
+    private void startUpdate(UpdateDataBean data) {
+        /*
+         * 整个库允许配置的内容
+         * 非必选
+         */
+        UpdateConfiguration configuration = new UpdateConfiguration()
+                //输出错误日志
+                .setEnableLog(false)
+                //设置自定义的下载
+                //.setHttpManager()
+                //下载完成自动跳动安装页面
+                .setJumpInstallPage(true)
+                //设置对话框背景图片 (图片规范参照demo中的示例图)
+                //.setDialogImage(R.drawable.ic_dialog)
+                //设置按钮的颜色
+                //.setDialogButtonColor(Color.parseColor("#E743DA"))
+                //设置对话框强制更新时进度条和文字的颜色
+                //.setDialogProgressBarColor(Color.parseColor("#E743DA"))
+                //设置按钮的文字颜色
+                .setDialogButtonTextColor(Color.WHITE)
+                //设置是否显示通知栏进度
+                .setShowNotification(false)
+                //设置是否提示后台下载toast
+                .setShowBgdToast(false)
+                //设置强制更新
+                .setForcedUpgrade("1".equals(data.getUpdate_install()))
+                //设置对话框按钮的点击监听
+                .setButtonClickListener(this)
+                //设置下载过程的监听
+                .setOnDownloadListener(this);
+
+        manager = DownloadManager.getInstance(this);
+        manager.setApkName("haima.apk")
+                .setApkUrl(data.getDownload_url())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setShowNewerToast(true)
+                .setConfiguration(configuration)
+                .setApkVersionCode(data.getUpdate_id())
+                .setApkVersionName(data.getApp_verson())
+                .setApkSize(data.getApp_size())
+                .setApkDescription(data.getApp_content())
+//                .setApkMD5("DC501F04BBAA458C9DC33008EFED5E7F")
+                .download();
+    }
+
+    @Override
+    public void onButtonClick(int id) {
+
+    }
+
+    @Override
+    public void start() {
+        SharepreferenceUtil.saveString("LastVersion", String.valueOf(BuildConfig.VERSION_CODE));
+        if (!manager.getConfiguration().isForcedUpgrade()) {//非强制升级
+            updateShowingDialog.show();
+        }
+    }
+
+    @Override
+    public void downloading(int max, int progress) {
+        int curr = (int) (progress / (double) max * 100.0);
+        updateShowingDialog.setProcess(curr);
+    }
+
+    @Override
+    public void done(File apk) {
+        updateShowingDialog.dismiss();
+    }
+
+    @Override
+    public void cancel() {
+
+    }
+
+    @Override
+    public void error(Exception e) {
+        showToast("下载出错了");
+        if (manager != null) {
+            manager.getDefaultDialog().dismiss();
+            manager.cancel();
+        }
+        updateShowingDialog.dismiss();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (manager != null) {
+            manager.cancel();
+        }
         // 退出时销毁定位
         mLocationClient.stop();
+        //  unregisterReceiver(mInstallAppBroadcastReceiver);
     }
 }

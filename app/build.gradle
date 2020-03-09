@@ -8,6 +8,8 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        //每个应用拥有不同的authorities，防止相同在同一个手机上无法同时安装
+       // resValue "string", "authorities", applicationId
         ndk {
             // 设置支持的SO库架构,
             abiFilters 'armeabi', 'armeabi-v7a'    //, 'x86','x86_64', 'arm64-v8a'
@@ -18,6 +20,8 @@ android {
                 JPUSH_APPKEY : "b91b8ac39a81a4e4c2f4f327", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
+        //每个应用拥有不同的authorities，防止相同在同一个手机上无法同时安装
+        resValue "string", "authorities", applicationId
         javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
 
@@ -95,6 +99,7 @@ dependencies {
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation 'cn.jiguang.sdk:jpush:3.3.1'
     implementation 'cn.jiguang.sdk:jcore:2.0.1'
+    implementation 'com.azhon:appupdate:2.8.0'
 }
 // 强制统一版本
 configurations.all {

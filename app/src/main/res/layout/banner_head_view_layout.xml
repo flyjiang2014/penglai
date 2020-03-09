@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_app">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/frame_solid_orange_red" />
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="1dp" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_below="@id/banner"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/special_goods" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:gravity="center"
+        android:textColor="@color/text_black"
+        android:layout_below="@id/banner"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:visibility="gone"
+        android:text="特价商品" />
+</RelativeLayout>
