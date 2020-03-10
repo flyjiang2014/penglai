@@ -7,6 +7,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -28,7 +29,7 @@ public class ProductAdapter extends BaseQuickAdapter<ProductBean, BaseViewHolder
 
     public ProductAdapter(ProductIndexFragment fragment, List<ProductBean> data) {
         //   super(R.layout.item_product_layout, data);
-        super(R.layout.item_shop_product_layout, data);
+        super(R.layout.item_online_product_layout, data);
         this.fragment = fragment;
     }
 
@@ -41,6 +42,7 @@ public class ProductAdapter extends BaseQuickAdapter<ProductBean, BaseViewHolder
         TextView tv_content = helper.getView(R.id.tv_content);
         TextView tv_model = helper.getView(R.id.tv_model);
         TextView tv_price = helper.getView(R.id.tv_price);
+        LinearLayout ll_whole = helper.getView(R.id.ll_whole);
         //  TextView tv_number = helper.getView(R.id.tv_number);
         final TextView tv_count = helper.getView(R.id.tv_count);
 
@@ -50,7 +52,13 @@ public class ProductAdapter extends BaseQuickAdapter<ProductBean, BaseViewHolder
         tv_model.setText("型号：" + item.getModel());
         //  tv_number.setText("库存：" + item.getNumber());
         GlideApp.with(mContext).load(Constants.URL_FOR_PIC + item.getImage_name() + Constants.PIC_JPG).defaultOptions().into(img_pic);
-
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        if (helper.getLayoutPosition() % 2 == 1) {
+            lp.setMargins(0, 0, 5, 0);
+        } else {
+            lp.setMargins(5, 0, 0, 0);
+        }
+        ll_whole.setLayoutParams(lp);
         if (item != null) {
             //默认进来数量
             if (item.getChoose_number() < 1) {

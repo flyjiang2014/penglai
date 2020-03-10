@@ -16,4 +16,5 @@ public class Constants {
     public final static String TOKEN_TIMEOUT = "LG0001";
     public static final String WECHAT_APP_ID = "wxccfc962edd5bea78";
     public static final String CURRENT_CITY = "current_city";
+    public static final int PAGE_SIZE = 10;
 }

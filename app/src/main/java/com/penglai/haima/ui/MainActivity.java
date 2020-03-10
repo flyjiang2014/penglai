@@ -230,7 +230,7 @@ public class MainActivity extends BaseActivity implements OnDownloadListener, On
     }
 
     private void postAppInfo() {
-        OkGo.<CommonReturnData<Object>>post(Constants.BASE_URL + "admin/insertUpdate")
+        OkGo.<CommonReturnData<Object>>get(Constants.BASE_URL + "admin/insertUpdate")
                 .params("brand", Build.BRAND)
                 .params("model", PhoneUtil.getPhoneModel())
                 .params("platform", "Android")
@@ -247,7 +247,7 @@ public class MainActivity extends BaseActivity implements OnDownloadListener, On
      * 获取下载链接
      */
     private void getAppUpdate() {
-        OkGo.<CommonReturnData<UpdateDataBean>>post(Constants.BASE_URL + "admin/queryUpdate")
+        OkGo.<CommonReturnData<UpdateDataBean>>get(Constants.BASE_URL + "admin/queryUpdate")
                 .params("updateId", 1)
                 .execute(new JsonCallback<CommonReturnData<UpdateDataBean>>(this) {
                     @Override
@@ -284,7 +284,7 @@ public class MainActivity extends BaseActivity implements OnDownloadListener, On
                 //设置是否提示后台下载toast
                 .setShowBgdToast(false)
                 //设置强制更新
-                .setForcedUpgrade("1".equals(data.getUpdate_install()))
+                .setForcedUpgrade("2".equals(data.getUpdate_install()))
                 //设置对话框按钮的点击监听
                 .setButtonClickListener(this)
                 //设置下载过程的监听
@@ -311,7 +311,6 @@ public class MainActivity extends BaseActivity implements OnDownloadListener, On
 
     @Override
     public void start() {
-        SharepreferenceUtil.saveString("LastVersion", String.valueOf(BuildConfig.VERSION_CODE));
         if (!manager.getConfiguration().isForcedUpgrade()) {//非强制升级
             updateShowingDialog.show();
         }

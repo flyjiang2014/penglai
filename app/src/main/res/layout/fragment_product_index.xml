@@ -57,35 +57,35 @@
                             android:layout_marginLeft="10dp"
                             android:hint="搜索内容" />
                     </LinearLayout>
-                <com.youth.banner.Banner
-                    android:id="@+id/banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_below="@id/ll_search" />
-
-                    <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:gravity="center"
-                        android:layout_below="@id/banner"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/special_goods" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:gravity="center"
-                        android:textColor="@color/text_black"
-                        android:layout_below="@id/banner"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:visibility="gone"
-                        android:text="特价商品" />
+                    <!--                <com.youth.banner.Banner-->
+                    <!--                    android:id="@+id/banner"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="100dp"-->
+                    <!--                    android:layout_marginTop="1dp"-->
+                    <!--                    android:layout_below="@id/ll_search" />-->
+                    <!--                    <ImageView-->
+                    <!--                        android:layout_width="100dp"-->
+                    <!--                        android:layout_height="40dp"-->
+                    <!--                        android:gravity="center"-->
+                    <!--                        android:layout_below="@id/banner"-->
+                    <!--                        android:layout_centerHorizontal="true"-->
+                    <!--                        android:src="@drawable/special_goods" />-->
+                    <!--                    <TextView-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="35dp"-->
+                    <!--                        android:gravity="center"-->
+                    <!--                        android:textColor="@color/text_black"-->
+                    <!--                        android:layout_below="@id/banner"-->
+                    <!--                        android:textStyle="bold"-->
+                    <!--                        android:textSize="14sp"-->
+                    <!--                        android:visibility="gone"-->
+                    <!--                        android:text="特价商品" />-->
                 </RelativeLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_marginTop="-60dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:overScrollMode="never" />

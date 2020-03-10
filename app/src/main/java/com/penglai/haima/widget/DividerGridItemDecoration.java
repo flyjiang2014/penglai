@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView.State;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import in.srain.cube.util.CLog;
+
 
 /**
  * Created by ${flyjiang} on 2017/3/29.
@@ -21,6 +23,7 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration
 {
     private static final int[] ATTRS = new int[] { android.R.attr.listDivider };
     private Drawable mDivider;
+    private boolean hasHeadView; //列表是否有headView
 
     public DividerGridItemDecoration(Context context)
     {
@@ -46,6 +49,11 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration
         drawHorizontal(c, parent);
         drawVertical(c, parent);
 
+    }
+
+    public DividerGridItemDecoration setHasHeadView(boolean hasHeadView) {
+        this.hasHeadView = hasHeadView;
+        return this;
     }
 
     private int getSpanCount(RecyclerView parent)
@@ -174,28 +182,30 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration
     public void getItemOffsets(Rect outRect, int itemPosition,
                                RecyclerView parent)
     {
+        CLog.e("jiang", itemPosition + "itemPosition");
         int spanCount = getSpanCount(parent);
+        CLog.e("jiang", itemPosition + "spanCount");
         int childCount = parent.getAdapter().getItemCount();
-        if (isLastRaw(parent, itemPosition, spanCount, childCount)&&!isLastColum(parent, itemPosition, spanCount, childCount))// 如果是最后一行，则不需要绘制底部
+        CLog.e("jiang", itemPosition + "childCount");
+
+        if (isLastRaw(parent, itemPosition, spanCount, childCount) && !isLastColum(parent, itemPosition, spanCount, childCount))// 如果是最后一行，则不需要绘制底部
         {
             outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
-          
+
         }
-       if (!isLastRaw(parent, itemPosition, spanCount, childCount)&&isLastColum(parent, itemPosition, spanCount, childCount))// 如果是最后一列，则不需要绘制右边
+        if (!isLastRaw(parent, itemPosition, spanCount, childCount) && isLastColum(parent, itemPosition, spanCount, childCount))// 如果是最后一列，则不需要绘制右边
         {
             outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
 
         }
 
-        if(isLastRaw(parent, itemPosition, spanCount, childCount) && isLastColum(parent, itemPosition, spanCount, childCount)){
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(),
-                    mDivider.getIntrinsicHeight());
+        if (isLastRaw(parent, itemPosition, spanCount, childCount) && isLastColum(parent, itemPosition, spanCount, childCount)) {
+            //  outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
             outRect.set(0, 0, 0, 0);
         }
 
-        if(!isLastRaw(parent, itemPosition, spanCount, childCount) && !isLastColum(parent, itemPosition, spanCount, childCount)){
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(),
-                    mDivider.getIntrinsicHeight());
+        if (!isLastRaw(parent, itemPosition, spanCount, childCount) && !isLastColum(parent, itemPosition, spanCount, childCount)) {
+            outRect.set(0, 0, mDivider.getIntrinsicWidth(), mDivider.getIntrinsicHeight());
         }
     }
 }

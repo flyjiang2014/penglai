@@ -5,7 +5,7 @@
         />
     <size
         android:height="7dp"
-        android:width="3.5dp" />
+        android:width="3dp" />
 
     <!--height用于设置纵向分割线宽度-->
     <!--width用于设置横向分割线宽度-->

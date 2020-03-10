@@ -28,6 +28,7 @@ import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.EventBean;
 import com.penglai.haima.bean.ProductBean;
+import com.penglai.haima.bean.ProductDataBean;
 import com.penglai.haima.bean.ProductSelectBean;
 import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
@@ -36,11 +37,12 @@ import com.penglai.haima.utils.MathUtil;
 import com.penglai.haima.utils.PhoneUtil;
 import com.penglai.haima.utils.ToastUtil;
 import com.penglai.haima.utils.ViewHWRateUtil;
-import com.penglai.haima.widget.DividerGridItemDecoration;
+import com.penglai.haima.widget.DividerItemDecoration;
 import com.penglai.haima.widget.GlideRoundImageLoader;
 import com.penglai.haima.widget.MyListView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 
@@ -53,12 +55,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.penglai.haima.base.BaseActivity.PULL_DOWN_TIME;
+import static com.penglai.haima.base.BaseActivity.PULL_UP_TIME;
 
 /**
  * Created by ${flyjiang} on 2019/10/22.
  * 文件说明：商品展示列表
  */
-public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshListener {
+public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshListener, OnLoadMoreListener {
     private int state = -1;
     RecyclerView recyclerView;
     SmartRefreshLayout smartRefreshLayout;
@@ -76,6 +79,9 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     private TextView tv_show_num;
     private SparseArray<ProductBean> selectedList;
     private ProductForCarAdapter productForCarAdapter;//底部购物车的adapter
+    private View headView;
+    private int currentPage = 1;
+    private int end = 1;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -99,14 +105,18 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         emptyView = getEmptyView();
         selectedList = new SparseArray<>();
         productAdapter = new ProductAdapter(this, productBeanList);
+
 //        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(mContext));
+        //, R.drawable.divider_drawable01)
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
-        recyclerView.addItemDecoration(new DividerGridItemDecoration(mContext, R.drawable.divider_drawable01));
+        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, R.drawable.divider_drawable).setHasHeadView(true).setForSpecial(true));
+        productAdapter.addHeaderView(headView);
         recyclerView.setAdapter(productAdapter);
         smartRefreshLayout.setOnRefreshListener(this);
-        smartRefreshLayout.setEnableLoadMore(false);
-        smartRefreshLayout.setEnableRefresh(false);
+        smartRefreshLayout.setOnLoadMoreListener(this);
+//        smartRefreshLayout.setEnableLoadMore(true);
+//        smartRefreshLayout.setEnableRefresh(true);
         List<String> images = new ArrayList<>();
         images.add(Constants.URL_FOR_PIC + "banner/banner1.png");
         images.add(Constants.URL_FOR_PIC + "banner/banner2.png");
@@ -125,8 +135,9 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     }
 
     private void initView(View view) {
+        headView = LayoutInflater.from(mContext).inflate(R.layout.banner_head_view_layout, null);
         recyclerView = view.findViewById(R.id.recyclerView);
-        banner = view.findViewById(R.id.banner);
+        banner = headView.findViewById(R.id.banner);
         view_top = view.findViewById(R.id.view);
         smartRefreshLayout = view.findViewById(R.id.smartRefreshLayout);
         bottomSheetLayout = view.findViewById(R.id.bottomSheetLayout);
@@ -168,14 +179,14 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     @Override
     public void initData() {
         if (productBeanList.size() <= 0) {
-            getProductListData();
+            getProductListData(true);
         }
     }
 
     @Override
     public void reLoadData() {
         super.reLoadData();
-        getProductListData();
+        getProductListData(true);
     }
 
     public static ProductIndexFragment getInstance(int state) {
@@ -189,31 +200,64 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     /**
      * 获取商品列表
      */
-    private void getProductListData() {
-        OkGo.<CommonReturnData<List<ProductBean>>>get(Constants.BASE_URL + "hot/getHotList")
-                .execute(new JsonFragmentCallback<CommonReturnData<List<ProductBean>>>(this, true, true) {
+    private void getProductListData(boolean isInit) {
+        if (isInit) {
+            currentPage = 1;
+            clearCart();
+            recyclerView.smoothScrollToPosition(0);
+            smartRefreshLayout.setNoMoreData(false);
+        }
+        OkGo.<CommonReturnData<ProductDataBean>>get(Constants.BASE_URL + "hot/getHotList")
+                .params("needBreak", 1)
+                .params("pageNum", currentPage)
+                .params("singleNum", Constants.PAGE_SIZE)
+                .execute(new JsonFragmentCallback<CommonReturnData<ProductDataBean>>(this, true, true) {
                     @Override
-                    public void onSuccess(CommonReturnData<List<ProductBean>> commonReturnData) {
-                        productBeanList.clear();
-                        productBeanList.addAll(commonReturnData.getData());
+                    public void onSuccess(CommonReturnData<ProductDataBean> commonReturnData) {
+                        if (currentPage == 1) productBeanList.clear();
+                        productBeanList.addAll(commonReturnData.getData().getData());
                         productAdapter.notifyDataSetChanged();
+                        end = Integer.parseInt(commonReturnData.getData().getEnd());
+                        currentPage = commonReturnData.getData().getCurrentPage();
+                        currentPage++;
                         if (productBeanList.size() == 0) {
                             productAdapter.setEmptyView(emptyView);
+                        }
+                        if ("1".equals(end) && productBeanList.size() <= Constants.PAGE_SIZE) {
+                            smartRefreshLayout.finishLoadMoreWithNoMoreData();//将不会再次触发加载更多事件
                         }
                     }
                 });
     }
+
 
     @Override
     public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
         refreshLayout.getLayout().postDelayed(new Runnable() {
             @Override
             public void run() {
-                getProductListData();
+                getProductListData(true);
                 refreshLayout.finishRefresh();
                 refreshLayout.setNoMoreData(false);
             }
         }, PULL_DOWN_TIME);
+    }
+
+    @Override
+    public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
+        refreshLayout.getLayout().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (end == 0) {
+                    //  currentPage++;
+                    getProductListData(false);
+                    refreshLayout.finishLoadMore();
+                } else {
+                    refreshLayout.finishLoadMoreWithNoMoreData();//将不会再次触发加载更多事件
+                }
+            }
+        }, PULL_UP_TIME);
+
     }
 
     //创建购物车view
@@ -413,7 +457,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         switch (data.getEvent()) {
             case EventBean.TRADE_PAY_SUCCESS:
                 clearCart();
-                getProductListData();
+                getProductListData(true);
                 break;
         }
     }

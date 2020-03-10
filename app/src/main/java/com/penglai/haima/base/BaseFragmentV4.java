@@ -23,7 +23,6 @@ public abstract class BaseFragmentV4 extends Fragment {
     protected boolean isPrepared;  //View是否已加载完毕
     //  protected boolean isFirst = true;//是否第一次加载数据,为false时，切换不在重新加载数据
     //  protected int visibleTimes =0; //被可见的次数
-    protected int pageSize = 10;
     /**
      * 页面加载过程布局
      */
