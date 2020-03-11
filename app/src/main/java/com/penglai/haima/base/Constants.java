@@ -17,4 +17,5 @@ public class Constants {
     public static final String WECHAT_APP_ID = "wxccfc962edd5bea78";
     public static final String CURRENT_CITY = "current_city";
     public static final int PAGE_SIZE = 10;
+    public static final String SEARCH_KEY_WORDS = "search_key_words";
 }

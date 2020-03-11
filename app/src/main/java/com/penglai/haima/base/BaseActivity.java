@@ -234,7 +234,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             //需要使用mTitleLayout.getId(),先要在XML中给mTitleLayout控件添加ID
             params.addRule(RelativeLayout.BELOW, mTitleLayout.getId());
         }
-
         //loading 框架布局
         mLoadingLayout = (LoadingLayout)inflater.inflate(R.layout.loading_layout, null);
 
@@ -513,8 +512,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public View getEmptyView() {
         return LayoutInflater.from(mContext).inflate(R.layout.recyclerview_empty_view, null);
     }
-
-
     /**
      * 设置添加屏幕的背景透明度
      *

@@ -43,19 +43,29 @@
                         android:gravity="center_vertical"
                         android:background="@drawable/frame_solid_white"
                         android:orientation="horizontal">
-
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:layout_marginLeft="15dp"
                             android:src="@drawable/icon_search" />
-
                         <TextView
+                            android:id="@+id/tv_search_key"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:textSize="16dp"
                             android:hint="搜索内容" />
+
+                        <ImageView
+                            android:id="@+id/img_delete"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:visibility="gone"
+                            android:src="@drawable/delete_icon" />
                     </LinearLayout>
                     <!--                <com.youth.banner.Banner-->
                     <!--                    android:id="@+id/banner"-->
@@ -143,7 +153,6 @@
             android:textColor="@color/red"
             android:textSize="20sp"
             android:textStyle="bold" />
-
         <TextView
             android:id="@+id/tv_go_charge"
             android:layout_width="95dp"

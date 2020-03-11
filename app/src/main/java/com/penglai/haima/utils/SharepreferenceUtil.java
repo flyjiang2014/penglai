@@ -4,7 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.penglai.haima.base.Constants;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 作者：flyjiang
@@ -92,6 +98,42 @@ public class SharepreferenceUtil {
 
     public static boolean getBoolean(String key) {
         return TextUtils.isEmpty(key) || mSharedPreferences == null ? false : mSharedPreferences.getBoolean(key, false);
+    }
+
+    /**
+     * 集合保存
+     *
+     * @param key  保存对应的key值
+     * @param list 需要保存的集合
+     * @return 成功返回true, 失败返回false
+     */
+    public static boolean saveListData(String key, List list) {
+        if (TextUtils.isEmpty(key) || list == null || mEditor == null) {
+            return false;
+        }
+        Gson gson = new Gson();
+        String data = gson.toJson(list);
+        mEditor.putString(key, data).commit();
+        return true;
+    }
+
+    /**
+     * 获取集合
+     *
+     * @param key 保存对应的key值
+     */
+    public static List getListData(String key) {
+        if (TextUtils.isEmpty(key) || mSharedPreferences == null) {
+            return new ArrayList();
+        }
+        String data = mSharedPreferences.getString(key, "");
+        if (TextUtils.isEmpty(data)) {
+            return new ArrayList();
+        }
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List>() {
+        }.getType();
+        return gson.fromJson(data, listType);
     }
 
     private static String getDefaultString(String key) {

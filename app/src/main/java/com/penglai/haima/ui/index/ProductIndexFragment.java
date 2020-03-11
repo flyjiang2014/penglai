@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,7 +34,9 @@ import com.penglai.haima.bean.ProductDataBean;
 import com.penglai.haima.bean.ProductSelectBean;
 import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.ui.SearchActivity;
 import com.penglai.haima.ui.order.ProductOrderSubmitActivity;
+import com.penglai.haima.utils.DensityUtil;
 import com.penglai.haima.utils.MathUtil;
 import com.penglai.haima.utils.PhoneUtil;
 import com.penglai.haima.utils.ToastUtil;
@@ -73,15 +77,19 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     private View view_top;
     private BottomSheetLayout bottomSheetLayout;
     private TextView tv_car;
-    private TextView tv_go_charge, tv_total_money;
+    private TextView tv_go_charge, tv_total_money, tv_search_key;
     private Banner banner;
     private Double totalMoney = 0d;
     private TextView tv_show_num;
+    private ImageView img_delete;
+    private LinearLayout ll_search;
     private SparseArray<ProductBean> selectedList;
     private ProductForCarAdapter productForCarAdapter;//底部购物车的adapter
     private View headView;
     private int currentPage = 1;
     private int end = 1;
+    private String key_word;
+    private LinearLayout ll_empty_head;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -102,7 +110,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         view_top.setLayoutParams(params);
 
         ViewHWRateUtil.setHeightWidthRate(mContext, banner, 2.13);//640/300
-        emptyView = getEmptyView();
+
         selectedList = new SparseArray<>();
         productAdapter = new ProductAdapter(this, productBeanList);
 
@@ -136,13 +144,22 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
 
     private void initView(View view) {
         headView = LayoutInflater.from(mContext).inflate(R.layout.banner_head_view_layout, null);
+        emptyView = getEmptyView();
+        ll_empty_head = emptyView.findViewById(R.id.ll_head);
+        TextView tv_text = emptyView.findViewById(R.id.tv_text);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(0, DensityUtil.dp2px(mContext, 80), 0, 0);
+        tv_text.setLayoutParams(lp);
         recyclerView = view.findViewById(R.id.recyclerView);
         banner = headView.findViewById(R.id.banner);
         view_top = view.findViewById(R.id.view);
+        img_delete = view.findViewById(R.id.img_delete);
         smartRefreshLayout = view.findViewById(R.id.smartRefreshLayout);
         bottomSheetLayout = view.findViewById(R.id.bottomSheetLayout);
         tv_total_money = view.findViewById(R.id.tv_total_money);
         tv_show_num = view.findViewById(R.id.tv_show_num);
+        ll_search = view.findViewById(R.id.ll_search);
+        tv_search_key = view.findViewById(R.id.tv_search_key);
         tv_car = view.findViewById(R.id.tv_car);
         tv_go_charge = view.findViewById(R.id.tv_go_charge);
         ll_shop_car = view.findViewById(R.id.ll_shop_car);
@@ -172,6 +189,21 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
                 intent.putExtra("totalMoney", MathUtil.round_half_up(String.valueOf(totalMoney), 0));
                 intent.putExtra("mData", (Serializable) mData);
                 startActivity(intent);
+            }
+        });
+        ll_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(mContext, SearchActivity.class));
+            }
+        });
+        img_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                img_delete.setVisibility(View.GONE);
+                key_word = "";
+                tv_search_key.setText("");
+                getProductListData(true);
             }
         });
     }
@@ -209,6 +241,8 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         }
         OkGo.<CommonReturnData<ProductDataBean>>get(Constants.BASE_URL + "hot/getHotList")
                 .params("needBreak", 1)
+                .params("content", key_word)
+                .params("isSearch", TextUtils.isEmpty(key_word) ? "0" : "1")
                 .params("pageNum", currentPage)
                 .params("singleNum", Constants.PAGE_SIZE)
                 .execute(new JsonFragmentCallback<CommonReturnData<ProductDataBean>>(this, true, true) {
@@ -220,8 +254,20 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
                         end = Integer.parseInt(commonReturnData.getData().getEnd());
                         currentPage = commonReturnData.getData().getCurrentPage();
                         currentPage++;
+//                        if (productBeanList.size() == 0) {
+//                            productAdapter.setEmptyView(emptyView);
+//                        }
                         if (productBeanList.size() == 0) {
                             productAdapter.setEmptyView(emptyView);
+                            productAdapter.removeAllHeaderView();
+                            if (ll_empty_head.getChildCount() == 0) {
+                                ll_empty_head.addView(headView);
+                            }
+                        } else {
+                            ll_empty_head.removeAllViews();
+                            if (productAdapter.getHeaderLayoutCount() == 0) {
+                                productAdapter.addHeaderView(headView);
+                            }
                         }
                         if ("1".equals(end) && productBeanList.size() <= Constants.PAGE_SIZE) {
                             smartRefreshLayout.finishLoadMoreWithNoMoreData();//将不会再次触发加载更多事件
@@ -419,12 +465,10 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         translateAnimationX.setInterpolator(new LinearInterpolator());
         translateAnimationX.setRepeatCount(0);// 动画重复执行的次数
         translateAnimationX.setFillAfter(true);
-
         TranslateAnimation translateAnimationY = new TranslateAnimation(0, 0, 0, endY);
         translateAnimationY.setInterpolator(new AccelerateInterpolator());
         translateAnimationY.setRepeatCount(0);// 动画重复执行的次数
         translateAnimationY.setFillAfter(true);
-
         AnimationSet set = new AnimationSet(false);
         set.setFillAfter(false);
         set.addAnimation(translateAnimationY);
@@ -457,6 +501,12 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         switch (data.getEvent()) {
             case EventBean.TRADE_PAY_SUCCESS:
                 clearCart();
+                getProductListData(true);
+                break;
+            case EventBean.SEARCH_ACTION:
+                key_word = (String) data.getData();
+                img_delete.setVisibility(View.VISIBLE);
+                tv_search_key.setText(key_word);
                 getProductListData(true);
                 break;
         }

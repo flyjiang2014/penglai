@@ -4,12 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/title_layout_bg">
-
     <com.balysv.materialripple.MaterialRippleLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/title_height"
         android:layout_alignParentLeft="true">
-
         <RelativeLayout
             android:id="@+id/title_layout_left"
             android:layout_width="wrap_content"
@@ -40,7 +38,6 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/title_height"
         android:layout_centerHorizontal="true">
-
         <TextView
             android:id="@+id/title_layout_middle_tv"
             android:layout_width="180dp"
@@ -52,14 +49,12 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
-
     </RelativeLayout>
 
     <com.balysv.materialripple.MaterialRippleLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/title_height"
         android:layout_alignParentRight="true">
-
         <RelativeLayout
             android:id="@+id/title_layout_right"
             android:layout_width="wrap_content"
@@ -68,13 +63,11 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:visibility="gone">
-
             <ImageView
                 android:id="@+id/title_layout_right_image"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true" />
-
             <TextView
                 android:id="@+id/title_layout_right_tv"
                 android:layout_width="wrap_content"
@@ -84,7 +77,6 @@
                 android:text=""
                 android:textColor="@color/white"
                 android:textSize="16sp" />
-
         </RelativeLayout>
     </com.balysv.materialripple.MaterialRippleLayout>
 </RelativeLayout>
