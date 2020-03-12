@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class ProductSelectAdapter extends BaseQuickAdapter<ProductSelectBean, BaseViewHolder> {
 
+
     public ProductSelectAdapter(@Nullable List<ProductSelectBean> data) {
         super(R.layout.item_select_product, data);
     }
