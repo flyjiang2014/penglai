@@ -76,7 +76,7 @@ public class SearchActivity extends BaseActivity {
     @Override
     public void init() {
         searchHistoryAdapter = new SearchHistoryAdapter(historys);
-        List<String> list = SharepreferenceUtil.getListData(Constants.SEARCH_KEY_WORDS);
+        List list = SharepreferenceUtil.getListData(Constants.SEARCH_KEY_WORDS);
         if (list.isEmpty()) {
             tvHistoryShow.setText("暂无搜索记录");
             imgDelete.setVisibility(View.GONE);
