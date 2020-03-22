@@ -248,7 +248,7 @@ public class MainActivity extends BaseActivity implements OnDownloadListener, On
      */
     private void getAppUpdate() {
         OkGo.<CommonReturnData<UpdateDataBean>>get(Constants.BASE_URL + "admin/queryUpdate")
-                .params("updateId", 1)
+                .params("updateId", BuildConfig.VERSION_CODE)
                 .execute(new JsonCallback<CommonReturnData<UpdateDataBean>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<UpdateDataBean> commonReturnData) {

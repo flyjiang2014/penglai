@@ -306,6 +306,44 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
 
     }
 
+    /**
+     * 获取购物车数据
+     */
+    private void getShopCarData() {
+        OkGo.<CommonReturnData<Object>>get(Constants.BASE_URL + "hot/queryCart")
+                .execute(new JsonFragmentCallback<CommonReturnData<Object>>(this, true, true) {
+                    @Override
+                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                    }
+                });
+    }
+
+    /**
+     * 新增或减少商品
+     */
+    private void updateShopCar(boolean isAdd, String id) {
+        OkGo.<CommonReturnData<Object>>get(Constants.BASE_URL + "hot/updateCart")
+                .params("id", id)
+                .params("oper", isAdd ? 1 : 0)
+                .execute(new JsonFragmentCallback<CommonReturnData<Object>>(this) {
+                    @Override
+                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                    }
+                });
+    }
+
+    /**
+     * 清空购物车
+     */
+    private void cleatShopCar() {
+        OkGo.<CommonReturnData<Object>>get(Constants.BASE_URL + "hot/deleteCart")
+                .execute(new JsonFragmentCallback<CommonReturnData<Object>>(this, false, true) {
+                    @Override
+                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                    }
+                });
+    }
+
     //创建购物车view
     private void showBottomSheet() {
         bottomSheet = createBottomSheetView();

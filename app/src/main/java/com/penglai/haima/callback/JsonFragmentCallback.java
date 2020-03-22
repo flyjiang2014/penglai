@@ -69,6 +69,10 @@ public abstract class JsonFragmentCallback<T> extends AbsCallback<T> {
         }
     }
 
+    public JsonFragmentCallback(BaseFragmentV4 mFragment) {
+        this.mFragment = mFragment;
+    }
+
     public JsonFragmentCallback(BaseFragmentV4 mFragment, boolean showStatue, boolean showDialog) {
         this.mFragment = mFragment;
         this.showStatue = showStatue;
