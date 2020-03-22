@@ -59,59 +59,58 @@ public class ProductAdapter extends BaseQuickAdapter<ProductBean, BaseViewHolder
             lp.setMargins(5, 0, 0, 0);
         }
         ll_whole.setLayoutParams(lp);
-        if (item != null) {
-            //默认进来数量
-            if (item.getChoose_number() < 1) {
-                tv_count.setVisibility(View.INVISIBLE);
-                iv_remove.setVisibility(View.INVISIBLE);
+//        if (item != null) {
+//            //默认进来数量
+//            if (item.getChoose_number() < 1) {
+//                tv_count.setVisibility(View.INVISIBLE);
+//                iv_remove.setVisibility(View.INVISIBLE);
+//
+//            } else {
+//                tv_count.setVisibility(View.VISIBLE);
+//                iv_remove.setVisibility(View.VISIBLE);
+//                tv_count.setText(String.valueOf(item.getChoose_number()));
+//            }
+//        } else {
+//            tv_count.setVisibility(View.INVISIBLE);
+//            iv_remove.setVisibility(View.INVISIBLE);
+//        }
+        tv_count.setVisibility(View.INVISIBLE);//删除显示功能
+        iv_remove.setVisibility(View.INVISIBLE);//删除显示功能
+        helper.addOnClickListener(R.id.iv_add);
+//        iv_add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int count = fragment.getSelectedItemCountById(item.getId());
+//                if (count < 1) {
+//                    iv_remove.setAnimation(getShowAnimation());
+//                    iv_remove.setVisibility(View.VISIBLE);
+//                    tv_count.setVisibility(View.VISIBLE);
+//                }
+//                fragment.handlerCarNum(1, item, true);
+//                int[] loc = new int[2];
+//                iv_add.getLocationInWindow(loc);
+//                int[] startLocation = new int[2];// 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
+//                v.getLocationInWindow(startLocation);// 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
+//                ImageView ball = new ImageView(mContext);
+//                ball.setImageResource(R.drawable.number);
+//                fragment.setAnim(ball, startLocation);// 开始执行动画
+//            }
+//        });
 
-            } else {
-                tv_count.setVisibility(View.VISIBLE);
-                iv_remove.setVisibility(View.VISIBLE);
-                tv_count.setText(String.valueOf(item.getChoose_number()));
-
-            }
-        } else {
-            tv_count.setVisibility(View.INVISIBLE);
-            iv_remove.setVisibility(View.INVISIBLE);
-        }
-
-        iv_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int count = fragment.getSelectedItemCountById(item.getId());
-                if (count < 1) {
-                    iv_remove.setAnimation(getShowAnimation());
-                    iv_remove.setVisibility(View.VISIBLE);
-                    tv_count.setVisibility(View.VISIBLE);
-                }
-
-                fragment.handlerCarNum(1, item, true);
-
-                int[] loc = new int[2];
-                iv_add.getLocationInWindow(loc);
-                int[] startLocation = new int[2];// 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
-                v.getLocationInWindow(startLocation);// 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
-                ImageView ball = new ImageView(mContext);
-                ball.setImageResource(R.drawable.number);
-                fragment.setAnim(ball, startLocation);// 开始执行动画
-            }
-        });
-        iv_remove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int count = fragment.getSelectedItemCountById(item.getId());
-                if (count < 2) {
-                    iv_remove.setAnimation(getHiddenAnimation());
-                    iv_remove.setVisibility(View.GONE);
-                    tv_count.setVisibility(View.GONE);
-                }
-                fragment.handlerCarNum(0, item, true);
-
-            }
-        });
+//        iv_remove.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int count = fragment.getSelectedItemCountById(item.getId());
+//                if (count < 2) {
+//                    iv_remove.setAnimation(getHiddenAnimation());
+//                    iv_remove.setVisibility(View.GONE);
+//                    tv_count.setVisibility(View.GONE);
+//                }
+//                fragment.handlerCarNum(0, item, true);
+//
+//            }
+//        });
     }
-
 
     //显示减号的动画
     private Animation getShowAnimation() {

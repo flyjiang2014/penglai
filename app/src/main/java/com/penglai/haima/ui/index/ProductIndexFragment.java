@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
@@ -108,12 +109,15 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         //获取当前控件的布局对象
         params.height = PhoneUtil.getStatusHeight(getActivity()) + 5;//设置当前控件布局的高度
         view_top.setLayoutParams(params);
-
         ViewHWRateUtil.setHeightWidthRate(mContext, banner, 2.13);//640/300
-
         selectedList = new SparseArray<>();
         productAdapter = new ProductAdapter(this, productBeanList);
-
+        productAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                updateShopCarFromList(productBeanList.get(position), view);
+            }
+        });
 //        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(mContext));
         //, R.drawable.divider_drawable01)
@@ -206,12 +210,14 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
                 getProductListData(true);
             }
         });
+
     }
 
     @Override
     public void initData() {
         if (productBeanList.size() <= 0) {
             getProductListData(true);
+            getShopCarData();//待确认
         }
     }
 
@@ -219,6 +225,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     public void reLoadData() {
         super.reLoadData();
         getProductListData(true);
+        getShopCarData();
     }
 
     public static ProductIndexFragment getInstance(int state) {
@@ -235,7 +242,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     private void getProductListData(boolean isInit) {
         if (isInit) {
             currentPage = 1;
-            clearCart();
+            // clearCart();
             recyclerView.smoothScrollToPosition(0);
             smartRefreshLayout.setNoMoreData(false);
         }
@@ -314,20 +321,48 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
                 .execute(new JsonFragmentCallback<CommonReturnData<Object>>(this, true, true) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {
+
                     }
                 });
     }
 
     /**
-     * 新增或减少商品
+     * 从列表新增商品
      */
-    private void updateShopCar(boolean isAdd, String id) {
+    public void updateShopCarFromList(final ProductBean productBean, final View view) {
         OkGo.<CommonReturnData<Object>>get(Constants.BASE_URL + "hot/updateCart")
-                .params("id", id)
-                .params("oper", isAdd ? 1 : 0)
-                .execute(new JsonFragmentCallback<CommonReturnData<Object>>(this) {
+                .params("id", productBean.getId())
+                .params("oper", 1)
+                .execute(new JsonFragmentCallback<CommonReturnData<Object>>(this, false, false) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                        handlerCarNum(1, productBean, true);
+                        int[] loc = new int[2];
+                        view.getLocationInWindow(loc);
+                        int[] startLocation = new int[2];// 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
+                        view.getLocationInWindow(startLocation);// 这是获取购买按钮的在屏幕的X、Y坐标（这也是动画开始的坐标）
+                        ImageView ball = new ImageView(mContext);
+                        ball.setImageResource(R.drawable.number);
+                        setAnim(ball, startLocation);// 开始执行动
+                    }
+                });
+    }
+
+    /**
+     * 从购物车新增减少商品
+     */
+    public void updateShopCarFromBasic(final boolean isAdd, final ProductBean productBean, final View view) {
+        OkGo.<CommonReturnData<Object>>get(Constants.BASE_URL + "hot/updateCart")
+                .params("id", productBean.getId())
+                .params("oper", isAdd ? 1 : 0)
+                .execute(new JsonFragmentCallback<CommonReturnData<Object>>(this, false, false) {
+                    @Override
+                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                        if (isAdd) {
+                            handlerCarNum(1, productBean, true);
+                        } else {
+                            handlerCarNum(0, productBean, true);
+                        }
                     }
                 });
     }
@@ -340,6 +375,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
                 .execute(new JsonFragmentCallback<CommonReturnData<Object>>(this, false, true) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                        clearCart();
                     }
                 });
     }
@@ -364,7 +400,8 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearCart();
+                cleatShopCar();
+                // clearCart();
             }
         });
         productForCarAdapter = new ProductForCarAdapter(this, productAdapter, selectedList);
@@ -440,9 +477,9 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
 
         tv_show_num.setText(String.valueOf(count));
 
-        if (productAdapter != null) {
-            productAdapter.notifyDataSetChanged();
-        }
+//        if (productAdapter != null) {
+//            productAdapter.notifyDataSetChanged();
+//        }
 
         if (productForCarAdapter != null) {
             productForCarAdapter.notifyDataSetChanged();
@@ -538,7 +575,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     public void onEvent(EventBean data) {
         switch (data.getEvent()) {
             case EventBean.TRADE_PAY_SUCCESS:
-                clearCart();
+                //  clearCart();
                 getProductListData(true);
                 break;
             case EventBean.SEARCH_ACTION:

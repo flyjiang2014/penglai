@@ -68,16 +68,17 @@ public class ProductForCarAdapter extends BaseAdapter {
         viewHolder.iv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment.handlerCarNum(1, dataList.valueAt(position), true);
-                productAdapter.notifyDataSetChanged();
-
+                fragment.updateShopCarFromBasic(true, dataList.valueAt(position), null);
+//                fragment.handlerCarNum(1, dataList.valueAt(position), true);
+//                productAdapter.notifyDataSetChanged();
             }
         });
         viewHolder.iv_remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment.handlerCarNum(0, dataList.valueAt(position), true);
-                productAdapter.notifyDataSetChanged();
+                fragment.updateShopCarFromBasic(false, dataList.valueAt(position), null);
+//                fragment.handlerCarNum(0, dataList.valueAt(position), true);
+//                productAdapter.notifyDataSetChanged();
             }
         });
 
