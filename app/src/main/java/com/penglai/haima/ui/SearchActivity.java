@@ -172,9 +172,7 @@ public class SearchActivity extends BaseActivity {
 
     private void searchAction(String content) {
         if (!TextUtils.isEmpty(content)) {
-            if (historys.contains(content)) {
-                historys.remove(content);
-            }
+            historys.remove(content);
             if (historys.size() >= 20) {
                 historys.remove(19);//大于二十个关键字，删除最后一个
             }
@@ -187,6 +185,4 @@ public class SearchActivity extends BaseActivity {
             showToast("请输入搜索内容");
         }
     }
-
-
 }

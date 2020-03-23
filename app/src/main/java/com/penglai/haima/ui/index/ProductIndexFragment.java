@@ -186,7 +186,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
                 for (int i = 0; i < selectedList.size(); i++) {
                     productBean = selectedList.valueAt(i);
                     data = new ProductSelectBean(productBean.getId(), productBean.getContent(), productBean.getImage_name(), productBean.getModel(),
-                            productBean.getPrice(), productBean.getTitle(), productBean.getChoose_number());
+                            productBean.getPrice(), productBean.getTitle(), productBean.getAmount());
                     mData.add(data);
                 }
                 Intent intent = new Intent(mContext, ProductOrderSubmitActivity.class);
@@ -317,11 +317,16 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
      * 获取购物车数据
      */
     private void getShopCarData() {
-        OkGo.<CommonReturnData<Object>>get(Constants.BASE_URL + "hot/queryCart")
-                .execute(new JsonFragmentCallback<CommonReturnData<Object>>(this, true, true) {
+        OkGo.<CommonReturnData<List<ProductBean>>>get(Constants.BASE_URL + "hot/queryCart")
+                .execute(new JsonFragmentCallback<CommonReturnData<List<ProductBean>>>(this, true, true) {
                     @Override
-                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
-
+                    public void onSuccess(CommonReturnData<List<ProductBean>> commonReturnData) {
+                        selectedList.clear();
+                        List<ProductBean> lists = commonReturnData.getData();
+                        for (int i = 0, size = lists.size(); i < size; i++) {
+                            selectedList.append(lists.get(i).getId(), lists.get(i));
+                        }
+                        update(true);
                     }
                 });
     }
@@ -336,7 +341,6 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
                 .execute(new JsonFragmentCallback<CommonReturnData<Object>>(this, false, false) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {
-                        handlerCarNum(1, productBean, true);
                         int[] loc = new int[2];
                         view.getLocationInWindow(loc);
                         int[] startLocation = new int[2];// 一个整型数组，用来存储按钮的在屏幕的X、Y坐标
@@ -344,6 +348,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
                         ImageView ball = new ImageView(mContext);
                         ball.setImageResource(R.drawable.number);
                         setAnim(ball, startLocation);// 开始执行动
+                        handlerCarNum(1, productBean, true);//1 表示新增
                     }
                 });
     }
@@ -414,7 +419,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     public void clearCart() {
         selectedList.clear();
         for (ProductBean productBean : productBeanList) {
-            productBean.setChoose_number(0);
+            productBean.setAmount(0);
         }
         productAdapter.notifyDataSetChanged();
         update(true);
@@ -424,23 +429,23 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         if (type == 0) {
             ProductBean temp = selectedList.get(productBean.getId());
             if (temp != null) {
-                if (temp.getChoose_number() < 2) {
-                    productBean.setChoose_number(0);
+                if (temp.getAmount() < 2) {
+                    temp.setAmount(0);
                     selectedList.remove(productBean.getId());
                 } else {
-                    int i = productBean.getChoose_number();
-                    productBean.setChoose_number(--i);
+                    int i = temp.getAmount();
+                    temp.setAmount(--i);
                 }
             }
 
         } else if (type == 1) {
             ProductBean temp = selectedList.get(productBean.getId());
             if (temp == null) {
-                productBean.setChoose_number(1);
+                productBean.setAmount(1);
                 selectedList.append(productBean.getId(), productBean);
             } else {
-                int i = productBean.getChoose_number();
-                productBean.setChoose_number(++i);
+                int i = temp.getAmount();
+                temp.setAmount(++i);
             }
         }
         update(refreshGoodList);
@@ -453,7 +458,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         if (temp == null) {
             return 0;
         }
-        return temp.getChoose_number();
+        return temp.getAmount();
     }
 
 
@@ -464,8 +469,8 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         totalMoney = 0.00;
         for (int i = 0; i < size; i++) {
             ProductBean item = selectedList.valueAt(i);
-            count += item.getChoose_number();
-            totalMoney += item.getChoose_number() * Double.parseDouble(item.getPrice());
+            count += item.getAmount();
+            totalMoney += item.getAmount() * Double.parseDouble(item.getPrice());
         }
         tv_total_money.setText("￥" + MathUtil.round_half_down(String.valueOf(totalMoney), 0));
 

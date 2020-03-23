@@ -61,14 +61,14 @@ public class ProductAdapter extends BaseQuickAdapter<ProductBean, BaseViewHolder
         ll_whole.setLayoutParams(lp);
 //        if (item != null) {
 //            //默认进来数量
-//            if (item.getChoose_number() < 1) {
+//            if (item.getAmount() < 1) {
 //                tv_count.setVisibility(View.INVISIBLE);
 //                iv_remove.setVisibility(View.INVISIBLE);
 //
 //            } else {
 //                tv_count.setVisibility(View.VISIBLE);
 //                iv_remove.setVisibility(View.VISIBLE);
-//                tv_count.setText(String.valueOf(item.getChoose_number()));
+//                tv_count.setText(String.valueOf(item.getAmount()));
 //            }
 //        } else {
 //            tv_count.setVisibility(View.INVISIBLE);

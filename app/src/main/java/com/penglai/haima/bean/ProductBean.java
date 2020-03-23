@@ -17,7 +17,7 @@ public class ProductBean {
     private int number;
     private String price = "";
     private String title = "";
-    private int choose_number;
+    private int amount;
 
     public String getContent() {
         return content;
@@ -75,11 +75,11 @@ public class ProductBean {
         this.id = id;
     }
 
-    public int getChoose_number() {
-        return choose_number;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setChoose_number(int choose_number) {
-        this.choose_number = choose_number;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

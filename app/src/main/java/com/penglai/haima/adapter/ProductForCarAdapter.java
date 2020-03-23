@@ -64,7 +64,7 @@ public class ProductForCarAdapter extends BaseAdapter {
         }
         StringUtil.filtNull(viewHolder.tv_name, dataList.valueAt(position).getTitle());//商品名称
         StringUtil.filtNull(viewHolder.tv_price, "￥" + dataList.valueAt(position).getPrice());//商品价格
-        viewHolder.tv_count.setText(String.valueOf(dataList.valueAt(position).getChoose_number()));//商品数量
+        viewHolder.tv_count.setText(String.valueOf(dataList.valueAt(position).getAmount()));//商品数量
         viewHolder.iv_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
