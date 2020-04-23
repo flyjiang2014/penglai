@@ -16,9 +16,9 @@ import java.util.List;
  * Created by  on 2019/11/5.
  * 文件说明：
  */
-public class TraceAdapter extends BaseQuickAdapter<TraceFlowBean, BaseViewHolder> {
+public class TraceFlowAdapter extends BaseQuickAdapter<TraceFlowBean, BaseViewHolder> {
 
-    public TraceAdapter(@Nullable List<TraceFlowBean> data) {
+    public TraceFlowAdapter(@Nullable List<TraceFlowBean> data) {
         super(R.layout.item_trace_layout, data);
     }
 

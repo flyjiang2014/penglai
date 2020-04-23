@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.penglai.haima.R;
-import com.penglai.haima.adapter.TraceAdapter;
+import com.penglai.haima.adapter.TraceFlowAdapter;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.bean.TraceBean;
 import com.penglai.haima.bean.TraceFlowBean;
@@ -26,7 +26,7 @@ public class TraceFlowDialog extends BaseDialogView {
     TextView tv_trace_no;
     RecyclerView recyclerView;
     String kd_no;
-    TraceAdapter traceAdapter;
+    TraceFlowAdapter traceFlowAdapter;
 
     public TraceFlowDialog(BaseActivity activity, TraceBean traceBean, String kd_no) {
         super(activity);
@@ -53,9 +53,9 @@ public class TraceFlowDialog extends BaseDialogView {
         tv_trace_no.setText(traceBean.getCompany() + ":" + kd_no);
         List<TraceFlowBean> data = traceBean.getTraces();
         Collections.reverse(data);//集合数据倒序排序
-        traceAdapter = new TraceAdapter(data);
+        traceFlowAdapter = new TraceFlowAdapter(data);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(traceAdapter);
+        recyclerView.setAdapter(traceFlowAdapter);
     }
 
     @Override

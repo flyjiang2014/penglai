@@ -17,8 +17,10 @@ import com.penglai.haima.base.BaseFragmentV4;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.OrderListBean;
 import com.penglai.haima.bean.TraceBean;
+import com.penglai.haima.bean.TraceItemBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.callback.JsonFragmentCallback;
+import com.penglai.haima.dialog.TraceChooseDialog;
 import com.penglai.haima.dialog.TraceFlowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -43,6 +45,7 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
     List<OrderListBean> orderListBeans = new ArrayList<>();
     OrderListAdapter orderListAdapter;
     TraceFlowDialog traceFlowDialog;
+    TraceChooseDialog traceChooseDialog;
 
     @Override
     protected View initView(LayoutInflater inflater) {
@@ -75,7 +78,20 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 if (view.getId() == R.id.tv_traces) {
-                    getTracesInfo(orderListBeans.get(position).getKd_company(), orderListBeans.get(position).getKd_no());
+                    int size = orderListBeans.get(position).getKd_info().size();
+                    if (size > 0) {
+                        if (size == 1) {
+                            getTracesInfo(orderListBeans.get(position).getKd_info().get(0).getKd_company(), orderListBeans.get(position).getKd_info().get(0).getKd_no());
+                        } else {
+                            traceChooseDialog = new TraceChooseDialog((BaseActivity) getActivity(), orderListBeans.get(position).getKd_info(), new TraceChooseDialog.ItemChooseListener() {
+                                @Override
+                                public void ItemChoose(TraceItemBean traceItemBean) {
+                                    getTracesInfo(traceItemBean.getKd_company(), traceItemBean.getKd_no());
+                                }
+                            });
+                            traceChooseDialog.show();
+                        }
+                    }
                     // getTracesInfo("YTO", "YT2018589953982");
                 } else if (view.getId() == R.id.tv_go_pay) {
                     Intent intent = new Intent(mContext, TradePayActivity.class);
@@ -118,8 +134,8 @@ public class OrderFragment extends BaseFragmentV4 implements OnRefreshListener {
     }
 
     private void initView(View view) {
-        smartRefreshLayout = (SmartRefreshLayout) view.findViewById(R.id.smartRefreshLayout);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        smartRefreshLayout = view.findViewById(R.id.smartRefreshLayout);
+        recyclerView = view.findViewById(R.id.recyclerView);
         emptyView = getEmptyView();
     }
 

@@ -16,9 +16,10 @@ public class OrderListBean {
     private String insert_time = "";
     private String state = "";
     private String self_state = "";
-    private String kd_no = "";
-    private String kd_company = "";
+    //    private String kd_no = "";
+//    private String kd_company = "";
     private String receive_mobile = "";
+    private List<TraceItemBean> kd_info = new ArrayList<>();
 
     private List<OrderProductItemBean> detail = new ArrayList<>();
 
@@ -70,21 +71,21 @@ public class OrderListBean {
         this.detail = detail;
     }
 
-    public String getKd_no() {
-        return kd_no;
-    }
-
-    public void setKd_no(String kd_no) {
-        this.kd_no = kd_no;
-    }
-
-    public String getKd_company() {
-        return kd_company;
-    }
-
-    public void setKd_company(String kd_company) {
-        this.kd_company = kd_company;
-    }
+//    public String getKd_no() {
+//        return kd_no;
+//    }
+//
+//    public void setKd_no(String kd_no) {
+//        this.kd_no = kd_no;
+//    }
+//
+//    public String getKd_company() {
+//        return kd_company;
+//    }
+//
+//    public void setKd_company(String kd_company) {
+//        this.kd_company = kd_company;
+//    }
 
     public String getSelf_state() {
         return TextUtils.isEmpty(self_state) ? "" : self_state;
@@ -96,5 +97,13 @@ public class OrderListBean {
 
     public void setReceive_mobile(String receive_mobile) {
         this.receive_mobile = receive_mobile;
+    }
+
+    public List<TraceItemBean> getKd_info() {
+        return kd_info == null ? new ArrayList<TraceItemBean>() : kd_info;
+    }
+
+    public void setKd_info(List<TraceItemBean> kd_info) {
+        this.kd_info = kd_info;
     }
 }

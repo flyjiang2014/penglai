@@ -23,22 +23,10 @@
             android:paddingBottom="8dp">
 
             <TextView
-                android:id="@+id/tv_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="签收"
-                android:textColor="@color/text_grey333"
-                android:textSize="18sp"></TextView>
-
-            <TextView
-                android:id="@+id/tv_trace_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text=""
-                android:textColor="@color/text_grey666"
-                android:textSize="12sp"></TextView>
+                android:text="请选择" />
         </LinearLayout>
 
         <RelativeLayout
@@ -53,20 +41,5 @@
                 android:layout_height="wrap_content"
                 app:maxHeight="380dp" />
         </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_below="@id/ll_up"
-        android:layout_centerHorizontal="true"
-        android:background="@color/transparent">
-
-        <ImageView
-            android:id="@+id/img_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:src="@drawable/close"></ImageView>
     </LinearLayout>
 </RelativeLayout>
