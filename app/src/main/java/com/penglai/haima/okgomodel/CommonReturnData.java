@@ -1,7 +1,5 @@
 package com.penglai.haima.okgomodel;
-
 import java.io.Serializable;
-
 /**
  * Created by flyjiang on 2016/11/30.
  */

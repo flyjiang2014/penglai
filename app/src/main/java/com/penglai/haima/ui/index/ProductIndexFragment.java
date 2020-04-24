@@ -251,7 +251,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     public void initData() {
         if (productBeanList.size() <= 0) {
             getProductListData(true);
-            getShopCarData();//待确认
+            getShopCarData();
         }
     }
 

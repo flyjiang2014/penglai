@@ -32,9 +32,9 @@ public class TraceFlowAdapter extends BaseQuickAdapter<TraceFlowBean, BaseViewHo
         tv_trace_time.setText(item.getAcceptTime());
 
         if (helper.getLayoutPosition() == 0) {
-            tv_trace_flow.setTextColor(mContext.getResources().getColor(R.color.green));
-            tv_trace_time.setTextColor(mContext.getResources().getColor(R.color.green));
-            img_solid.setImageResource(R.drawable.solid);
+            tv_trace_flow.setTextColor(mContext.getResources().getColor(R.color.green2));
+            tv_trace_time.setTextColor(mContext.getResources().getColor(R.color.green2));
+            img_solid.setImageResource(R.drawable.solid_green);
         } else {
             tv_trace_flow.setTextColor(mContext.getResources().getColor(R.color.text_grey666));
             tv_trace_time.setTextColor(mContext.getResources().getColor(R.color.text_grey666));
