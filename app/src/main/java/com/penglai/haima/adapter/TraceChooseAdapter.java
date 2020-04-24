@@ -22,7 +22,10 @@ public class TraceChooseAdapter extends BaseQuickAdapter<TraceItemBean, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, TraceItemBean item) {
-        TextView tv_trace_flow = helper.getView(R.id.tv_trace_flow);
-        TextView tv_trace_time = helper.getView(R.id.tv_trace_time);
+        TextView tv_trace_company = helper.getView(R.id.tv_trace_company);
+        TextView tv_trace_no = helper.getView(R.id.tv_trace_no);
+        helper.addOnClickListener(R.id.tv_traces_see);
+        tv_trace_company.setText(String.format("%s      %s", (helper.getLayoutPosition() + 1), item.getKd_company()));
+        tv_trace_no.setText(item.getKd_no());
     }
 }
