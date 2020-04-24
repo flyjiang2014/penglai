@@ -17,6 +17,7 @@ import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.ProductBean;
 import com.penglai.haima.config.GlideApp;
 import com.penglai.haima.ui.index.ProductIndexFragment;
+import com.penglai.haima.utils.DensityUtil;
 
 import java.util.List;
 
@@ -54,9 +55,9 @@ public class ProductAdapter extends BaseQuickAdapter<ProductBean, BaseViewHolder
         GlideApp.with(mContext).load(Constants.URL_FOR_PIC + item.getImage_name() + Constants.PIC_JPG).defaultOptions().into(img_pic);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         if (helper.getLayoutPosition() % 2 == 1) {
-            lp.setMargins(0, 0, 5, 0);
+            lp.setMargins(DensityUtil.dp2px(mContext, 10), 0, 5, 0);
         } else {
-            lp.setMargins(5, 0, 0, 0);
+            lp.setMargins(5, 0, DensityUtil.dp2px(mContext, 10), 0);
         }
         ll_whole.setLayoutParams(lp);
 //        if (item != null) {

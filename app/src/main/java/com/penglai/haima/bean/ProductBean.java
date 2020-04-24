@@ -1,5 +1,7 @@
 package com.penglai.haima.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by ${flyjiang} on 2019/10/23.
  * 文件说明：content: "纸尿裤",
@@ -9,7 +11,7 @@ package com.penglai.haima.bean;
  * price: "119",
  * title: "Moony皇家"
  */
-public class ProductBean {
+public class ProductBean implements Serializable {
     private int id;
     private String content = "";
     private String image_name = "";

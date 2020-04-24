@@ -70,6 +70,7 @@ public class BaseApplication extends Application {
     static { //设置刷新控件刷新head and foot
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);//启用矢量图兼容
         ClassicsFooter.REFRESH_FOOTER_NOTHING = "已加载全部数据";
+        // ClassicsFooter.REFRESH_FOOTER_FINISH = "正在加载...";
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
             @NonNull
             @Override

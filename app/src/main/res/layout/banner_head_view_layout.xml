@@ -4,6 +4,11 @@
     android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/frame_solid_orange_red" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="100dp" />
     <com.youth.banner.Banner
         android:id="@+id/banner"
@@ -11,21 +16,21 @@
         android:layout_height="100dp"
         android:layout_marginTop="1dp" />
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:layout_below="@id/banner"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/special_goods" />
+    <!--    <ImageView-->
+    <!--        android:layout_width="100dp"-->
+    <!--        android:layout_height="40dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:layout_below="@id/banner"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:src="@drawable/special_goods" />-->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="5dp"
         android:gravity="center"
         android:textColor="@color/text_black"
         android:layout_below="@id/banner"
         android:textStyle="bold"
         android:textSize="14sp"
-        android:visibility="gone"
-        android:text="特价商品" />
+        android:visibility="visible"
+        android:text="" />
 </RelativeLayout>

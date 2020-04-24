@@ -9,6 +9,7 @@ import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.penglai.haima.utils.DensityUtil;
 import com.youth.banner.loader.ImageLoaderInterface;
 
 /**
@@ -23,13 +24,13 @@ public class GlideRoundImageLoader implements ImageLoaderInterface<ImageView> {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void displayImage(Context context, Object path, ImageView imageView) {
+    public void displayImage(final Context context, Object path, ImageView imageView) {
         //Glide 加载图片简单用法
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             imageView.setOutlineProvider(new ViewOutlineProvider() {
                 @Override
                 public void getOutline(View view, Outline outline) {
-                    outline.setRoundRect(20, 20, view.getWidth() - 20, view.getHeight(), 30);
+                    outline.setRoundRect(DensityUtil.dp2px(context, 10), 0, view.getWidth() - DensityUtil.dp2px(context, 10), view.getHeight(), 30);
                     // outline.setRoundRect(0, 0, view.getWidth() - 0, view.getHeight(), 30);
                 }
             });

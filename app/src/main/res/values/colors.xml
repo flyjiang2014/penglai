@@ -14,6 +14,7 @@
     <color name="gray">#898989</color>
     <!--红橙黄绿青蓝紫-->
     <color name="red">#FF0000</color>
+    <color name="solid_red">#F2240C</color>
     <color name="orange">#FFA500</color>
     <color name="yellow">#FFFF00</color>
     <color name="green">#00FF00</color>

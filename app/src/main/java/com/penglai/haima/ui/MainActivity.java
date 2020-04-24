@@ -149,7 +149,7 @@ public class MainActivity extends BaseActivity implements OnDownloadListener, On
         NormalItemView normalItemView = new NormalItemView(this);
         normalItemView.initialize(drawable, checkedDrawable, text);
         normalItemView.setTextDefaultColor(Color.GRAY);
-        normalItemView.setTextCheckedColor(0xFF1296DB);
+        normalItemView.setTextCheckedColor(0xFFe22319);
         return normalItemView;
     }
 

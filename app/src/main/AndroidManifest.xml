@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name=".ui.order.ProductDetailsActivity"
+            android:launchMode="singleTop"></activity>
+        <activity
             android:name=".ui.SearchActivity"
             android:launchMode="singleTop" />
         <activity
@@ -20,6 +23,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -92,6 +96,7 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="eCpHcpHCpjHyUrRCIqrZSGF4okM3oqyQ" />
+
         <receiver android:name=".jpush.PushMessageReceiver">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
@@ -111,20 +116,18 @@
                 <action android:name="cn.jiguang.user.service.action" />
             </intent-filter>
         </service>
-
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
     </application>
+
     <permission
         android:name="com.penglai.haima.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="com.penglai.haima.permission.JPUSH_MESSAGE" />
-
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

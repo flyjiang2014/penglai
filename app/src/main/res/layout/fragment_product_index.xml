@@ -11,11 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white">
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-            android:id="@+id/smartRefreshLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/bg_app">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -91,21 +87,34 @@
                     <!--                        android:visibility="gone"-->
                     <!--                        android:text="特价商品" />-->
                 </RelativeLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="-60dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never" />
+
+                <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:id="@+id/smartRefreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="-55dp"
+                    android:background="@color/bg_app">
+
+                    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                        android:id="@+id/classics"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srlAccentColor="@color/text_grey666"
+                        app:srlPrimaryColor="@color/OrangeRed" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="never" />
+                </com.scwang.smartrefresh.layout.SmartRefreshLayout>
             </LinearLayout>
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
     </com.flipboard.bottomsheet.BottomSheetLayout>
     <RelativeLayout
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="47dp"
         android:background="@color/white"
         android:layout_alignParentBottom="true">
         <View

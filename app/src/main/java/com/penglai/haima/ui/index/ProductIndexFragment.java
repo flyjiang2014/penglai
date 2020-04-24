@@ -19,6 +19,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -36,6 +37,7 @@ import com.penglai.haima.bean.ProductSelectBean;
 import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.SearchActivity;
+import com.penglai.haima.ui.order.ProductDetailsActivity;
 import com.penglai.haima.ui.order.ProductOrderSubmitActivity;
 import com.penglai.haima.utils.DensityUtil;
 import com.penglai.haima.utils.MathUtil;
@@ -82,6 +84,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
     private Banner banner;
     private Double totalMoney = 0d;
     private TextView tv_show_num;
+    RelativeLayout rl_top;
     private ImageView img_delete;
     private LinearLayout ll_search;
     private SparseArray<ProductBean> selectedList;
@@ -127,6 +130,8 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         recyclerView.setAdapter(productAdapter);
         smartRefreshLayout.setOnRefreshListener(this);
         smartRefreshLayout.setOnLoadMoreListener(this);
+        smartRefreshLayout.setEnableOverScrollBounce(false);
+        //   smartRefreshLayout.setEnableNestedScroll(true);//是否启用嵌套滚动
 //        smartRefreshLayout.setEnableLoadMore(true);
 //        smartRefreshLayout.setEnableRefresh(true);
         List<String> images = new ArrayList<>();
@@ -138,6 +143,33 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         banner.setImageLoader(new GlideRoundImageLoader());
         banner.setImages(images);
         banner.start();
+
+        productAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(mContext, ProductDetailsActivity.class);
+                intent.putExtra("mData", productBeanList.get(position));
+                startActivity(intent);
+            }
+        });
+//        smartRefreshLayout.setOnMultiPurposeListener(new SimpleMultiPurposeListener() {
+//            @Override
+//            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+//                refreshLayout.finishLoadMore(2000);
+//            }
+//            @Override
+//            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+//                Toast.makeText(getContext(),"触发刷新事件",Toast.LENGTH_SHORT).show();
+//                refreshLayout.finishRefresh(2000);
+//            }
+//            @Override
+//            public void onHeaderMoving(RefreshHeader header, boolean isDragging, float percent, int offset, int headerHeight, int maxDragHeight) {
+////                rl_top.setAlpha(1 - Math.min(percent, 1));
+////                view_top.setAlpha(1 - Math.min(percent, 1));
+//             //   ll_search.setAlpha(1 - Math.min(percent, 1));
+//             //   floor.setTranslationY(Math.min(offset - floor.getHeight() + toolbar.getHeight(), smartRefreshLayout.getLayout().getHeight() - floor.getHeight()));
+//            }
+//        });
     }
 
     @Override
@@ -162,6 +194,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         bottomSheetLayout = view.findViewById(R.id.bottomSheetLayout);
         tv_total_money = view.findViewById(R.id.tv_total_money);
         tv_show_num = view.findViewById(R.id.tv_show_num);
+        rl_top = view.findViewById(R.id.rl_top);
         ll_search = view.findViewById(R.id.ll_search);
         tv_search_key = view.findViewById(R.id.tv_search_key);
         tv_car = view.findViewById(R.id.tv_car);
@@ -201,6 +234,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
                 startActivity(new Intent(mContext, SearchActivity.class));
             }
         });
+
         img_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
