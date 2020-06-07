@@ -88,10 +88,10 @@ public class PersonInfoActivity extends BaseActivity {
                     showToast("请输入验证码");
                     return;
                 }
-                if (TextUtils.isEmpty(cusManCode)) {
-                    showToast("请输入客户经理编号");
-                    return;
-                }
+//                if (TextUtils.isEmpty(cusManCode)) {
+//                    showToast("请输入客户经理编号");
+//                    return;
+//                }
                 if (TextUtils.isEmpty(address)) {
                     showToast("请输入联系地址");
                     return;
@@ -127,13 +127,13 @@ public class PersonInfoActivity extends BaseActivity {
      */
     private void saveInfo(String realName, String mobile, String validationCode, String cusManCode, String address) {
         HashMap<String, String> params = new HashMap<>();
-        params.put("realName", realName);
+        params.put("name", realName);
         params.put("mobile", mobile);
-        params.put("validationCode", validationCode);
+        params.put("valCode", validationCode);
         params.put("cusManCode", cusManCode);
         params.put("address", address);
         JSONObject jsonObject = new JSONObject(params);
-        OkGo.<CommonReturnData<Object>>post(Constants.URL + "saveUserInfo")
+        OkGo.<CommonReturnData<Object>>post(Constants.BASE_URL + "login/updateInfo")
                 .upJson(jsonObject)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
@@ -154,6 +154,7 @@ public class PersonInfoActivity extends BaseActivity {
                     public void onSuccess(CommonReturnData<UserInfoBean> commonReturnData) {
                         UserInfoBean userInfo = commonReturnData.getData();
                         etName.setText(userInfo.getName());
+                        etName.setSelection(etName.length());
                         tvMobile.setText(userInfo.getMobile());
                         etCustomerNo.setText(userInfo.getManagerCode());
                         etAddress.setText(userInfo.getAddress());

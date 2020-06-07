@@ -76,6 +76,7 @@
                     android:paddingRight="10dp"
                     android:singleLine="true"
                     android:maxLength="11"
+                    android:textColor="@color/text_grey999"
                     android:textColorHint="@color/text_grey999"
                     android:textSize="@dimen/text_input_size" />
 
@@ -142,11 +143,13 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@null"
+                    android:enabled="false"
                     android:gravity="center_vertical"
                     android:hint="客户经理编号"
                     android:paddingRight="10dp"
                     android:singleLine="true"
                     android:maxLength="20"
+                    android:textColor="@color/text_grey999"
                     android:textColorHint="@color/text_grey999"
                     android:textSize="@dimen/text_input_size" />
             </LinearLayout>
