@@ -81,7 +81,6 @@
             </LinearLayout>
 
             <include layout="@layout/include_bg_single_line" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -105,6 +104,34 @@
                     android:singleLine="true"
                     android:maxLength="20"
                     android:textColorHint="@color/text_grey999"
+                    android:textSize="@dimen/text_input_size" />
+            </LinearLayout>
+
+            <include layout="@layout/include_bg_single_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="25dp"
+                    android:text="提现金额" />
+
+                <EditText
+                    android:id="@+id/et_apply_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingRight="10dp"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入提现金额"
+                    android:maxLength="6"
+                    android:textColor="@color/text_grey333"
                     android:textSize="@dimen/text_input_size" />
             </LinearLayout>
         </LinearLayout>
