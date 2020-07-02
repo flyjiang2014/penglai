@@ -169,11 +169,23 @@
                     android:textSize="14sp" />
 
                 <Button
+                    android:id="@+id/btn_charge_apply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:background="@drawable/frame_solid_orange"
+                    android:minWidth="65dp"
+                    android:layout_marginRight="5dp"
+                    android:text="提现"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <Button
                     android:id="@+id/btn_charge_pay"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:background="@drawable/frame_solid_orange"
-                    android:minWidth="75dp"
+                    android:minWidth="65dp"
                     android:layout_marginRight="5dp"
                     android:text="充值"
                     android:textAllCaps="false"

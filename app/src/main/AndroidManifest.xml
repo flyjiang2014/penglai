@@ -3,6 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.penglai.haima">
 
+    <permission
+        android:name="com.penglai.haima.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.penglai.haima.permission.JPUSH_MESSAGE" />
+
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -10,9 +18,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".ui.charge.ChargeApplyActivity"></activity>
         <activity
             android:name=".ui.order.ProductDetailsActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.SearchActivity"
             android:launchMode="singleTop" />
@@ -121,13 +130,5 @@
             android:enabled="true"
             android:process=":remote" />
     </application>
-
-    <permission
-        android:name="com.penglai.haima.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="com.penglai.haima.permission.JPUSH_MESSAGE" />
 
 </manifest>

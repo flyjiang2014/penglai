@@ -19,6 +19,7 @@ import com.penglai.haima.callback.JsonFragmentCallback;
 import com.penglai.haima.config.GlideCircleTransformWithBorder;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.ui.SettingActivity;
+import com.penglai.haima.ui.charge.ChargeApplyActivity;
 import com.penglai.haima.ui.charge.ChargePayActivity;
 import com.penglai.haima.ui.charge.ChargeRecordActivity;
 import com.penglai.haima.ui.order.OrderListActivity;
@@ -38,7 +39,7 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
     //    TextView tvFreeDelivery;
 //    LinearLayout llFreeDelivery;
     TextView tvPersonName;
-    Button btnChargePay;
+    Button btnChargePay, btnChargeApply;
     LinearLayout llChargeRecord;
     RelativeLayout rlSetting;
     LinearLayout llMyOrders;
@@ -72,6 +73,7 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
 //        llFreeDelivery = view.findViewById(R.id.ll_free_delivery);
         tvPersonName = view.findViewById(R.id.tv_person_name);
         btnChargePay = view.findViewById(R.id.btn_charge_pay);
+        btnChargeApply = view.findViewById(R.id.btn_charge_apply);
         llChargeRecord = view.findViewById(R.id.ll_charge_record);
         rlSetting = view.findViewById(R.id.rl_setting);
         llMyOrders = view.findViewById(R.id.ll_my_orders);
@@ -81,6 +83,7 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
         llCustomerManager.setOnClickListener(this);
         llChargeRecord.setOnClickListener(this);
         btnChargePay.setOnClickListener(this);
+        btnChargeApply.setOnClickListener(this);
         rlSetting.setOnClickListener(this);
         llMyOrders.setOnClickListener(this);
         llServiceOrders.setOnClickListener(this);
@@ -129,6 +132,9 @@ public class PersonIndexFragment extends BaseFragmentV4 implements View.OnClickL
                 break;
             case R.id.btn_charge_pay:
                 startActivity(new Intent(mContext, ChargePayActivity.class));
+                break;
+            case R.id.btn_charge_apply:
+                startActivity(new Intent(mContext, ChargeApplyActivity.class));
                 break;
             case R.id.rl_setting:
                 startActivity(new Intent(mContext, SettingActivity.class));

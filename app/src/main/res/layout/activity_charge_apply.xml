@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_person_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:gravity="center"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_grey333"
+                android:text="可提现余额"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_apply_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/text_grey333"
+                android:text="--元"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/frame_solid_white"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="25dp"
+                    android:text="支付宝账号" />
+
+                <EditText
+                    android:id="@+id/et_zfb_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入提现的支付宝账号"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:maxLength="15"
+                    android:textColorHint="@color/text_grey999"
+                    android:textSize="@dimen/text_input_size" />
+            </LinearLayout>
+
+            <include layout="@layout/include_bg_single_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="25dp"
+                    android:text="支付宝姓名" />
+
+                <EditText
+                    android:id="@+id/et_zfb_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical|end"
+                    android:hint="请输入支付宝账号对应姓名"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:maxLength="20"
+                    android:textColorHint="@color/text_grey999"
+                    android:textSize="@dimen/text_input_size" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_charge_apply"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/action_height"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/frame_solid_orange"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:text="申请提现" />
+</LinearLayout>
