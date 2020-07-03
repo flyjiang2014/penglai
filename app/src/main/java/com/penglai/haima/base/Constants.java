@@ -18,4 +18,6 @@ public class Constants {
     public static final String CURRENT_CITY = "current_city";
     public static final int PAGE_SIZE = 10;
     public static final String SEARCH_KEY_WORDS = "search_key_words";
+    public static final String APPLY_ACCOUNT_NO = "apply_account_no";
+    public static final String APPLY_ACCOUNT_NAME = "apply_account_name";
 }

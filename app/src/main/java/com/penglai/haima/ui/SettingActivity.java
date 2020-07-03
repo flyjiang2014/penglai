@@ -48,6 +48,8 @@ public class SettingActivity extends BaseActivity {
             case R.id.tv_login_out:
                 SharepreferenceUtil.removeKeyValue(Constants.IS_LOGIN);
                 SharepreferenceUtil.removeKeyValue(Constants.TOKEN);
+                SharepreferenceUtil.removeKeyValue(Constants.APPLY_ACCOUNT_NAME);
+                SharepreferenceUtil.removeKeyValue(Constants.APPLY_ACCOUNT_NO);
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 for (int i = 0, size = activityStack.size(); i < size; i++) {  //关闭登录页面外的其他页面

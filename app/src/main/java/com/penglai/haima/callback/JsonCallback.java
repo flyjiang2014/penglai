@@ -163,6 +163,8 @@ public abstract class JsonCallback<T> extends AbsCallback<T> {
         } else if (e instanceof HttpException) {
             ToastUtil.showToast(e.getMessage());
         } else if (e instanceof TimeOutException) {
+            SharepreferenceUtil.removeKeyValue(Constants.APPLY_ACCOUNT_NAME);
+            SharepreferenceUtil.removeKeyValue(Constants.APPLY_ACCOUNT_NO);
             showLoginOutDialog();
         }
     }
