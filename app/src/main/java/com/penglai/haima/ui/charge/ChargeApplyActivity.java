@@ -124,7 +124,7 @@ public class ChargeApplyActivity extends BaseActivity {
      * 提现账户信息
      */
     private void getAccountInfo() {
-        OkGo.<CommonReturnData<ApplyAccountBean>>get(Constants.BASE_URL + "withdraw/getLast")
+        OkGo.<CommonReturnData<ApplyAccountBean>>post(Constants.BASE_URL + "withdraw/getLast")
                 .execute(new JsonCallback<CommonReturnData<ApplyAccountBean>>(this, false) {
                     @Override
                     public void onSuccess(CommonReturnData<ApplyAccountBean> commonReturnData) {

@@ -28,12 +28,16 @@ public class ChargeRecordAdapter extends BaseQuickAdapter<ChargeRecordBean, Base
         TextView tv_left_money = helper.getView(R.id.tv_left_money);
         TextView tv_date = helper.getView(R.id.tv_date);
 
-        tv_date.setText(item.getCreationDate());
+        tv_date.setText(item.getCreate_date());
         tv_left_money.setText("余额：" + item.getBalance() + "元");
         tv_use_money.setText(item.getAmount() + "元");
-        if (TextUtils.equals("1", item.getType())) {
+        if (TextUtils.equals("0", item.getType())) {
             tv_type.setText("充值");
-        } else if (TextUtils.equals("2", item.getType()))
+        } else if (TextUtils.equals("1", item.getType())) {
             tv_type.setText("消费");
+        } else if (TextUtils.equals("2", item.getType())) {
+            tv_type.setText("提现");
+        }
+
     }
 }

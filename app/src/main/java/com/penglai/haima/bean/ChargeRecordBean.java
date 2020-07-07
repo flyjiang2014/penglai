@@ -1,9 +1,6 @@
 package com.penglai.haima.bean;
 
-import android.text.TextUtils;
-
 import com.penglai.haima.utils.MathUtil;
-import com.penglai.haima.utils.TimeUtil;
 
 /**
  * Created by ${flyjiang} on 2019/10/17.
@@ -17,7 +14,7 @@ public class ChargeRecordBean {
     private String balance = "";
     private String type = "";
     private String amount = "";
-    private String creationDate = "";
+    private String create_date = "";
 
     public String getStatus() {
         return status;
@@ -35,8 +32,7 @@ public class ChargeRecordBean {
         return MathUtil.round_half_down(amount, 0);
     }
 
-    public String getCreationDate() {
-        return TextUtils.isEmpty(creationDate) ? "" : TimeUtil.longToStr(Long.parseLong(creationDate));
+    public String getCreate_date() {
+        return create_date;
     }
-
 }

@@ -67,7 +67,7 @@ public class ChargeRecordActivity extends BaseActivity implements OnRefreshListe
      * 获取交易记录
      */
     private void getChargeRecordData() {
-        OkGo.<CommonReturnData<List<ChargeRecordBean>>>get(Constants.URL + "queryCusTransForApp")
+        OkGo.<CommonReturnData<List<ChargeRecordBean>>>get(Constants.BASE_URL + "trans/getList")
                 .execute(new DialogCallback<CommonReturnData<List<ChargeRecordBean>>>(this, true) {
                     @Override
                     public void onSuccess(CommonReturnData<List<ChargeRecordBean>> commonReturnData) {

@@ -16,10 +16,6 @@ import com.penglai.haima.bean.UserInfoBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -78,7 +74,7 @@ public class PersonInfoActivity extends BaseActivity {
             case R.id.tv_save:
                 String realName = etName.getText().toString().trim();
                 String validationCode = etCode.getText().toString().trim();
-                String cusManCode = etCustomerNo.getText().toString().trim();
+                //   String cusManCode = etCustomerNo.getText().toString().trim();
                 String address = etAddress.getText().toString().trim();
                 if (TextUtils.isEmpty(realName)) {
                     showToast("请输入姓名");
@@ -96,7 +92,7 @@ public class PersonInfoActivity extends BaseActivity {
                     showToast("请输入联系地址");
                     return;
                 }
-                saveInfo(realName, mobile, validationCode, cusManCode, address);
+                saveInfo(realName, mobile, validationCode, address);
                 break;
         }
     }
@@ -125,16 +121,19 @@ public class PersonInfoActivity extends BaseActivity {
      * @param mobile         手机号
      * @param validationCode 验证码
      */
-    private void saveInfo(String realName, String mobile, String validationCode, String cusManCode, String address) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("name", realName);
-        params.put("mobile", mobile);
-        params.put("valCode", validationCode);
-        params.put("cusManCode", cusManCode);
-        params.put("address", address);
-        JSONObject jsonObject = new JSONObject(params);
+    private void saveInfo(String realName, String mobile, String validationCode, String address) {
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("name", realName);
+//        params.put("mobile", mobile);
+//        params.put("valCode", validationCode);
+//        params.put("address", address);
+//        JSONObject jsonObject = new JSONObject(params);
+        //  .upJson(jsonObject)
         OkGo.<CommonReturnData<Object>>post(Constants.BASE_URL + "login/updateInfo")
-                .upJson(jsonObject)
+                .params("name", realName)
+                .params("mobile", mobile)
+                .params("valCode", validationCode)
+                .params("address", address)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<Object> commonReturnData) {
