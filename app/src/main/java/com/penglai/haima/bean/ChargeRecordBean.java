@@ -10,15 +10,11 @@ import com.penglai.haima.utils.MathUtil;
  * "status":1,"userId":36,"amount":20.000,"type":2,"balance":300.000,"shopId":1}
  */
 public class ChargeRecordBean {
-    private String status = "";
     private String balance = "";
     private String type = "";
     private String amount = "";
     private String create_date = "";
-
-    public String getStatus() {
-        return status;
-    }
+    private String withdraw_id = "";
 
     public String getBalance() {
         return MathUtil.round_half_down(balance, 0);
@@ -34,5 +30,9 @@ public class ChargeRecordBean {
 
     public String getCreate_date() {
         return create_date;
+    }
+
+    public String getWithdraw_id() {
+        return withdraw_id;
     }
 }

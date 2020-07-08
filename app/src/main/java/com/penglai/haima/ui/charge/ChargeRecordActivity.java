@@ -4,15 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.adapter.ChargeRecordAdapter;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
 import com.penglai.haima.bean.ChargeRecordBean;
+import com.penglai.haima.bean.WithdrawDetailBean;
 import com.penglai.haima.callback.DialogCallback;
+import com.penglai.haima.dialog.WithdrawInfoShowDialog;
 import com.penglai.haima.okgomodel.CommonReturnData;
 import com.penglai.haima.widget.DividerItemDecoration;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -33,6 +37,7 @@ public class ChargeRecordActivity extends BaseActivity implements OnRefreshListe
     ChargeRecordAdapter chargeRecordAdapter;
     private View emptyView;
     private List<ChargeRecordBean> chargeRecordBeanList = new ArrayList<>();
+    private WithdrawInfoShowDialog withdrawInfoShowDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,14 @@ public class ChargeRecordActivity extends BaseActivity implements OnRefreshListe
         recyclerView.setAdapter(chargeRecordAdapter);
         smartRefreshLayout.setOnRefreshListener(this);
         smartRefreshLayout.setEnableLoadMore(false);
+        chargeRecordAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if ("2".equals(chargeRecordBeanList.get(position).getType()) && !TextUtils.isEmpty(chargeRecordBeanList.get(position).getWithdraw_id())) { //提现操作
+                    getApplyRecordData(chargeRecordBeanList.get(position).getWithdraw_id());
+                }
+            }
+        });
         getChargeRecordData();
     }
 
@@ -77,6 +90,21 @@ public class ChargeRecordActivity extends BaseActivity implements OnRefreshListe
                         if (chargeRecordBeanList.size() == 0) {
                             chargeRecordAdapter.setEmptyView(emptyView);
                         }
+                    }
+                });
+    }
+
+    /**
+     * 获取提现详情
+     */
+    private void getApplyRecordData(String withdrawId) {
+        OkGo.<CommonReturnData<WithdrawDetailBean>>get(Constants.BASE_URL + "withdraw/getWithdrawInfo")
+                .params("withdrawId", withdrawId)
+                .execute(new DialogCallback<CommonReturnData<WithdrawDetailBean>>(this) {
+                    @Override
+                    public void onSuccess(CommonReturnData<WithdrawDetailBean> commonReturnData) {
+                        withdrawInfoShowDialog = new WithdrawInfoShowDialog(ChargeRecordActivity.this, commonReturnData.getData());
+                        withdrawInfoShowDialog.show();
                     }
                 });
     }

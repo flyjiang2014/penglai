@@ -6,8 +6,8 @@ android {
         applicationId "com.penglai.haima"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 5
-        versionName "0.0.5"
+        versionCode 6
+        versionName "0.0.6"
         //每个应用拥有不同的authorities，防止相同在同一个手机上无法同时安装
         // resValue "string", "authorities", applicationId
         ndk {
