@@ -15,6 +15,7 @@ public class ChargeRecordBean {
     private String type = "";
     private String amount = "";
     private String create_date = "";
+    private String withdraw_id = "";
 
     public String getStatus() {
         return status;
@@ -34,5 +35,9 @@ public class ChargeRecordBean {
 
     public String getCreate_date() {
         return create_date;
+    }
+
+    public String getWithdraw_id() {
+        return withdraw_id;
     }
 }
