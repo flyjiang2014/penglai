@@ -37,6 +37,8 @@ public class ServiceBean {
     private String score = "";
     private String service_type = "";
     private String title = "";
+    private String left_info = "";
+    private String left_number = "";
 
     public String getAddress() {
         return address;
@@ -100,5 +102,21 @@ public class ServiceBean {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getLeft_info() {
+        return left_info;
+    }
+
+    public void setLeft_info(String left_info) {
+        this.left_info = left_info;
+    }
+
+    public String getLeft_number() {
+        return left_number;
+    }
+
+    public void setLeft_number(String left_number) {
+        this.left_number = left_number;
     }
 }

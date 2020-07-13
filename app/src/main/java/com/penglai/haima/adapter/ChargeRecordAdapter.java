@@ -2,6 +2,8 @@ package com.penglai.haima.adapter;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -27,16 +29,20 @@ public class ChargeRecordAdapter extends BaseQuickAdapter<ChargeRecordBean, Base
         TextView tv_type = helper.getView(R.id.tv_type);
         TextView tv_left_money = helper.getView(R.id.tv_left_money);
         TextView tv_date = helper.getView(R.id.tv_date);
+        ImageView img_arrow = helper.getView(R.id.img_arrow);
 
         tv_date.setText(item.getCreate_date());
         tv_left_money.setText("余额：" + item.getBalance() + "元");
         tv_use_money.setText(item.getAmount() + "元");
         if (TextUtils.equals("0", item.getType())) {
             tv_type.setText("充值");
+            img_arrow.setVisibility(View.GONE);
         } else if (TextUtils.equals("1", item.getType())) {
             tv_type.setText("消费");
+            img_arrow.setVisibility(View.GONE);
         } else if (TextUtils.equals("2", item.getType())) {
             tv_type.setText("提现");
+            img_arrow.setVisibility(View.VISIBLE);
         }
 
     }

@@ -85,6 +85,8 @@ public class ServiceAdapter extends MultipleItemRvAdapter<ServiceBean, BaseViewH
             String summary = data.getOrg_summary().replace("/br", "\n");
             helper.setText(R.id.tv_summary, summary);
             helper.setText(R.id.tv_price, ("￥" + data.getOrg_price()));
+            helper.setText(R.id.tv_left, data.getLeft_number());
+            helper.setText(R.id.tv_detail, data.getLeft_info() + ":");
             ImageView img_pic = helper.getView(R.id.img_pic);
             GlideApp.with(mContext).load(Constants.URL_FOR_PIC2 + data.getCover_image() + Constants.PIC_JPG).defaultOptions().into(img_pic);
         }
