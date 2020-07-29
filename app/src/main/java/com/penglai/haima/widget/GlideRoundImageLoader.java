@@ -36,6 +36,7 @@ public class GlideRoundImageLoader implements ImageLoaderInterface<ImageView> {
             });
         }
         imageView.setClipToOutline(true);
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Glide.with(context).load(path).into(imageView);
     }
 }

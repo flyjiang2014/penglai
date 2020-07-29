@@ -36,14 +36,13 @@ public class ChargeRecordAdapter extends BaseQuickAdapter<ChargeRecordBean, Base
         tv_use_money.setText(item.getAmount() + "元");
         if (TextUtils.equals("0", item.getType())) {
             tv_type.setText("充值");
-            img_arrow.setVisibility(View.GONE);
+            img_arrow.setVisibility(View.INVISIBLE);
         } else if (TextUtils.equals("1", item.getType())) {
             tv_type.setText("消费");
-            img_arrow.setVisibility(View.GONE);
+            img_arrow.setVisibility(View.INVISIBLE);
         } else if (TextUtils.equals("2", item.getType())) {
             tv_type.setText("提现");
             img_arrow.setVisibility(View.VISIBLE);
         }
-
     }
 }

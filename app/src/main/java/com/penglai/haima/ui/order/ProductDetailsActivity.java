@@ -49,11 +49,9 @@ public class ProductDetailsActivity extends BaseActivity {
         productBean = (ProductBean) getIntent().getSerializableExtra("mData");
         ViewHWRateUtil.setHeightWidthRate(mContext, banner, 2.13);//640/300
         List<String> images = new ArrayList<>();
-        images.add(Constants.URL_FOR_PIC + "banner/banner1.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner2.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner3.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner4.png");
-        images.add(Constants.URL_FOR_PIC + "banner/banner5.png");
+        images.add(Constants.URL_FOR_PIC + productBean.getImage_name() + "_" + productBean.getModel() + "_1.jpg");
+        images.add(Constants.URL_FOR_PIC + productBean.getImage_name() + "_" + productBean.getModel() + "_2.jpg");
+        images.add(Constants.URL_FOR_PIC + productBean.getImage_name() + "_" + productBean.getModel() + "_3.jpg");
         banner.setImageLoader(new GlideRoundImageLoader());
         banner.setImages(images);
         banner.start();

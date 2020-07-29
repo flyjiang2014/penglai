@@ -1,5 +1,6 @@
 package com.penglai.haima.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
@@ -12,8 +13,11 @@ import com.lzy.okgo.OkGo;
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
 import com.penglai.haima.base.Constants;
+import com.penglai.haima.bean.RegisterSuccessBean;
 import com.penglai.haima.callback.DialogCallback;
 import com.penglai.haima.okgomodel.CommonReturnData;
+import com.penglai.haima.utils.ActivityManager;
+import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.StringUtil;
 
 import org.json.JSONObject;
@@ -132,7 +136,7 @@ public class RegisterActivity extends BaseActivity {
      * @param mobile         手机号
      * @param validationCode 验证码
      */
-    private void register(String realName, String mobile, String validationCode, String cusManCode, String address) {
+    private void register(String realName, final String mobile, String validationCode, String cusManCode, String address) {
         HashMap<String, String> params = new HashMap<>();
         params.put("realName", realName);
         params.put("mobile", mobile);
@@ -140,12 +144,17 @@ public class RegisterActivity extends BaseActivity {
         params.put("cusManCode", cusManCode);
         params.put("address", address);
         JSONObject jsonObject = new JSONObject(params);
-        OkGo.<CommonReturnData<Object>>post(Constants.URL + "saveUserInfo")
+        OkGo.<CommonReturnData<RegisterSuccessBean>>post(Constants.URL + "saveUserInfo")
                 .upJson(jsonObject)
-                .execute(new DialogCallback<CommonReturnData<Object>>(this) {
+                .execute(new DialogCallback<CommonReturnData<RegisterSuccessBean>>(this) {
                     @Override
-                    public void onSuccess(CommonReturnData<Object> commonReturnData) {
+                    public void onSuccess(CommonReturnData<RegisterSuccessBean> commonReturnData) {
                         showToast("注册成功");
+                        SharepreferenceUtil.saveBoolean(Constants.IS_LOGIN, true);
+                        SharepreferenceUtil.saveString(Constants.MOBILE, mobile);
+                        SharepreferenceUtil.saveString(Constants.TOKEN, commonReturnData.getData().getToken());
+                        startActivity(new Intent(mContext, MainActivity.class));
+                        ActivityManager.finishActivity(LoginActivity.class);
                         finish();
                     }
                 });
