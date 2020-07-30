@@ -20,10 +20,6 @@ import com.penglai.haima.utils.ActivityManager;
 import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.StringUtil;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -39,8 +35,6 @@ public class RegisterActivity extends BaseActivity {
     Button btnGetCode;
     @BindView(R.id.et_code)
     EditText etCode;
-    @BindView(R.id.et_customer_no)
-    EditText etCustomerNo;
     @BindView(R.id.et_address)
     EditText etAddress;
     @BindView(R.id.tv_register)
@@ -81,7 +75,6 @@ public class RegisterActivity extends BaseActivity {
             case R.id.tv_register:
                 String realName = etName.getText().toString().trim();
                 String validationCode = etCode.getText().toString().trim();
-                String cusManCode = etCustomerNo.getText().toString().trim();
                 String address = etAddress.getText().toString().trim();
                 if (TextUtils.isEmpty(realName)) {
                     showToast("请输入姓名");
@@ -99,15 +92,11 @@ public class RegisterActivity extends BaseActivity {
                     showToast("请输入验证码");
                     return;
                 }
-                if (TextUtils.isEmpty(cusManCode)) {
-                    showToast("请输入客户经理编号");
-                    return;
-                }
                 if (TextUtils.isEmpty(address)) {
                     showToast("请输入联系地址");
                     return;
                 }
-                register(realName, mobile, validationCode, cusManCode, address);
+                register(realName, mobile, validationCode, address);
                 break;
         }
     }
@@ -118,7 +107,7 @@ public class RegisterActivity extends BaseActivity {
      * @param mobile 手机号
      */
     private void getCode(String mobile) {
-        OkGo.<CommonReturnData<Object>>post(Constants.URL + "verifyPhoneForApp")
+        OkGo.<CommonReturnData<Object>>post(Constants.BASE_URL + "register/getCode")
                 .params("mobile", mobile)
                 .execute(new DialogCallback<CommonReturnData<Object>>(this) {
                     @Override
@@ -136,16 +125,12 @@ public class RegisterActivity extends BaseActivity {
      * @param mobile         手机号
      * @param validationCode 验证码
      */
-    private void register(String realName, final String mobile, String validationCode, String cusManCode, String address) {
-        HashMap<String, String> params = new HashMap<>();
-        params.put("realName", realName);
-        params.put("mobile", mobile);
-        params.put("validationCode", validationCode);
-        params.put("cusManCode", cusManCode);
-        params.put("address", address);
-        JSONObject jsonObject = new JSONObject(params);
-        OkGo.<CommonReturnData<RegisterSuccessBean>>post(Constants.URL + "saveUserInfo")
-                .upJson(jsonObject)
+    private void register(String realName, final String mobile, String validationCode, String address) {
+        OkGo.<CommonReturnData<RegisterSuccessBean>>post(Constants.BASE_URL + "register/registUser")
+                .params("mobile", mobile)
+                .params("name", realName)
+                .params("code", validationCode)
+                .params("address", address)
                 .execute(new DialogCallback<CommonReturnData<RegisterSuccessBean>>(this) {
                     @Override
                     public void onSuccess(CommonReturnData<RegisterSuccessBean> commonReturnData) {

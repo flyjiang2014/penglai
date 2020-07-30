@@ -112,7 +112,7 @@ public class ProductIndexFragment extends BaseFragmentV4 implements OnRefreshLis
         //获取当前控件的布局对象
         params.height = PhoneUtil.getStatusHeight(getActivity()) + 5;//设置当前控件布局的高度
         view_top.setLayoutParams(params);
-        ViewHWRateUtil.setHeightWidthRate(mContext, banner, 2.13);//640/300
+        ViewHWRateUtil.setHeightWidthRate(mContext, banner, 2.14);//640/300
         selectedList = new SparseArray<>();
         productAdapter = new ProductAdapter(this, productBeanList);
         productAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {

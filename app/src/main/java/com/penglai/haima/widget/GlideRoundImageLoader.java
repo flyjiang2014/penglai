@@ -1,6 +1,7 @@
 package com.penglai.haima.widget;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Outline;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -37,6 +38,7 @@ public class GlideRoundImageLoader implements ImageLoaderInterface<ImageView> {
         }
         imageView.setClipToOutline(true);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageView.setBackgroundColor(Color.WHITE);
         Glide.with(context).load(path).into(imageView);
     }
 }

@@ -110,31 +110,31 @@
                     android:textSize="@dimen/text_input_size" />
             </LinearLayout>
             <include layout="@layout/include_bg_single_line" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="25dp"
-                    android:src="@drawable/customer_service" />
-                <EditText
-                    android:id="@+id/et_customer_no"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint="客户经理编号"
-                    android:paddingRight="10dp"
-                    android:singleLine="true"
-                    android:maxLength="20"
-                    android:textColorHint="@color/text_grey999"
-                    android:textSize="@dimen/text_input_size" />
-            </LinearLayout>
-            <include layout="@layout/include_bg_single_line" />
+            <!--            <LinearLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="50dp">-->
+            <!--                <ImageView-->
+            <!--                    android:layout_width="25dp"-->
+            <!--                    android:layout_height="25dp"-->
+            <!--                    android:layout_gravity="center_vertical"-->
+            <!--                    android:layout_marginLeft="5dp"-->
+            <!--                    android:layout_marginRight="25dp"-->
+            <!--                    android:src="@drawable/customer_service" />-->
+            <!--                <EditText-->
+            <!--                    android:id="@+id/et_customer_no"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:background="@null"-->
+            <!--                    android:gravity="center_vertical"-->
+            <!--                    android:hint="客户经理编号"-->
+            <!--                    android:paddingRight="10dp"-->
+            <!--                    android:singleLine="true"-->
+            <!--                    android:maxLength="20"-->
+            <!--                    android:textColorHint="@color/text_grey999"-->
+            <!--                    android:textSize="@dimen/text_input_size" />-->
+            <!--            </LinearLayout>-->
+            <!--            <include layout="@layout/include_bg_single_line" />-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
