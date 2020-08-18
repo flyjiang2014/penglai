@@ -3,63 +3,68 @@ package com.penglai.haima.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path;
-import android.os.Build;
+import android.graphics.RectF;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.view.View;
 
 /**
- * Created by  on 3019/11/19.
+ * Created by  on 2020/6/18.
  * 文件说明：
  */
 public class RoundImageView extends AppCompatImageView {
 
-    float width, height;
+
+    private Path mPath;
+    private RectF mRectF;
+    private float ridValue = dp2px(2);//默认2dp
+    private float[] rids = {};
 
     public RoundImageView(Context context) {
         this(context, null);
-        init(context, null);
+
     }
 
     public RoundImageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-        init(context, attrs);
     }
 
     public RoundImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init();
     }
 
-    private void init(Context context, AttributeSet attrs) {
-        if (Build.VERSION.SDK_INT < 18) {
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
+    private void init() {
+        mPath = new Path();
+        mRectF = new RectF();
+        rids = new float[]{ridValue, ridValue, ridValue, ridValue, ridValue, ridValue, ridValue, ridValue,}; /*圆角的半径，依次为左上角xy半径，右上角，右下角，左下角*/
     }
 
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-        width = getWidth();
-        height = getHeight();
+    private int dp2px(final float dpValue) {
+        final float scale = this.getContext().getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
-    @Override
+    /**
+     * 画图
+     *
+     * @param canvas
+     */
     protected void onDraw(Canvas canvas) {
-        if (width >= 30 && height > 30) {
-            Path path = new Path();
-            //四个圆角
-            path.moveTo(30, 0);
-            path.lineTo(width - 30, 0);
-            path.quadTo(width, 0, width, 30);
-            path.lineTo(width, height - 30);
-            path.quadTo(width, height, width - 30, height);
-            path.lineTo(30, height);
-            path.quadTo(0, height, 0, height - 30);
-            path.lineTo(0, 30);
-            path.quadTo(0, 0, 30, 0);
-            canvas.clipPath(path);
-        }
+        int w = this.getWidth();
+        int h = this.getHeight();
+        mRectF.set(0, 0, w, h);
+        mPath.addRoundRect(mRectF, rids, Path.Direction.CW);
+        canvas.clipPath(mPath);
         super.onDraw(canvas);
     }
+
+    public void setRidValue(float ridValue) {
+        this.ridValue = ridValue;
+        rids = new float[]{ridValue, ridValue, ridValue, ridValue, ridValue, ridValue, ridValue, ridValue,};
+    }
+
+    public void setRids(float[] rids) {
+        this.rids = rids;
+    }
 }
+
