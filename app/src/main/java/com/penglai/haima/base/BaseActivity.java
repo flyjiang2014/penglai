@@ -299,14 +299,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
-        //执行Activity切换动画
     }
 
     @Override
     public void finish() {
         super.finish();
         KeyboardUtil.closeKeyboard(this);
-        //执行Activity切换动画
     }
 
     /**
