@@ -2,8 +2,6 @@ package com.penglai.haima.base;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatDelegate;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.lzy.okgo.OkGo;
@@ -22,18 +20,20 @@ import com.penglai.haima.utils.FileUtil;
 import com.penglai.haima.utils.SharepreferenceUtil;
 import com.penglai.haima.utils.ToastUtil;
 import com.penglai.haima.widget.loading.LoadingLayout;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smart.refresh.footer.ClassicsFooter;
+import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.scwang.smart.refresh.layout.api.RefreshFooter;
+import com.scwang.smart.refresh.layout.api.RefreshHeader;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.DefaultRefreshFooterCreator;
+import com.scwang.smart.refresh.layout.listener.DefaultRefreshHeaderCreator;
 
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import cn.jpush.android.api.JPushInterface;
 import in.srain.cube.util.CLog;
 import okhttp3.OkHttpClient;

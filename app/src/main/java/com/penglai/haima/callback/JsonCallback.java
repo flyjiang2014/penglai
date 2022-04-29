@@ -3,7 +3,7 @@ package com.penglai.haima.callback;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;

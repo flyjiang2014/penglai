@@ -1,6 +1,6 @@
 package com.penglai.haima.adapter;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 

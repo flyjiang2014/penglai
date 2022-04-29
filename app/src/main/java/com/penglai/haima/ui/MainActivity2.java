@@ -1,7 +1,7 @@
 package com.penglai.haima.ui;
 
 import android.graphics.Color;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
