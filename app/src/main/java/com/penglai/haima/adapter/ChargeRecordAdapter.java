@@ -1,21 +1,18 @@
 package com.penglai.haima.adapter;
-
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.penglai.haima.R;
 import com.penglai.haima.bean.ChargeRecordBean;
-
 import java.util.List;
-
 import androidx.annotation.Nullable;
 
 /**
  * Created by ${flyjiang} on 2019/10/17.
+ * 文件说明：交易记录
  * 文件说明：交易记录
  * 文件说明：交易记录
  */
