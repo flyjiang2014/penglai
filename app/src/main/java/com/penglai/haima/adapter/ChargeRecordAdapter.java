@@ -1,6 +1,5 @@
 package com.penglai.haima.adapter;
 
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,8 +12,11 @@ import com.penglai.haima.bean.ChargeRecordBean;
 
 import java.util.List;
 
+import androidx.annotation.Nullable;
+
 /**
  * Created by ${flyjiang} on 2019/10/17.
+ * 文件说明：交易记录
  * 文件说明：交易记录
  */
 public class ChargeRecordAdapter extends BaseQuickAdapter<ChargeRecordBean, BaseViewHolder> {
