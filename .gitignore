@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /local.properties
+.idea
 /.idea/caches
 /.idea/workspace.xml
 /.idea/libraries
@@ -8,3 +9,4 @@
 /build
 /captures
 /release
+

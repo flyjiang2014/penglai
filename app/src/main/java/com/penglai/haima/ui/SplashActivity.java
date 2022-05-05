@@ -2,7 +2,6 @@ package com.penglai.haima.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
 import com.penglai.haima.R;
 import com.penglai.haima.base.BaseActivity;
@@ -11,6 +10,7 @@ import com.penglai.haima.utils.SharepreferenceUtil;
 
 import java.util.concurrent.TimeUnit;
 
+import androidx.annotation.NonNull;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
