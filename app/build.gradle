@@ -10,6 +10,8 @@ android {
         versionName "0.0.6"
         //每个应用拥有不同的authorities，防止相同在同一个手机上无法同时安装
         // resValue "string", "authorities", applicationId
+        //
+        //测试测试
         ndk {
             // 设置支持的SO库架构,
             abiFilters 'armeabi', 'armeabi-v7a'    //, 'x86','x86_64', 'arm64-v8a'
